@@ -1,0 +1,12 @@
+.UserManage span,.ModulesManage span{
+    margin:0px 5px;
+}
+
+.UserManage Button,.ModulesManage Button{
+    background-color:darkgray;
+    border:gray;
+}
+
+.UserManage-Table,.ModulesManage-Table{
+    margin:20px 30px;
+}

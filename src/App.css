@@ -1,0 +1,15 @@
+.App {
+  text-align: center;
+}
+
+.App h3{
+  position:relative;
+  left:-350px;
+  top:0px;
+}
+
+.App .inline-input{
+  display:inline-block;
+  max-width: 200px;
+  margin:0px 10px 0px 5px;
+}

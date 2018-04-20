@@ -21,6 +21,13 @@ class UserManage extends Component{
         )
     }
 
+    handleClickForCancel(e){
+        ReactDOM.render(
+            <UserManage/>,
+            document.getElementById("context")
+        )
+    }
+
     handleClickForEdit(e){
         this.setState({
             columns: [
@@ -86,7 +93,7 @@ class UserManage extends Component{
                     fixed: 'right',
                     width: 200,
                     render: ()=>{
-                        return <span><Button type="text" size="small">更新</Button><Button type="text" size="small">取消</Button><Button type="text" size="small" onClick={e => {this.handleClickForModify(e)}}>修改密码</Button></span>
+                        return <span><Button type="text" size="small">更新</Button><Button type="text" size="small" onClick={e => {this.handleClickForCancel(e)}}>取消</Button><Button type="text" size="small" onClick={e => {this.handleClickForModify(e)}}>修改密码</Button></span>
                     }
                 }
             ]

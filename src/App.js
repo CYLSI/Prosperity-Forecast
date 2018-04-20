@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 import Header from './components/Header/Header';
-import Menus from './components/Menu/Menu';
 import Nav from './components/Nav/Nav';
 import Foot from './components/Foot/Foot';
+import Menus from "./components/Menu/Menu";
 
 class App extends Component {
     render() {
@@ -12,7 +12,7 @@ class App extends Component {
                 <Header/>
                 <Nav/>
                 <Menus/>
-                <div id="context"></div>
+                {this.props.children}
                 <Foot/>
             </div>
         );

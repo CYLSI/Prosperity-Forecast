@@ -1,0 +1,31 @@
+.el-menu-vertical-demo{
+    text-align: left;
+}
+
+.el-menu-vertical-demo .el-submenu__title{
+    margin-left: 10px;
+}
+
+.el-menu-vertical-demo .el-submenu__title span{
+    margin-left: 20px;
+}
+
+.el-menu-vertical-demo .el-submenu__title p{
+    padding:0px;
+    margin:0px 0px 0px 35px;
+}
+
+.el-menu-vertical-demo .el-menu-item,
+.el-menu-vertical-demo :first-child.el-menu-item{
+    margin:0px 0px 0px 45px;
+}
+
+.el-menu-item a{
+    text-decoration: none;
+}
+
+.el-menu-item a:visited,
+.el-menu-item a:hover,
+.el-menu-item a:link{
+    color:#48576a;
+}

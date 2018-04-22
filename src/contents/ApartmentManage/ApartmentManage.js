@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import '../../App.css';
 import './ApartmentManage.css';
+import $ from "jquery";
 import { Layout,Tree,Input,Button } from 'element-react';
 
 class ApartmentStructure extends Component{
+
     constructor(props) {
         super(props);
 
@@ -57,6 +59,17 @@ class ApartmentStructure extends Component{
 }
 
 class ApartmentManage extends Component{
+
+    handleClick(e){
+        $.ajax({
+            type: "GET",
+            url: "http://127.0.0.1:414/dept/add",
+            success:function(data){
+                //TODO
+            }
+        })
+    }
+
     render(){
         return(
             <div>
@@ -73,10 +86,12 @@ class ApartmentManage extends Component{
                         <Button type="primary" size="small">删除部门</Button>
                     </div>
                     <div className="ApartmentManage-context-2">
-                        <span>在部门“华农”下添加新的部门：</span>
-                        <Input placeholder="请输入内容" className="inline-input"/>
-                        <Button type="primary" size="small">增加部门</Button>
-                        <span>（十个汉字以内）</span>
+                        <form>
+                            <span>在部门“华农”下添加新的部门：</span>
+                            <Input placeholder="请输入内容" className="inline-input"/>
+                            <Button type="primary" size="small" onClick={e => {this.handleClick(e)}}>增加部门</Button>
+                            <span>（十个汉字以内）</span>
+                        </form>
                     </div>
                 </Layout.Col>
             </div>

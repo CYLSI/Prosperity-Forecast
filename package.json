@@ -5,6 +5,7 @@
   "dependencies": {
     "element-react": "^1.4.15",
     "element-theme-default": "^1.4.13",
+    "jquery": "^3.3.1",
     "react": "^16.3.2",
     "react-addons-pure-render-mixin": "^15.6.2",
     "react-dom": "^16.3.2",

@@ -1,5 +1,6 @@
 .el-menu-vertical-demo{
     text-align: left;
+    width:90%;
 }
 
 .el-menu-vertical-demo .el-submenu__title{
@@ -20,12 +21,12 @@
     margin:0px 0px 0px 45px;
 }
 
-.el-menu-item a{
+.el-menu a{
     text-decoration: none;
 }
 
-.el-menu-item a:visited,
-.el-menu-item a:hover,
-.el-menu-item a:link{
+.el-menu a:visited,
+.el-menu a:hover,
+.el-menu a:link{
     color:#48576a;
 }

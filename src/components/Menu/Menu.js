@@ -19,11 +19,11 @@ class Menus extends Component{
                         <Menu.SubMenu className={this.props.className} index="1" title="首页">
                             <Menu.SubMenu index='2' title={<span>系统管理</span>}>
                                 <Menu.SubMenu index='3' title={<p>用户与权限管理</p>}>
-                                    <Menu.Item index="3-1"><Link to='/contents/ApartmentManage'>部门管理</Link></Menu.Item>
-                                    <Menu.Item index="3-2"><Link to='/contents/UserManage'>用户管理</Link></Menu.Item>
-                                    <Menu.Item index="3-3"><Link to='/contents/UserGroupManage'>用户组管理</Link></Menu.Item>
-                                    <Menu.Item index="3-4"><Link to='/contents/RoleManage'>角色管理</Link></Menu.Item>
-                                    <Menu.Item index="3-5"><Link to='/contents/ModulesManage'>模块管理</Link></Menu.Item>
+                                    <Link to='/contents/ApartmentManage'><Menu.Item index="3-1">部门管理</Menu.Item></Link>
+                                    <Link to='/contents/UserManage'><Menu.Item index="3-2">用户管理</Menu.Item></Link>
+                                    <Link to='/contents/UserGroupManage'><Menu.Item index="3-3">用户组管理</Menu.Item></Link>
+                                    <Link to='/contents/RoleManage'><Menu.Item index="3-4">角色管理</Menu.Item></Link>
+                                    <Link to='/contents/ModulesManage'><Menu.Item index="3-5">模块管理</Menu.Item></Link>
                                 </Menu.SubMenu>
                             </Menu.SubMenu>
                             <Menu.SubMenu index="4" title={<span>数据管理</span>}>

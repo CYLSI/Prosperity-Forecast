@@ -1,32 +1,10 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import '../../App.css';
 import './UserManage.css';
-import UserManageAuthorization from './UserManageAuthorization/UserManageAuthorization';
-import ModifyPassword from './ModifyPassword/ModifyPassword';
 import { Layout,Input,Button,Dropdown,Table } from 'element-react';
+import { Link } from 'react-router';
 
 class UserManage extends Component{
-    handleClickForAuthorize(e){
-        ReactDOM.render(
-            <UserManageAuthorization/>,
-            document.getElementById("context")
-        )
-    }
-
-    handleClickForModify(e){
-        ReactDOM.render(
-            <ModifyPassword/>,
-            document.getElementById("context")
-        )
-    }
-
-    handleClickForCancel(e){
-        ReactDOM.render(
-            <UserManage/>,
-            document.getElementById("context")
-        )
-    }
 
     handleClickForEdit(e){
         this.setState({
@@ -93,7 +71,11 @@ class UserManage extends Component{
                     fixed: 'right',
                     width: 200,
                     render: ()=>{
-                        return <span><Button type="text" size="small">更新</Button><Button type="text" size="small" onClick={e => {this.handleClickForCancel(e)}}>取消</Button><Button type="text" size="small" onClick={e => {this.handleClickForModify(e)}}>修改密码</Button></span>
+                        return<span>
+                                    <Button type="text" size="small">更新</Button>
+                                    <Button type="text" size="small">取消</Button>
+                                    <Button type="text" size="small"><Link to='/contents/UserManage/ModifyPassword'>修改密码</Link></Button>
+                              </span>
                     }
                 }
             ]
@@ -151,7 +133,12 @@ class UserManage extends Component{
                     fixed: 'right',
                     width: 200,
                     render: ()=>{
-                        return <span><Button type="text" size="small" onClick={e => {this.handleClickForAuthorize(e)}}>授权</Button><Button type="text" size="small" onClick={e => {this.handleClickForEdit(e)}}>编辑</Button><Button type="text" size="small">删除</Button><Button type="text" size="small" onClick={e => {this.handleClickForModify(e)}}>修改密码</Button></span>
+                        return <span>
+                                    <Button type="text" size="small"><Link to='/contents/UserManage/UserManageAuthorization'>授权</Link></Button>
+                                    <Button type="text" size="small" onClick={e => {this.handleClickForEdit(e)}}>编辑</Button>
+                                    <Button type="text" size="small">删除</Button>
+                                    <Button type="text" size="small"><Link to='/contents/UserManage/ModifyPassword'>修改密码</Link></Button>
+                                </span>
                     }
                 }
             ],

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../../App.css';
+import './ModulesManage.css';
 import { Layout,Input,Button,Dropdown,Table } from 'element-react';
 
 class ModulesManage extends Component{

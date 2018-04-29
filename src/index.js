@@ -10,6 +10,8 @@ import ModulesManage from "./contents/ModulesManage/ModulesManage";
 import RoleManage from "./contents/RoleManage/RoleManage";
 import UserGroupManage from "./contents/UserGroupManage/UserGroupManage";
 import UserManage from "./contents/UserManage/UserManage";
+import UserManageAuthorization from './contents/UserManage/UserManageAuthorization/UserManageAuthorization';
+import ModifyPassword from './contents/UserManage/ModifyPassword/ModifyPassword';
 
 ReactDOM.render((
     <Router history={hashHistory}>
@@ -19,6 +21,8 @@ ReactDOM.render((
             <Route path='/contents/UserGroupManage' component={UserGroupManage}/>
             <Route path='/contents/UserManage' component={UserManage}/>
             <Route path='/contents/ModulesManage' component={ModulesManage}/>
+            <Route path='/contents/UserManage/UserManageAuthorization' component={UserManageAuthorization}/>
+            <Route path='/contents/UserManage/ModifyPassword' component={ModifyPassword}/>
         </Route>
     </Router>
 ), document.getElementById('root'));

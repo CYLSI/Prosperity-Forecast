@@ -3,6 +3,7 @@ import '../../App.css';
 import { Layout,Input,Button,Table } from 'element-react';
 
 class RoleManage extends Component{
+
     handleClickForEdit(e){
         this.setState({
             columns: [

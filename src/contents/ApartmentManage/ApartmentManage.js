@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import '../../App.css';
 import './ApartmentManage.css';
-import $ from "jquery";
 import { Layout,Tree,Input,Button } from 'element-react';
+import PubSub from 'pubsub-js';
+import '../../httpUtil.js';
 
 class ApartmentStructure extends Component{
 
     constructor(props) {
         super(props);
+
+        this.handleClick = this.handleClick.bind(this);
 
         this.state = {
             data: [{
@@ -39,12 +42,15 @@ class ApartmentStructure extends Component{
                 children: 'children',
                 label: 'label'
             }
-        }
+        };
+    }
+
+    handleClick(data){
+        PubSub.publish('placeholder',data.label);
     }
 
     render() {
         const { data, options } = this.state
-
         return (
             <div className="ApartmentManage-tree">
                 <Tree
@@ -52,6 +58,7 @@ class ApartmentStructure extends Component{
                     options={options}
                     nodeKey="id"
                     defaultExpandedKeys={[1,2,3]}
+                    onNodeClicked={this.handleClick.bind(data.label)}
                 />
             </div>
         )
@@ -60,17 +67,31 @@ class ApartmentStructure extends Component{
 
 class ApartmentManage extends Component{
 
-    handleClick(e){
-        $.ajax({
-            type: "GET",
-            url: "http://127.0.0.1:414/dept/add",
-            success:function(data){
-                //TODO
-            }
-        })
+    handleClickForDelete(e){
+        this.$get(url[this.state.placeholder])
+             .then(res=>{
+             alert("删除成功");
+            })
+    }
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            placeholder : '请输入内容'
+        };
+    }
+
+    componentDidMount(){
+        PubSub.subscribe('placeholder', function (topic, placeholder) {
+            this.setState({
+                placeholder: placeholder
+            });
+        }.bind(this));
     }
 
     render(){
+        const { placeholder } = this.state
         return(
             <div>
                 <h3>用户部门管理</h3>
@@ -81,15 +102,15 @@ class ApartmentManage extends Component{
                 <Layout.Col span={13}>
                     <div className="ApartmentManage-context-1">
                         <span>您选择的部门是：</span>
-                        <Input placeholder="请输入内容" className="inline-input"/>
+                        <Input placeholder={ placeholder } className="inline-input"/>
                         <Button type="primary" size="small">修改部门名称</Button>
-                        <Button type="primary" size="small">删除部门</Button>
+                        <Button type="primary" size="small" onClick={e => this.handleClickForDelete.bind(this)}>删除部门</Button>
                     </div>
                     <div className="ApartmentManage-context-2">
                         <form>
                             <span>在部门“华农”下添加新的部门：</span>
                             <Input placeholder="请输入内容" className="inline-input"/>
-                            <Button type="primary" size="small" onClick={e => {this.handleClick(e)}}>增加部门</Button>
+                            <Button type="primary" size="small">增加部门</Button>
                             <span>（十个汉字以内）</span>
                         </form>
                     </div>

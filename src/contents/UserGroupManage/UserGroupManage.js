@@ -4,6 +4,7 @@ import './UserGroupManage.css';
 import { Layout,Input,Button,Table } from 'element-react';
 
 class UserGroupManage extends Component{
+
     handleClickForEdit(e){
         this.setState ({
             columns: [
@@ -26,7 +27,11 @@ class UserGroupManage extends Component{
                     prop: "zip",
                     width: 150,
                     render: ()=>{
-                        return <span><Button type="text" size="small">更新</Button><Button type="text" size="small">取消</Button><Button type="text" size="small">删除</Button></span>
+                        return <span>
+                                    <Button type="text" size="small">更新</Button>
+                                    <Button type="text" size="small">取消</Button>
+                                    <Button type="text" size="small">删除</Button>
+                                </span>
                     }
                 }]
         })
@@ -64,7 +69,8 @@ class UserGroupManage extends Component{
             },{
                 id: '8',
                 userGroupName: '展示层用户',
-            }]
+            }],
+            refresh: 'false'
         }
     }
 
@@ -83,7 +89,10 @@ class UserGroupManage extends Component{
                 </Layout.Col>
                 <h4>添加用户组</h4>
                 <Layout.Col span={10}>
-                    <p>用户组名称：<Input placeholder="请输入内容" className="inline-input"/>（十个汉字以内）</p>
+                    <div>
+                        用户组名称：<Input placeholder="请输入内容" className="inline-input"/>（十个汉字以内）
+                    </div>
+                    <div className="UserGroupManage-button"><Button type="primary" size="small">添加用户组</Button></div>
                 </Layout.Col>
             </div>
         );

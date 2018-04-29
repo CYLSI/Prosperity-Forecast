@@ -1,0 +1,12 @@
+.ModulesManage span{
+    margin:0px 5px;
+}
+
+.ModulesManage Button{
+    background-color:darkgray;
+    border:gray;
+}
+
+.ModulesManage-Table{
+    margin:20px 30px;
+}

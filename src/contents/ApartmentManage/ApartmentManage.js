@@ -2,10 +2,14 @@ import React, { Component } from 'react';
 import '../../App.css';
 import './ApartmentManage.css';
 import { Layout,Tree,Input,Button } from 'element-react';
-import PubSub from 'pubsub-js';
-import '../../httpUtil.js';
 
-class ApartmentStructure extends Component{
+class ApartmentManage extends Component{
+
+    handleClick(data){
+        this.setState({
+            placeholder: data.label
+        })
+    }
 
     constructor(props) {
         super(props);
@@ -41,70 +45,35 @@ class ApartmentStructure extends Component{
             options: {
                 children: 'children',
                 label: 'label'
-            }
-        };
-    }
-
-    handleClick(data){
-        PubSub.publish('placeholder',data.label);
-    }
-
-    render() {
-        const { data, options } = this.state
-        return (
-            <div className="ApartmentManage-tree">
-                <Tree
-                    data={data}
-                    options={options}
-                    nodeKey="id"
-                    defaultExpandedKeys={[1,2,3]}
-                    onNodeClicked={this.handleClick.bind(data.label)}
-                />
-            </div>
-        )
-    }
-}
-
-class ApartmentManage extends Component{
-
-    handleClickForDelete(e){
-        this.$get(url[this.state.placeholder])
-             .then(res=>{
-             alert("删除成功");
-            })
-    }
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
+            },
             placeholder : '请输入内容'
         };
     }
 
-    componentDidMount(){
-        PubSub.subscribe('placeholder', function (topic, placeholder) {
-            this.setState({
-                placeholder: placeholder
-            });
-        }.bind(this));
-    }
 
     render(){
-        const { placeholder } = this.state
+        const { data,options,placeholder } = this.state;
         return(
             <div>
                 <h3>用户部门管理</h3>
                 <Layout.Col span={4}>
                     <span>当前部门结构：</span>
-                    <ApartmentStructure/>
+                    <div className="ApartmentManage-tree">
+                        <Tree
+                            data={data}
+                            options={options}
+                            nodeKey="id"
+                            defaultExpandedKeys={[1,2,3]}
+                            onNodeClicked={this.handleClick.bind(data.label)}
+                        />
+                    </div>
                 </Layout.Col>
                 <Layout.Col span={13}>
                     <div className="ApartmentManage-context-1">
                         <span>您选择的部门是：</span>
                         <Input placeholder={ placeholder } className="inline-input"/>
                         <Button type="primary" size="small">修改部门名称</Button>
-                        <Button type="primary" size="small" onClick={e => this.handleClickForDelete.bind(this)}>删除部门</Button>
+                        <Button type="primary" size="small">删除部门</Button>
                     </div>
                     <div className="ApartmentManage-context-2">
                         <form>

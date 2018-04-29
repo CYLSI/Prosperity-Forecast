@@ -10,7 +10,6 @@ class RoleManage extends Component{
                 {
                     label: "角色名称",
                     prop: "roleName",
-                    width: 255,
                     render: function(data){
                         return <Input placeholder={data.roleName} size="small"/>
                     }
@@ -18,7 +17,7 @@ class RoleManage extends Component{
                 {
                     label: "操作",
                     prop: "zip",
-                    width: 160,
+                    width: '160%',
                     render: () => {
                         return <span><Button type="text" size="small">更新</Button><Button type="text" size="small">取消</Button><Button type="text" size="small">删除</Button></span>
                     }
@@ -35,12 +34,11 @@ class RoleManage extends Component{
                 {
                     label: "角色名称",
                     prop: "roleName",
-                    width: 255
                 },
                 {
                     label: "操作",
                     prop: "zip",
-                    width: 160,
+                    width: '160%',
                     render: () => {
                         return <span><Button type="text" size="small" onClick={e => {this.handleClickForEdit(e)}}>编辑</Button><Button type="text" size="small">授权</Button><Button type="text" size="small">删除</Button></span>
                     }

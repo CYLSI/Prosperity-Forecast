@@ -12,12 +12,11 @@ class UserManageAuthorization extends Component{
                 {
                     label: "角色名称",
                     prop: "roleName",
-                    width: 270
                 },
                 {
                     label: "操作",
                     prop: "zip",
-                    width: 100,
+                    width: '100%',
                     render: () => {
                         return <span><Checkbox></Checkbox></span>
                     }

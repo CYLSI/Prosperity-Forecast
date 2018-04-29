@@ -12,64 +12,55 @@ class UserManage extends Component{
                 {
                     label: "登录名",
                     prop: "loginName",
-                    width: 130,
+                    width: '100%',
                     render: function(data){
                         return <Input placeholder={data.loginName} size="small"/>
                     }
                 }, {
                     label: "用户名",
                     prop: "name",
-                    width: 120,
+                    width: '100%',
                     render: function(data){
                         return <Input placeholder={data.name} size="small"/>
                     }
                 },{
                     label: "用户职务",
                     prop: "duties",
-                    width: 100,
                     render: function(data){
                         return <Input placeholder={data.duties} size="small"/>
                     }
                 },{
                     label: "部门",
                     prop: "apartment",
-                    width: 100,
+                    width: '80%',
                     render: function(data){
                         return <Input placeholder={data.apartment} size="small"/>
                     }
                 },{
                     label: "用户组",
                     prop: "userGroup",
-                    width: 150,
+                    width: '100%',
                     render: function(data){
                         return <Input placeholder={data.userGroup} size="small"/>
                     }
                 },{
                     label: "电子邮件",
                     prop: "email",
-                    width: 140,
+                    width: '170%',
                     render: function(data){
                         return <Input placeholder={data.email} size="small"/>
                     }
                 },{
                     label: "联系电话",
                     prop: "contact",
-                    width: 150,
+                    width: '130%',
                     render: function(data){
                         return <Input placeholder={data.contact} size="small"/>
                     }
                 },{
-                    label: "备注",
-                    prop: "remark",
-                    width: 80,
-                    render: function(data){
-                        return <Input placeholder={data.remark} size="small"/>
-                    }
-                },{
                     label: "操作",
                     prop: "zip",
-                    fixed: 'right',
-                    width: 200,
+                    width: '160%',
                     render: ()=>{
                         return<span>
                                     <Button type="text" size="small">更新</Button>
@@ -90,48 +81,41 @@ class UserManage extends Component{
                 {
                     label: "登录名",
                     prop: "loginName",
-                    width: 130
+                    width: '80%'
                 },
                 {
                     label: "用户名",
                     prop: "name",
-                    width: 120
+                    width: '80%'
                 },
                 {
                     label: "用户职务",
                     prop: "duties",
-                    width: 100
                 },
                 {
                     label: "部门",
                     prop: "apartment",
-                    width: 100
+                    width: '70%'
                 },
                 {
                     label: "用户组",
                     prop: "userGroup",
-                    width: 100
+                    width: '100%'
                 },
                 {
                     label: "电子邮件",
                     prop: "email",
-                    width: 140
+                    width: '170%'
                 },
                 {
                     label: "联系电话",
                     prop: "contact",
-                    width: 130
-                },
-                {
-                    label: "备注",
-                    prop: "remark",
-                    width: 80
+                    width: '130%'
                 },
                 {
                     label: "操作",
                     prop: "zip",
-                    fixed: 'right',
-                    width: 200,
+                    width: '190%',
                     render: ()=>{
                         return <span>
                                     <Button type="text" size="small"><Link to='/contents/UserManage/UserManageAuthorization'>授权</Link></Button>
@@ -148,7 +132,7 @@ class UserManage extends Component{
                 duties: '--',
                 apartment: '华农',
                 userGroup: '普通用户',
-                email: '000',
+                email: '000000',
                 contact: '13300000000',
                 remark: '',
             },{
@@ -157,7 +141,7 @@ class UserManage extends Component{
                 duties: '--',
                 apartment: '华农',
                 userGroup: '普通用户',
-                email: '000',
+                email: '000000',
                 contact: '13300000000',
                 remark: '',
             }]

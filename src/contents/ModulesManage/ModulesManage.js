@@ -10,7 +10,7 @@ class ModulesManage extends Component{
                 {
                     label: "操作",
                     prop: "zip",
-                    width: 150,
+                    width: '150%',
                     render: () => {
                         return <span><Button type="text" size="small">更新</Button><Button type="text" size="small">取消</Button><Button type="text" size="small">删除</Button></span>
                     }
@@ -18,7 +18,7 @@ class ModulesManage extends Component{
                 {
                     label: "模块名称",
                     prop: "modulesName",
-                    width: 180,
+                    width: '180%',
                     render: function(data){
                         return <Input placeholder={data.modulesName} size="small"/>
                     }
@@ -26,7 +26,6 @@ class ModulesManage extends Component{
                 {
                     label: "实际页面",
                     prop: "page",
-                    width: 400,
                     render: function(data){
                         return <Input placeholder={data.page} size="small"/>
                     }
@@ -34,7 +33,7 @@ class ModulesManage extends Component{
                 {
                     label: "说明",
                     prop: "illustrate",
-                    width: 85,
+                    width: '100%',
                     render: function(data){
                         return <Input placeholder={data.illustrate} size="small"/>
                     }
@@ -51,7 +50,7 @@ class ModulesManage extends Component{
                 {
                     label: "操作",
                     prop: "zip",
-                    width: 120,
+                    width: '100%',
                     render: () => {
                         return <span><Button type="text" size="small" onClick={e => {this.handleClickForEdit(e)}}>编辑</Button><Button type="text" size="small">删除</Button></span>
                     }
@@ -59,17 +58,16 @@ class ModulesManage extends Component{
                 {
                     label: "模块名称",
                     prop: "modulesName",
-                    width: 200
+                    width: '200%'
                 },
                 {
                     label: "实际页面",
                     prop: "page",
-                    width: 400
                 },
                 {
                     label: "说明",
                     prop: "illustrate",
-                    width: 85
+                    width: '100%'
                 }
             ],
             data: [{

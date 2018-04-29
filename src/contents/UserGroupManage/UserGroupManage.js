@@ -11,21 +11,20 @@ class UserGroupManage extends Component{
                 {
                     label: "ID",
                     prop: "id",
-                    width: 100,
+                    width: '100%',
                     render: function(data){
                         return <Input placeholder={data.id} size="small"/>
                     }
                 },{
                     label: "用户组名称",
                     prop: "userGroupName",
-                    width: 160,
                     render: function(data){
                         return <Input placeholder={data.userGroupName} size="small"/>
                     }
                 },{
                     label: "操作",
                     prop: "zip",
-                    width: 150,
+                    width: '130%',
                     render: ()=>{
                         return <span>
                                     <Button type="text" size="small">更新</Button>
@@ -44,19 +43,18 @@ class UserGroupManage extends Component{
                 {
                     label: "ID",
                     prop: "id",
-                    width: 100
+                    width: '100%',
                 },
                 {
                     label: "用户组名称",
                     prop: "userGroupName",
-                    width: 200
                 },
                 {
                     label: "操作",
                     prop: "zip",
-                    width: 120,
-                    render: () => {
-                        return <span><Button type="text" size="small"onClick={e => {this.handleClickForEdit(e)}}>编辑</Button><Button type="text" size="small">删除</Button></span>
+                    width: '100%',
+                    render: (index) => {
+                        return <span><Button type="text" size="small" onClick={e => {this.handleClickForEdit(e)}}>编辑</Button><Button type="text" size="small">删除</Button></span>
                     }
                 }
             ],
@@ -69,8 +67,7 @@ class UserGroupManage extends Component{
             },{
                 id: '8',
                 userGroupName: '展示层用户',
-            }],
-            refresh: 'false'
+            }]
         }
     }
 

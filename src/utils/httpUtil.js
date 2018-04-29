@@ -4,7 +4,7 @@ import 'element-theme-default';
 
 import { Notification } from 'element-react';
 //
-const url = 'http://172.16.110.147:414';
+const url = 'http://172.17.149.195:414';
 /* 服务器ip地址 */
 
 Axios.defaults.timeout = 5000;//响应时间

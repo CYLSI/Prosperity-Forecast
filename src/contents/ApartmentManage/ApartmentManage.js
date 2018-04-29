@@ -5,6 +5,14 @@ import { Layout,Tree,Input,Button } from 'element-react';
 
 class ApartmentManage extends Component{
 
+    componentWillMount(){
+        console.log(1111)
+        this.$post("/dept/del",{id:1})
+            .then(res=>{
+                console.log(res)
+            })
+    }
+
     handleClick(data){
         this.setState({
             placeholder: data.label
@@ -72,16 +80,22 @@ class ApartmentManage extends Component{
                     <div className="ApartmentManage-context-1">
                         <span>您选择的部门是：</span>
                         <Input placeholder={ placeholder } className="inline-input"/>
-                        <Button type="primary" size="small">修改部门名称</Button>
                         <Button type="primary" size="small">删除部门</Button>
                     </div>
                     <div className="ApartmentManage-context-2">
-                        <form>
-                            <span>在部门“华农”下添加新的部门：</span>
-                            <Input placeholder="请输入内容" className="inline-input"/>
-                            <Button type="primary" size="small">增加部门</Button>
+                        <span>您选择的部门是：</span>
+                        <Input placeholder={ placeholder } className="inline-input"/>
+                        <span>修改部门：</span>
+                        <Input placeholder="请输入内容" className="inline-input"/>
+                        <Button type="primary" size="small">修改</Button>
+                    </div>
+                    <div className="ApartmentManage-context-2">
+                        <div>在部门<Input placeholder={ placeholder } className="inline-input"/>下</div>
+                        <div>
+                            添加新的部门：<Input placeholder="请输入内容" className="inline-input"/>
                             <span>（十个汉字以内）</span>
-                        </form>
+                        </div>
+                        <Button type="primary" size="small">增加部门</Button>
                     </div>
                 </Layout.Col>
             </div>

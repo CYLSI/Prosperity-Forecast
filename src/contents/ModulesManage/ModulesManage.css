@@ -10,3 +10,8 @@
 .ModulesManage-Table{
     margin:20px 30px;
 }
+
+.ModulesManage-dialog .inline-input{
+    max-width: 250px;
+    margin:0px 10px;
+}

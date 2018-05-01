@@ -1,44 +1,14 @@
 import React, { Component } from 'react';
 import '../../App.css';
 import './ModulesManage.css';
-import { Layout,Input,Button,Dropdown,Table } from 'element-react';
+import { Layout,Input,Button,Dropdown,Table,Form,Dialog } from 'element-react';
 
 class ModulesManage extends Component{
-    handleClickForEdit(e){
+
+    handleClickForEdit(e,row){
         this.setState({
-            columns: [
-                {
-                    label: "操作",
-                    prop: "zip",
-                    width: '150%',
-                    render: () => {
-                        return <span><Button type="text" size="small">更新</Button><Button type="text" size="small">取消</Button><Button type="text" size="small">删除</Button></span>
-                    }
-                },
-                {
-                    label: "模块名称",
-                    prop: "modulesName",
-                    width: '180%',
-                    render: function(data){
-                        return <Input placeholder={data.modulesName} size="small"/>
-                    }
-                },
-                {
-                    label: "实际页面",
-                    prop: "page",
-                    render: function(data){
-                        return <Input placeholder={data.page} size="small"/>
-                    }
-                },
-                {
-                    label: "说明",
-                    prop: "illustrate",
-                    width: '100%',
-                    render: function(data){
-                        return <Input placeholder={data.illustrate} size="small"/>
-                    }
-                }
-            ]
+            dialogVisible: true,
+            dialogData: row
         })
     }
 
@@ -51,8 +21,11 @@ class ModulesManage extends Component{
                     label: "操作",
                     prop: "zip",
                     width: '100%',
-                    render: () => {
-                        return <span><Button type="text" size="small" onClick={e => {this.handleClickForEdit(e)}}>编辑</Button><Button type="text" size="small">删除</Button></span>
+                    render: (row) => {
+                        return <span>
+                                    <Button type="text" size="small"  onClick={e => this.handleClickForEdit(e,row)}>编辑</Button>
+                                    <Button type="text" size="small">删除</Button>
+                                </span>
                     }
                 },
                 {
@@ -72,39 +45,52 @@ class ModulesManage extends Component{
             ],
             data: [{
                 modulesName: '添加模块',
-                page: '--'
+                page: '--',
+                illustrate:''
             },{
                 modulesName: '用户与权限管理',
-                page: '--'
+                page: '--',
+                illustrate:''
             },{
                 modulesName: '部门管理',
-                page: '--'
+                page: '--',
+                illustrate:''
             },{
                 modulesName: '用户管理',
-                page: '--'
+                page: '--',
+                illustrate:''
             },{
                 modulesName: '添加用户',
-                page: '--'
+                page: '--',
+                illustrate:''
             },{
                 modulesName: '用户组管理',
-                page: '--'
+                page: '--',
+                illustrate:''
             },{
                 modulesName: '添加用户组',
-                page: '--'
+                page: '--',
+                illustrate:''
             },{
                 modulesName: '角色管理',
-                page: '--'
+                page: '--',
+                illustrate:''
             },{
                 modulesName: '添加角色',
-                page: '--'
+                page: '--',
+                illustrate:''
             },{
                 modulesName: '模块管理',
-                page: '--'
-            }]
+                page: '--',
+                illustrate:''
+            }],
+            dialogVisible: false,
+            dialogData:''
         }
     }
 
     render(){
+        const { dialogVisible,dialogData,columns,data } = this.state
         return(
             <div>
                 <Layout.Col span={15}>
@@ -128,13 +114,39 @@ class ModulesManage extends Component{
                     </div>
                     <div className="ModulesManage-Table">
                         <Table
-                            columns={this.state.columns}
-                            data={this.state.data}
+                            columns={columns}
+                            data={data}
                             border={true}
                         />
                     </div>
                     <Button type="primary" size="small">添加新模块</Button>
                 </Layout.Col>
+                <div className="ModulesManage-dialog">
+                    <Dialog
+                        title="修改"
+                        visible={ dialogVisible }
+                        onCancel={ e => this.setState({ dialogVisible: false }) }
+                        dialogData={ dialogData }
+                        size="tiny"
+                    >
+                        <Dialog.Body>
+                            <Form>
+                                <Form.Item label="模块名称" labelWidth="80">
+                                    <Input placeholder={dialogData.modulesName} className="inline-input"></Input>
+                                </Form.Item>
+                                <Form.Item label="实际页面" labelWidth="80">
+                                    <Input placeholder={dialogData.page} className="inline-input"></Input>
+                                </Form.Item>
+                                <Form.Item label="说明" labelWidth="80">
+                                    <Input placeholder={dialogData.illustrate} className="inline-input"></Input>
+                                </Form.Item>
+                            </Form>
+                        </Dialog.Body>
+                        <Dialog.Footer className="dialog-footer">
+                            <Button type="primary" onClick={ () => this.setState({ dialogVisible: false }) }>确 定</Button>
+                        </Dialog.Footer>
+                    </Dialog>
+                </div>
             </div>
         );
     }

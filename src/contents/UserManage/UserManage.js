@@ -1,75 +1,15 @@
 import React, { Component } from 'react';
 import '../../App.css';
 import './UserManage.css';
-import { Layout,Input,Button,Dropdown,Table } from 'element-react';
+import { Layout,Input,Button,Dropdown,Table,Dialog,Form } from 'element-react';
 import { Link } from 'react-router';
 
 class UserManage extends Component{
 
-    handleClickForEdit(e){
+    handleClickForEdit(e,row){
         this.setState({
-            columns: [
-                {
-                    label: "登录名",
-                    prop: "loginName",
-                    width: '100%',
-                    render: function(data){
-                        return <Input placeholder={data.loginName} size="small"/>
-                    }
-                }, {
-                    label: "用户名",
-                    prop: "name",
-                    width: '100%',
-                    render: function(data){
-                        return <Input placeholder={data.name} size="small"/>
-                    }
-                },{
-                    label: "用户职务",
-                    prop: "duties",
-                    render: function(data){
-                        return <Input placeholder={data.duties} size="small"/>
-                    }
-                },{
-                    label: "部门",
-                    prop: "apartment",
-                    width: '80%',
-                    render: function(data){
-                        return <Input placeholder={data.apartment} size="small"/>
-                    }
-                },{
-                    label: "用户组",
-                    prop: "userGroup",
-                    width: '100%',
-                    render: function(data){
-                        return <Input placeholder={data.userGroup} size="small"/>
-                    }
-                },{
-                    label: "电子邮件",
-                    prop: "email",
-                    width: '170%',
-                    render: function(data){
-                        return <Input placeholder={data.email} size="small"/>
-                    }
-                },{
-                    label: "联系电话",
-                    prop: "contact",
-                    width: '130%',
-                    render: function(data){
-                        return <Input placeholder={data.contact} size="small"/>
-                    }
-                },{
-                    label: "操作",
-                    prop: "zip",
-                    width: '160%',
-                    render: ()=>{
-                        return<span>
-                                    <Button type="text" size="small">更新</Button>
-                                    <Button type="text" size="small">取消</Button>
-                                    <Button type="text" size="small"><Link to='/contents/UserManage/ModifyPassword'>修改密码</Link></Button>
-                              </span>
-                    }
-                }
-            ]
+            dialogVisible: true,
+            dialogData: row
         })
     }
 
@@ -116,10 +56,10 @@ class UserManage extends Component{
                     label: "操作",
                     prop: "zip",
                     width: '190%',
-                    render: ()=>{
+                    render: (row) => {
                         return <span>
                                     <Button type="text" size="small"><Link to='/contents/UserManage/UserManageAuthorization'>授权</Link></Button>
-                                    <Button type="text" size="small" onClick={e => {this.handleClickForEdit(e)}}>编辑</Button>
+                                    <Button type="text" size="small" onClick={e => this.handleClickForEdit(e,row)}>编辑</Button>
                                     <Button type="text" size="small">删除</Button>
                                     <Button type="text" size="small"><Link to='/contents/UserManage/ModifyPassword'>修改密码</Link></Button>
                                 </span>
@@ -144,11 +84,14 @@ class UserManage extends Component{
                 email: '000000',
                 contact: '13300000000',
                 remark: '',
-            }]
+            }],
+            dialogVisible: false,
+            dialogData:''
         }
     }
 
     render(){
+        const { dialogVisible,dialogData,columns,data } = this.state
         return(
             <Layout.Col span={18}>
                 <div>
@@ -193,10 +136,46 @@ class UserManage extends Component{
                 </div>
                 <div className="UserManage-Table">
                     <Table
-                        columns={this.state.columns}
-                        data={this.state.data}
+                        columns={columns}
+                        data={data}
                         border={true}
                     />
+                    <Dialog
+                        title="修改"
+                        visible={ dialogVisible }
+                        onCancel={ e => this.setState({ dialogVisible: false }) }
+                        dialogData={ dialogData }
+                        size="tiny"
+                    >
+                        <Dialog.Body>
+                            <Form>
+                                <Form.Item label="登录名" labelWidth="80">
+                                    <Input placeholder={dialogData.loginName} className="inline-input"></Input>
+                                </Form.Item>
+                                <Form.Item label="用户名" labelWidth="80">
+                                    <Input placeholder={dialogData.name} className="inline-input"></Input>
+                                </Form.Item>
+                                <Form.Item label="用户职务" labelWidth="80">
+                                    <Input placeholder={dialogData.duties} className="inline-input"></Input>
+                                </Form.Item>
+                                <Form.Item label="部门" labelWidth="80">
+                                    <Input placeholder={dialogData.apartment} className="inline-input"></Input>
+                                </Form.Item>
+                                <Form.Item label="用户组" labelWidth="80">
+                                    <Input placeholder={dialogData.userGroup} className="inline-input"></Input>
+                                </Form.Item>
+                                <Form.Item label="电子邮件" labelWidth="80">
+                                    <Input placeholder={dialogData.email} className="inline-input"></Input>
+                                </Form.Item>
+                                <Form.Item label="联系电话" labelWidth="80">
+                                    <Input placeholder={dialogData.contact} className="inline-input"></Input>
+                                </Form.Item>
+                            </Form>
+                        </Dialog.Body>
+                        <Dialog.Footer className="dialog-footer">
+                            <Button type="primary" onClick={ () => this.setState({ dialogVisible: false }) }>确 定</Button>
+                        </Dialog.Footer>
+                    </Dialog>
                 </div>
             </Layout.Col>
         );

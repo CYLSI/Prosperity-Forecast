@@ -1,40 +1,17 @@
 import React, { Component } from 'react';
 import '../../App.css';
 import './UserGroupManage.css';
-import { Layout,Input,Button,Table } from 'element-react';
+import { Layout,Input,Button,Table,Form,Dialog } from 'element-react';
 
 class UserGroupManage extends Component{
 
-    handleClickForEdit(e){
-        this.setState ({
-            columns: [
-                {
-                    label: "ID",
-                    prop: "id",
-                    width: '100%',
-                    render: function(data){
-                        return <Input placeholder={data.id} size="small"/>
-                    }
-                },{
-                    label: "用户组名称",
-                    prop: "userGroupName",
-                    render: function(data){
-                        return <Input placeholder={data.userGroupName} size="small"/>
-                    }
-                },{
-                    label: "操作",
-                    prop: "zip",
-                    width: '130%',
-                    render: ()=>{
-                        return <span>
-                                    <Button type="text" size="small">更新</Button>
-                                    <Button type="text" size="small">取消</Button>
-                                    <Button type="text" size="small">删除</Button>
-                                </span>
-                    }
-                }]
+    handleClickForEdit(e,row){
+        this.setState({
+            dialogVisible: true,
+            dialogData: row
         })
     }
+
     constructor(props) {
         super(props);
 
@@ -53,8 +30,11 @@ class UserGroupManage extends Component{
                     label: "操作",
                     prop: "zip",
                     width: '100%',
-                    render: (index) => {
-                        return <span><Button type="text" size="small" onClick={e => {this.handleClickForEdit(e)}}>编辑</Button><Button type="text" size="small">删除</Button></span>
+                    render: (row) => {
+                        return <span>
+                                    <Button type="text" size="small" onClick={e => this.handleClickForEdit(e,row)}>编辑</Button>
+                                    <Button type="text" size="small">删除</Button>
+                                </span>
                     }
                 }
             ],
@@ -67,19 +47,22 @@ class UserGroupManage extends Component{
             },{
                 id: '8',
                 userGroupName: '展示层用户',
-            }]
+            }],
+            dialogVisible: false,
+            dialogData:''
         }
     }
 
     render(){
+        const { dialogVisible,dialogData,columns,data } = this.state
         return (
             <div>
                 <h3>用户组管理</h3>
                 <Layout.Col span={8}>
                     <div className="UserGroupManage-table">
                         <Table
-                            columns={this.state.columns}
-                            data={this.state.data}
+                            columns={columns}
+                            data={data}
                             border={true}
                         />
                     </div>
@@ -91,6 +74,29 @@ class UserGroupManage extends Component{
                     </div>
                     <div className="UserGroupManage-button"><Button type="primary" size="small">添加用户组</Button></div>
                 </Layout.Col>
+                <div>
+                    <Dialog
+                        title="修改"
+                        visible={ dialogVisible }
+                        onCancel={ e => this.setState({ dialogVisible: false }) }
+                        dialogData={ dialogData }
+                        size="tiny"
+                    >
+                        <Dialog.Body>
+                            <Form>
+                                <Form.Item label="ID" labelWidth="80">
+                                    <Input placeholder={dialogData.id} className="inline-input"></Input>
+                                </Form.Item>
+                                <Form.Item label="用户组名称" labelWidth="80">
+                                    <Input placeholder={dialogData.userGroupName} className="inline-input"></Input>
+                                </Form.Item>
+                            </Form>
+                        </Dialog.Body>
+                        <Dialog.Footer className="dialog-footer">
+                            <Button type="primary" onClick={ () => this.setState({ dialogVisible: false }) }>确 定</Button>
+                        </Dialog.Footer>
+                    </Dialog>
+                </div>
             </div>
         );
     }

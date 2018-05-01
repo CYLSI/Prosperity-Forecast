@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.18.0",
     "element-react": "^1.4.15",
     "element-theme-default": "^1.4.13",
     "jquery": "^3.3.1",
@@ -11,6 +12,7 @@
     "react": "^16.3.2",
     "react-addons-pure-render-mixin": "^15.6.2",
     "react-dom": "^16.3.2",
+    "react-redux": "^5.0.7",
     "react-router": "^3.2.1",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4"

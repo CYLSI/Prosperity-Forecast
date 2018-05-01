@@ -5,13 +5,13 @@ import { Layout,Tree,Input,Button } from 'element-react';
 
 class ApartmentManage extends Component{
 
-    componentWillMount(){
+    /*componentWillMount(){
         console.log(1111)
-        this.$post("/dept/del",{id:1})
+        this.$get('/dept/del/1')
             .then(res=>{
                 console.log(res)
             })
-    }
+    }*/
 
     handleClick(data){
         this.setState({

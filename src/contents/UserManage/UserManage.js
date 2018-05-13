@@ -6,9 +6,20 @@ import { Link } from 'react-router';
 
 class UserManage extends Component{
 
-    /*componentDidMount(){
-        getList()
-    }*/
+    getList(){
+        this.$post('/user/list')
+            .then(res=>{
+                this.setState({
+                    data: res
+                })
+            }).catch(e=>{
+            console.log(e)
+        })
+    }
+
+    componentDidMount(){
+        //this.getList()
+    }
 
     onChange(key, value) {
         this.state.form[key] = value;
@@ -67,7 +78,7 @@ class UserManage extends Component{
                     width: '80%'
                 },
                 {
-                    label: "角色",
+                    label: "用户名",
                     prop: "name",
                     width: '80%'
                 },
@@ -81,8 +92,8 @@ class UserManage extends Component{
                     width: '70%'
                 },
                 {
-                    label: "用户组",
-                    prop: "userGroup",
+                    label: "角色",
+                    prop: "role",
                     width: '100%'
                 },
                 {
@@ -114,16 +125,7 @@ class UserManage extends Component{
                 name: '管理员',
                 duties: '--',
                 apartment: '华农',
-                userGroup: '普通用户',
-                email: '000000',
-                contact: '13300000000',
-                remark: '',
-            },{
-                loginName: 'Admin',
-                name: '管理员',
-                duties: '--',
-                apartment: '华农',
-                userGroup: '普通用户',
+                role: '普通用户',
                 email: '000000',
                 contact: '13300000000',
                 remark: '',
@@ -135,7 +137,7 @@ class UserManage extends Component{
                 name: '',
                 duties: '',
                 apartment: '',
-                userGroup: '',
+                role: '',
                 email: '',
                 contact: '',
                 remark: ''
@@ -215,8 +217,8 @@ class UserManage extends Component{
                                 <Form.Item label="部门" labelWidth="80">
                                     <Input placeholder={dialogData.apartment} onChange={this.onChange.bind(this, 'apartment')} className="inline-input"></Input>
                                 </Form.Item>
-                                <Form.Item label="用户组" labelWidth="80">
-                                    <Input placeholder={dialogData.userGroup} onChange={this.onChange.bind(this, 'userGroup')} className="inline-input"></Input>
+                                <Form.Item label="角色" labelWidth="80">
+                                    <Input placeholder={dialogData.role} onChange={this.onChange.bind(this, 'role')} className="inline-input"></Input>
                                 </Form.Item>
                                 <Form.Item label="电子邮件" labelWidth="80">
                                     <Input placeholder={dialogData.email} onChange={this.onChange.bind(this, 'email')} className="inline-input"></Input>
@@ -236,15 +238,5 @@ class UserManage extends Component{
     }
 }
 
-function getList(){
-    this.$post('/user/list')
-        .then(res=>{
-            this.setState({
-                data: res.data
-            })
-        }).catch(e=>{
-        console.log(e)
-    })
-}
 
 export default UserManage;

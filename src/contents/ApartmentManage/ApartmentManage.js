@@ -5,9 +5,20 @@ import { Layout,Tree,Input,Button } from 'element-react';
 
 class ApartmentManage extends Component{
 
-    /*componentDidMount(){
-        getList()
-    }*/
+    getList(){
+        this.$post('/dept/list')
+            .then(res=>{
+                this.setState({
+                    data: res
+                })
+            }).catch(e=>{
+            console.log(e)
+        })
+    }
+
+    componentDidMount(){
+        this.getList()
+    }
 
     onChange1(key, value) {
         this.setState({
@@ -31,13 +42,12 @@ class ApartmentManage extends Component{
     }
 
     handleClickForEdit(e){
-        console.log(this.state.id,this.state.newApartmentName)
-        /*  let addedApartmentName = this.state.addedApartmentName;
-            let id = this.state.id;
-            this.$post('/dept/list',[value.placeholder,value.newApartmentName])
+       /* let addedApartmentName = this.state.addedApartmentName;
+        let id = this.state.id;
+            this.$post('/dept/list',{id,addedApartmentName})
             .then(res=>{
                 if(res === 1){
-                   getList()
+                   this.getList()
                 }
             }).catch(e=>{
             console.log(e)
@@ -45,30 +55,29 @@ class ApartmentManage extends Component{
     }
 
     handleClickForDelete(e){
-        console.log(this.state.id)
-       /* let id = this.state.id
-            this.$post('/dept/del',id)
+       let id = this.state.id
+            this.$post('/dept/del',{id})
             .then(res=>{
                if(res === 1){
-                  getList()
+                  this.getList()
                }
             }).catch(e=>{
             console.log(e)
-        })*/
+        })
     }
 
     handleClickForAdd(e){
         console.log(this.state.id,this.state.addedApartmentName);
-       /*   let addedApartmentName = this.state.addedApartmentName;
-            let id = this.state.id;
-            this.$post('/dept/add',value.addedApartmentName)
+        let addedApartmentName = this.state.addedApartmentName;
+        let id = this.state.id;
+            this.$post('/dept/add',{id,addedApartmentName})
             .then(res=>{
                 if(res === 1){
-                   getList()
+                   this.getList()
                 }
             }).catch(e=>{
             console.log(e)
-        })*/
+        })
     }
 
     constructor(props) {
@@ -162,15 +171,6 @@ class ApartmentManage extends Component{
     }
 }
 
-function  getList(){
-    this.$post('/dept/list')
-        .then(res=>{
-            this.setState({
-                data: res.data
-            })
-        }).catch(e=>{
-        console.log(e)
-    })
-}
+
 
 export default ApartmentManage;

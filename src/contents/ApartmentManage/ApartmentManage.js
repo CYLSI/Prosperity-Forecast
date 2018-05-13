@@ -5,13 +5,13 @@ import { Layout,Tree,Input,Button } from 'element-react';
 
 class ApartmentManage extends Component{
 
-    /*componentWillMount(){
+    componentWillMount(){
         console.log(1111)
-        this.$get('/dept/del/1')
+        this.$get('/dept/list',{})
             .then(res=>{
                 console.log(res)
             })
-    }*/
+    }
 
     handleClick(data){
         this.setState({
@@ -36,7 +36,7 @@ class ApartmentManage extends Component{
                         label: "数信"
                     },{
                         id: 5,
-                        label: "农学院"
+                      label: "农学院"
                     }]
                 },{
                     id: 3,

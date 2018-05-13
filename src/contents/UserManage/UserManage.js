@@ -6,15 +6,58 @@ import { Link } from 'react-router';
 
 class UserManage extends Component{
 
-    handleClickForEdit(e,row){
+    /*componentDidMount(){
+        getList()
+    }*/
+
+    onChange(key, value) {
+        this.state.form[key] = value;
+        this.forceUpdate();
+    }
+
+    handleClick(e,row){
         this.setState({
             dialogVisible: true,
-            dialogData: row
+            dialogData: row,
+            id: row.loginName
         })
+    }
+
+    handleClickForEdit(){
+        console.log(this.state.id,this.state.form)
+        this.setState({
+            dialogVisible: false
+        })
+        /*let id = this.state.id;
+        let form = this.state.form;
+        this.$post('/user/edit',{id,form})
+            .then(res=>{
+               if(res == 1){
+                    getList()
+               }
+            }).catch(e=>{
+            console.log(e)
+        })*/
+    }
+
+    handleClickForDelete(e,row){
+        /*this.$post('/user/del',row.loginName)
+            .then(res=>{
+                if(res == 1){
+                    getList()
+                }
+            }).catch(e=>{
+            console.log(e)
+        })*/
     }
 
     constructor(props) {
         super(props);
+
+        this.handleClick = this.handleClick.bind(this);
+        this.onChange = this.onChange.bind(this);
+        this.handleClickForDelete = this.handleClickForDelete.bind(this);
+        this.handleClickForEdit = this.handleClickForEdit.bind(this);
 
         this.state = {
             columns: [
@@ -24,7 +67,7 @@ class UserManage extends Component{
                     width: '80%'
                 },
                 {
-                    label: "用户名",
+                    label: "角色",
                     prop: "name",
                     width: '80%'
                 },
@@ -59,8 +102,8 @@ class UserManage extends Component{
                     render: (row) => {
                         return <span>
                                     <Button type="text" size="small"><Link to='/contents/UserManage/UserManageAuthorization'>授权</Link></Button>
-                                    <Button type="text" size="small" onClick={e => this.handleClickForEdit(e,row)}>编辑</Button>
-                                    <Button type="text" size="small">删除</Button>
+                                    <Button type="text" size="small" onClick={e => this.handleClick(e,row)}>编辑</Button>
+                                    <Button type="text" size="small" onClick={e => this.handleClickForDelete(e,row)}>删除</Button>
                                     <Button type="text" size="small"><Link to='/contents/UserManage/ModifyPassword'>修改密码</Link></Button>
                                 </span>
                     }
@@ -86,7 +129,18 @@ class UserManage extends Component{
                 remark: '',
             }],
             dialogVisible: false,
-            dialogData:''
+            dialogData:'',
+            form: {
+                loginName: '',
+                name: '',
+                duties: '',
+                apartment: '',
+                userGroup: '',
+                email: '',
+                contact: '',
+                remark: ''
+            },
+            id: ''
         }
     }
 
@@ -150,36 +204,47 @@ class UserManage extends Component{
                         <Dialog.Body>
                             <Form>
                                 <Form.Item label="登录名" labelWidth="80">
-                                    <Input placeholder={dialogData.loginName} className="inline-input"></Input>
+                                    <Input placeholder={dialogData.loginName} onChange={this.onChange.bind(this, 'loginName')} className="inline-input"></Input>
                                 </Form.Item>
                                 <Form.Item label="用户名" labelWidth="80">
-                                    <Input placeholder={dialogData.name} className="inline-input"></Input>
+                                    <Input placeholder={dialogData.name} onChange={this.onChange.bind(this, 'name')} className="inline-input"></Input>
                                 </Form.Item>
                                 <Form.Item label="用户职务" labelWidth="80">
-                                    <Input placeholder={dialogData.duties} className="inline-input"></Input>
+                                    <Input placeholder={dialogData.duties} onChange={this.onChange.bind(this, 'duties')} className="inline-input"></Input>
                                 </Form.Item>
                                 <Form.Item label="部门" labelWidth="80">
-                                    <Input placeholder={dialogData.apartment} className="inline-input"></Input>
+                                    <Input placeholder={dialogData.apartment} onChange={this.onChange.bind(this, 'apartment')} className="inline-input"></Input>
                                 </Form.Item>
                                 <Form.Item label="用户组" labelWidth="80">
-                                    <Input placeholder={dialogData.userGroup} className="inline-input"></Input>
+                                    <Input placeholder={dialogData.userGroup} onChange={this.onChange.bind(this, 'userGroup')} className="inline-input"></Input>
                                 </Form.Item>
                                 <Form.Item label="电子邮件" labelWidth="80">
-                                    <Input placeholder={dialogData.email} className="inline-input"></Input>
+                                    <Input placeholder={dialogData.email} onChange={this.onChange.bind(this, 'email')} className="inline-input"></Input>
                                 </Form.Item>
                                 <Form.Item label="联系电话" labelWidth="80">
-                                    <Input placeholder={dialogData.contact} className="inline-input"></Input>
+                                    <Input placeholder={dialogData.contact} onChange={this.onChange.bind(this, 'contact')} className="inline-input"></Input>
                                 </Form.Item>
                             </Form>
                         </Dialog.Body>
                         <Dialog.Footer className="dialog-footer">
-                            <Button type="primary" onClick={ () => this.setState({ dialogVisible: false }) }>确 定</Button>
+                            <Button type="primary" onClick={this.handleClickForEdit.bind(this) }>确 定</Button>
                         </Dialog.Footer>
                     </Dialog>
                 </div>
             </Layout.Col>
         );
     }
+}
+
+function getList(){
+    this.$post('/user/list')
+        .then(res=>{
+            this.setState({
+                data: res.data
+            })
+        }).catch(e=>{
+        console.log(e)
+    })
 }
 
 export default UserManage;

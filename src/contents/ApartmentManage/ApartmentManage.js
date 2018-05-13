@@ -5,24 +5,81 @@ import { Layout,Tree,Input,Button } from 'element-react';
 
 class ApartmentManage extends Component{
 
-    /*componentWillMount(){
-        console.log(1111)
-        this.$get('/dept/del/1')
-            .then(res=>{
-                console.log(res)
-            })
+    /*componentDidMount(){
+        getList()
     }*/
+
+    onChange1(key, value) {
+        this.setState({
+            newApartmentName: value
+        });
+        this.forceUpdate();
+    }
+
+    onChange2(key, value) {
+        this.setState({
+            addedApartmentName: value
+        });
+        this.forceUpdate();
+    }
 
     handleClick(data){
         this.setState({
-            placeholder: data.label
+            placeholder: data.label,
+            id: data.id
         })
+    }
+
+    handleClickForEdit(e){
+        console.log(this.state.id,this.state.newApartmentName)
+        /*  let addedApartmentName = this.state.addedApartmentName;
+            let id = this.state.id;
+            this.$post('/dept/list',[value.placeholder,value.newApartmentName])
+            .then(res=>{
+                if(res === 1){
+                   getList()
+                }
+            }).catch(e=>{
+            console.log(e)
+        })*/
+    }
+
+    handleClickForDelete(e){
+        console.log(this.state.id)
+       /* let id = this.state.id
+            this.$post('/dept/del',id)
+            .then(res=>{
+               if(res === 1){
+                  getList()
+               }
+            }).catch(e=>{
+            console.log(e)
+        })*/
+    }
+
+    handleClickForAdd(e){
+        console.log(this.state.id,this.state.addedApartmentName);
+       /*   let addedApartmentName = this.state.addedApartmentName;
+            let id = this.state.id;
+            this.$post('/dept/add',value.addedApartmentName)
+            .then(res=>{
+                if(res === 1){
+                   getList()
+                }
+            }).catch(e=>{
+            console.log(e)
+        })*/
     }
 
     constructor(props) {
         super(props);
 
         this.handleClick = this.handleClick.bind(this);
+        this.onChange1 = this.onChange1.bind(this);
+        this.onChange2 = this.onChange2.bind(this);
+        this.handleClickForDelete = this.handleClickForDelete.bind(this);
+        this.handleClickForEdit = this.handleClickForEdit.bind(this);
+        this.handleClickForAdd = this.handleClickForAdd.bind(this);
 
         this.state = {
             data: [{
@@ -54,13 +111,15 @@ class ApartmentManage extends Component{
                 children: 'children',
                 label: 'label'
             },
-            placeholder : '请输入内容'
+            placeholder : '请输入内容',
+            id: 0,
+            newApartmentName: '请输入内容',
+            addedApartmentName: '请输入内容'
         };
     }
 
-
     render(){
-        const { data,options,placeholder } = this.state;
+        const { data,options,placeholder,newApartmentName,addedApartmentName } = this.state;
         return(
             <div>
                 <h3>用户部门管理</h3>
@@ -72,7 +131,7 @@ class ApartmentManage extends Component{
                             options={options}
                             nodeKey="id"
                             defaultExpandedKeys={[1,2,3]}
-                            onNodeClicked={this.handleClick.bind(data.label)}
+                            onNodeClicked={this.handleClick.bind(data)}
                         />
                     </div>
                 </Layout.Col>
@@ -80,27 +139,38 @@ class ApartmentManage extends Component{
                     <div className="ApartmentManage-context-1">
                         <span>您选择的部门是：</span>
                         <Input placeholder={ placeholder } className="inline-input"/>
-                        <Button type="primary" size="small">删除部门</Button>
+                        <Button type="primary" size="small" onClick={this.handleClickForDelete.bind(this)}>删除部门</Button>
                     </div>
                     <div className="ApartmentManage-context-2">
                         <span>您选择的部门是：</span>
                         <Input placeholder={ placeholder } className="inline-input"/>
                         <span>修改部门：</span>
-                        <Input placeholder="请输入内容" className="inline-input"/>
-                        <Button type="primary" size="small">修改</Button>
+                        <Input placeholder={ newApartmentName } onChange={this.onChange1.bind(this, 'placeholder')} className="inline-input"/>
+                        <Button type="primary" size="small" onClick={this.handleClickForEdit.bind(this)}>修改</Button>
                     </div>
                     <div className="ApartmentManage-context-2">
                         <div>在部门<Input placeholder={ placeholder } className="inline-input"/>下</div>
                         <div>
-                            添加新的部门：<Input placeholder="请输入内容" className="inline-input"/>
+                            添加新的部门：<Input placeholder={ addedApartmentName } onChange={this.onChange2.bind(this, 'placeholder')}  className="inline-input"/>
                             <span>（十个汉字以内）</span>
                         </div>
-                        <Button type="primary" size="small">增加部门</Button>
+                        <Button type="primary" size="small" onClick={this.handleClickForAdd.bind(this)}>增加部门</Button>
                     </div>
                 </Layout.Col>
             </div>
         );
     }
+}
+
+function  getList(){
+    this.$post('/dept/list')
+        .then(res=>{
+            this.setState({
+                data: res.data
+            })
+        }).catch(e=>{
+        console.log(e)
+    })
 }
 
 export default ApartmentManage;

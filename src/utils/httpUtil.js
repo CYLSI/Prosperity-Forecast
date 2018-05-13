@@ -4,12 +4,12 @@ import 'element-theme-default';
 
 import { Notification } from 'element-react';
 //
-const url = 'http://172.17.149.195:414';
+const url = 'http://192.168.43.137:414';
 /* 服务器ip地址 */
 
 Axios.defaults.timeout = 5000;//响应时间
 Axios.defaults.baseURL = url;//接口地址
-Axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded :charset=UTF-8';//设置请求头
+Axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';//设置请求头
 Axios.defaults.retry = 2; //重试次数
 Axios.defaults.retryDelay = 1000;//重试延时
 Axios.defaults.shouldRetry = (error) => true;//重试条件，默认只要是错误都需要重试
@@ -37,9 +37,8 @@ Axios.interceptors.request.use(
 Axios.interceptors.response.use(
   (res) => {
 
-    if(res.status != '200' ){
-
-      if(res.status >= '500'){
+    if(res.status !== 200 ){
+      if(res.status >= 500){
         Notification.error({
           title: '错误',
           message: '系统异常，请检查服务端代码'

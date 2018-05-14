@@ -14,7 +14,7 @@ class App extends Component {
         return (
             <div className="App" >
                 <Header/>
-                <Nav route={this.props.location.pathname}/>
+                <Nav route={window.location.hash}/>
                 <Menus/>
                 {this.props.children}
                 <Foot/>

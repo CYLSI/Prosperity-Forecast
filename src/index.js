@@ -12,12 +12,10 @@ import UserGroupManage from "./contents/UserGroupManage/UserGroupManage";
 import UserManage from "./contents/UserManage/UserManage";
 import UserManageAuthorization from './contents/UserManage/UserManageAuthorization/UserManageAuthorization';
 import ModifyPassword from './contents/UserManage/ModifyPassword/ModifyPassword';
-import economicIndicators from './views/dataManage/economicIndicatorsSetting/economicIndicators'
-import IndInfoManage from './views/dataManage/economicIndicatorsSetting/IndInfoManage/IndInfoManage'
-import IndProviderManage from './views/dataManage/economicIndicatorsSetting/IndProviderManage'
-import IndTypeManage from './views/dataManage/economicIndicatorsSetting/IndTypeManage'
-import IndDataManage from './views/dataManage/economicIndicatorsSetting/IndDataManage'
-
+import IndInfoManage from '@views/dataManage/economicIndicatorsSetting/IndInfoManage/IndInfoManage'
+import IndProviderManage from '@views/dataManage/economicIndicatorsSetting/IndProviderManage'
+import IndTypeManage from '@views/dataManage/economicIndicatorsSetting/IndTypeManage'
+import IndDataManage from '@views/dataManage/economicIndicatorsSetting/IndDataManage/IndDataManage'
 ReactDOM.render((
     <Router history={hashHistory}>
         <Route path='/' components={App}>

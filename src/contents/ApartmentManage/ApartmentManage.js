@@ -67,7 +67,7 @@ class ApartmentManage extends Component{
     }
 
     handleClickForAdd(e){
-        console.log(this.state.id,this.state.addedApartmentName);
+        /*console.log(this.state.id,this.state.addedApartmentName);
         let addedApartmentName = this.state.addedApartmentName;
         let id = this.state.id;
             this.$post('/dept/add',{id,addedApartmentName})
@@ -77,7 +77,7 @@ class ApartmentManage extends Component{
                 }
             }).catch(e=>{
             console.log(e)
-        })
+        })*/
     }
 
     constructor(props) {

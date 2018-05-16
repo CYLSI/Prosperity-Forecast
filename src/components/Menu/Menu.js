@@ -27,7 +27,7 @@ class Menus extends Component{
                                 </Menu.SubMenu>
                             </Menu.SubMenu>
                             <Menu.SubMenu index="4" title={<span>数据管理</span>}>
-                              <Menu.SubMenu index='3' title={<p>经济指标设置</p>}>
+                              <Menu.SubMenu index='5' title={<p>经济指标设置</p>}>
                                   <Link to='/dataManage/economicIndicatorsSetting/IndInfoManage'><Menu.Item index="3-1">指标信息管理</Menu.Item></Link>
                                   <Link to='/contents/economicIndicatorsSetting/UserManage'><Menu.Item index="3-2">指标数据项管理</Menu.Item></Link>
                                   <Link to='/contents/economicIndicatorsSetting/UserGroupManage'><Menu.Item index="3-3">指标类别管理</Menu.Item></Link>

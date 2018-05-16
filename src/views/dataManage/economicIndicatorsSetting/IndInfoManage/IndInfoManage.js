@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Layout, Input, Button, Select, Checkbox, Table, Dialog, Form} from 'element-react';
-import './IndInfoManage.css'
+import './IndInfoManage.less'
 class IndInfoManage extends Component {
   constructor(props) {
     super(props)

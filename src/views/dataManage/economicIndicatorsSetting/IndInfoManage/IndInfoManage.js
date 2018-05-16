@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
-import {Layout, Input, Button, Select, Checkbox, Table, Dialog, Form} from 'element-react';
+import {Layout, Input, Button, Select, Checkbox, Table, Form} from 'element-react';
+// import Dialog from '../../../../components/Dialog/Dialog'
+import DialogForm from '@components/Dialog/Dialog'
 import './IndInfoManage.less'
 
 class IndInfoManage extends Component {
@@ -159,27 +161,73 @@ class IndInfoManage extends Component {
         "dept": 2,
         "englishName": "quota4"
       }],
+      checkboxOptions:[],
       dialogVisible: false,
-      dialogData: []
-    }
-  }
+      dialogData: {},
+      dialogForm:[
+        {
+          label:'ID',
+          param:'id'
+        },
+        {
+          label:'代码',
+          param:'code'
+        },
+        {
+          label:'中文名',
+          param:'chineseName'
+        },
+        {
+          label:'英文名',
+          param:'englishName'
+        },
+        {
+          label:'备注',
+          param:'description'
+        },
+        {
+          label:'类型',
+          param:'type'
+        },
+        {
+          label:'部门',
+          param:'dept'
+        },
+        {
+          label:'fuck',
+          type:'checkBox',
+          checkBoxItems:[{freqMonth:'月度'},{freqSeason:'季度'},{freqYear:'年度'}]
 
+        }
+      ]
+    }
+
+  }
+  fuck(){
+    console.log(arguments)
+  }
+  fuck2(){
+    console.log("fuck2")
+  }
   handleClickForEdit(e, row) {
+    this.state.checkboxOptions = "123"
     this.setState({
-      ...this.state,
-      dialogData: row,
+      dialogData: this.$clone(row),
       dialogVisible: true
+      // checkboxOptions:[row.freqMonth==1?'月度':,row.freqSeason==1?'季度':,row.freqYear==1?'年度':]
     })
   }
-  onchange(key,value){
-    console.log(key)
-    console.log(value)
-    console.log(arguments)
-    this.forceUpdate();
+  handleComfirm(e){
+    console.log(e)
+  }
+  onChange(key,value){
+     this.state.dialogData[key] = value
+    this.forceUpdate()
   }
 
+
   render() {
-    const {dialogData, dialogVisible} = this.state
+    const {dialogData, dialogVisible,dialogForm,checkboxOptions} = this.state
     return (
       <Layout.Col span={19}>
         <div className="search">
@@ -217,43 +265,22 @@ class IndInfoManage extends Component {
           headerAlign="center"
           data={this.state.data}
         />
-
-        <Dialog
-          title="修改"
-          visible={dialogVisible}
-          onCancel={e => this.setState({dialogVisible: false})}
+        <DialogForm
           dialogData={dialogData}
-          size="tiny"
+          dialogVislble={dialogVisible}
+          form={dialogForm}
+          handleComfirm={this.handleComfirm}
         >
-          <Dialog.Body>
-            <Form>
-              <Form.Item label="ID" labelWidth="80">
-                <Input value={dialogData.id} className="inline-input"></Input>
-              </Form.Item>
-              <Form.Item label="代码" labelWidth="80">
-                <Input value={dialogData.code} className="inline-input"></Input>
-              </Form.Item>
-              <Form.Item label="中文名称" labelWidth="80">
-                <Input value={dialogData.chinesesName} className="inline-input"></Input>
-              </Form.Item>
-              <Form.Item label="英文名称" labelWidth="80">
-                <Input value={dialogData.englishName} className="inline-input"></Input>
-              </Form.Item>
-              <Form.Item label="备注" labelWidth="80">
-                <Input value={dialogData.description} className="inline-input"></Input>
-              </Form.Item>
-              <Form.Item value="类型" labelWidth="80">
-                <Input value={dialogData.type} className="inline-input"></Input>
-              </Form.Item>
-              <Form.Item label="部门" labelWidth="80">
-                <Input value={dialogData.dept} className="inline-input"></Input>
-              </Form.Item>
-            </Form>
-          </Dialog.Body>
-          <Dialog.Footer className="dialog-footer">
-            <Button type="primary" onClick={() => this.setState({dialogVisible: false})}>确 定</Button>
-          </Dialog.Footer>
-        </Dialog>
+          {/*<Form.Item label="fuck" labelWidth="80">*/}
+            {/*<Checkbox.Group value={checkboxOptions} onChange={(e,b,c)=>{this.fuck(e,b,c)}}>*/}
+              {/*<Checkbox label="月度"  name="type"  ></Checkbox>*/}
+              {/*<Checkbox label="季度"  name="type" ></Checkbox>*/}
+              {/*<Checkbox label="年度"  name="type"  ></Checkbox>*/}
+            {/*</Checkbox.Group>*/}
+          {/*</Form.Item>*/}
+
+        </DialogForm>
+
       </Layout.Col>
     );
   }

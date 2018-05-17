@@ -5,12 +5,14 @@ import Nav from './components/Nav/Nav';
 import Foot from './components/Foot/Foot';
 import Menus from "./components/Menu/Menu";
 import { post,get } from './utils/httpUtil.js';
+import clone from './utils/clone';
 Component.prototype.$post = post;
 Component.prototype.$get = get;
-
+Component.prototype.$clone = clone
 class App extends Component {
     render() {
       console.log(this.props)
+      console.dir(this.$clone({a:1}))
         return (
             <div className="App" >
                 <Header/>

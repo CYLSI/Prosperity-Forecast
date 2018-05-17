@@ -15,7 +15,7 @@ class Menus extends Component{
     render(){
         return(
                 <Layout.Col span={5}>
-                    <Menu className="el-menu-vertical-demo" defaultOpeneds={['1']} uniqueOpened = {true} >
+                    <Menu className="el-menu-vertical-demo" defaultOpeneds={['1']} uniqueOpened = {true} onSelect={e => this.handleClick(e)}>
                         <Menu.SubMenu className={this.props.className} index="1" title="首页">
                             <Menu.SubMenu index='2' title={<span>系统管理</span>}>
                                 <Menu.SubMenu index='3' title={<p>用户与权限管理</p>}>
@@ -27,28 +27,28 @@ class Menus extends Component{
                                 </Menu.SubMenu>
                             </Menu.SubMenu>
                             <Menu.SubMenu index="4" title={<span>数据管理</span>}>
-                              <Menu.SubMenu index='3' title={<p>经济指标设置</p>}>
-                                  <Link to='/dataManage/economicIndicatorsSetting/IndInfoManage'><Menu.Item index="3-1">指标信息管理</Menu.Item></Link>
-                                  <Link to='/dataManage/economicIndicatorsSetting/IndDataManage'><Menu.Item index="3-2">指标数据项管理</Menu.Item></Link>
-                                  <Link to='/contents/economicIndicatorsSetting/UserGroupManage'><Menu.Item index="3-3">指标类别管理</Menu.Item></Link>
-                                  <Link to='/contents/economicIndicatorsSetting/RoleManage'><Menu.Item index="3-4">指标提供者管理</Menu.Item></Link>
+                              <Menu.SubMenu index='5' title={<p>经济指标设置</p>}>
+                                  <Link to='/dataManage/economicIndicatorsSetting/IndInfoManage'><Menu.Item index="5-1">指标信息管理</Menu.Item></Link>
+                                  <Link to='/dataManage/economicIndicatorsSetting/IndDataManage'><Menu.Item index="5-2">指标数据项管理</Menu.Item></Link>
+                                  <Link to='/dataManage/economicIndicatorsSetting/IndTypeManage'><Menu.Item index="5-3">指标类别管理</Menu.Item></Link>
+                                  <Link to='/dataManage/economicIndicatorsSetting/IndProviderManage'><Menu.Item index="5-4">指标提供者管理</Menu.Item></Link>
                               </Menu.SubMenu>
                               </Menu.SubMenu>
 
-                            <Menu.SubMenu index="5" title={<span>基本分析工具</span>}>
-                                <Menu.Item index="1-1">选项3</Menu.Item>
+                            <Menu.SubMenu index="6" title={<span>基本分析工具</span>}>
+                                <Menu.Item index="6-1">选项3</Menu.Item>
                             </Menu.SubMenu>
-                            <Menu.SubMenu index="6" title={<span>模型配置</span>}>
-                                <Menu.Item index="1-1">选项3</Menu.Item>
+                            <Menu.SubMenu index="7" title={<span>模型配置</span>}>
+                                <Menu.Item index="7-1">选项3</Menu.Item>
                             </Menu.SubMenu>
-                            <Menu.SubMenu index="7" title={<span>主题分析</span>}>
-                                <Menu.Item index="1-1">选项3</Menu.Item>
+                            <Menu.SubMenu index="8" title={<span>主题分析</span>}>
+                                <Menu.Item index="8-1">选项3</Menu.Item>
                             </Menu.SubMenu>
-                            <Menu.SubMenu index="8" title={<span>景气预测</span>}>
-                                <Menu.Item index="1-1">选项3</Menu.Item>
+                            <Menu.SubMenu index="9" title={<span>景气预测</span>}>
+                                <Menu.Item index="9-1">选项3</Menu.Item>
                             </Menu.SubMenu>
-                            <Menu.SubMenu index="9" title={<span>展示层配置</span>}>
-                                <Menu.Item index="1-1">选项3</Menu.Item>
+                            <Menu.SubMenu index="10" title={<span>展示层配置</span>}>
+                                <Menu.Item index="10-1">选项3</Menu.Item>
                             </Menu.SubMenu>
                         </Menu.SubMenu>
                     </Menu>

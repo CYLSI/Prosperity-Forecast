@@ -140,9 +140,10 @@ class UserManage extends Component{
                 role: '',
                 email: '',
                 contact: '',
-                remark: ''
-            },
-            id: ''
+                remark: '',
+                 id: ''
+            }
+
         }
     }
 

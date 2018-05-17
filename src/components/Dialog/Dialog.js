@@ -78,13 +78,12 @@ class DialogForm extends Component{
               <Form.Item label={item.label} labelWidth="80">
                 <Checkbox.Group value={checkBoxItems }>
                   {
-                    item.checkBoxItems.map( checkBoxItem => {
+                    item.checkBoxItems.map( checkBoxItem =>
 
-                        return {
-                          for(let a in 10)
+
                             <Checkbox label={123} name="type"></Checkbox>
-                      }
-                      }
+
+
                     )
                   }
                 </Checkbox.Group>

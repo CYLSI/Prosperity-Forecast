@@ -42,7 +42,7 @@ class IndInfoManage extends Component {
           render: (row,column,index) =>
 
                 <Checkbox.Group >
-                  <Checkbox disabled={true}  name="type" checked={row.freqMonth}></Checkbox>
+                  <Checkbox disabled={true}  name="type" checked={row.freqMonth?true:false}></Checkbox>
                 </Checkbox.Group>
 
 
@@ -53,7 +53,7 @@ class IndInfoManage extends Component {
           align: "center",
           render: (row,column,index) =>
             <Checkbox.Group>
-              <Checkbox disabled={true}  name="type" checked={row.freqSeason}></Checkbox>
+              <Checkbox disabled={true}  name="type" checked={row.freqSeason?true:false}></Checkbox>
             </Checkbox.Group>
 
         },
@@ -63,7 +63,7 @@ class IndInfoManage extends Component {
           align: "center",
           render: (row,column,index) =>
             <Checkbox.Group >
-              <Checkbox disabled={true}  name="type" checked={row.freqYear}></Checkbox>
+              <Checkbox disabled={true}  name="type" checked={row.freqYear?true:false}></Checkbox>
             </Checkbox.Group>
         },
         {
@@ -270,35 +270,7 @@ class IndInfoManage extends Component {
           form={dialogForm}
           handleComfirm={this.handleComfirm}
         >
-          <Dialog.Body>
-            <Form>
-              <Form.Item label="登录名" labelWidth="80">
-                <Input value={dialogData.code} className="inline-input"></Input>
-              </Form.Item>
-              <Form.Item label="用户名" labelWidth="80">
-                <Input vlaue={dialogData.name} className="inline-input"></Input>
-              </Form.Item>
-              <Form.Item label="用户职务" labelWidth="80">
-                <Input value={dialogData.duties} className="inline-input"></Input>
-              </Form.Item>
-              <Form.Item label="部门" labelWidth="80">
-                <Input value={dialogData.apartment} className="inline-input"></Input>
-              </Form.Item>
-              <Form.Item label="用户组" labelWidth="80">
-                <Input value={dialogData.userGroup} className="inline-input"></Input>
-              </Form.Item>
-              <Form.Item value="电子邮件" labelWidth="80">
-                <Input value={dialogData.email} className="inline-input"></Input>
-              </Form.Item>
-              <Form.Item label="联系电话" labelWidth="80">
-                <Input value={dialogData.contact} className="inline-input"></Input>
-              </Form.Item>
-            </Form>
-          </Dialog.Body>
-          <Dialog.Footer className="dialog-footer">
-            <Button type="primary" onClick={ () => this.setState({ dialogVisible: false }) }>确 定</Button>
-          </Dialog.Footer>
-        </Dialog>
+        </DialogForm>
       </Layout.Col>
     );
   }

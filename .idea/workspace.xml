@@ -3,12 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="231f918f-4178-44e8-ac4a-e618a0014516" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/config/webpack.config.dev.js" afterPath="$PROJECT_DIR$/config/webpack.config.dev.js" />
-      <change beforePath="$PROJECT_DIR$/config/webpack.config.prod.js" afterPath="$PROJECT_DIR$/config/webpack.config.prod.js" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" afterPath="$PROJECT_DIR$/src/App.js" />
-      <change beforePath="$PROJECT_DIR$/src/contents/UserManage/UserManage.js" afterPath="$PROJECT_DIR$/src/contents/UserManage/UserManage.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/dataManage/economicIndicatorsSetting/IndInfoManage/IndInfoManage.js" afterPath="$PROJECT_DIR$/src/views/dataManage/economicIndicatorsSetting/IndInfoManage/IndInfoManage.js" />
+      <change beforePath="$PROJECT_DIR$/src/utils/httpUtil.js" afterPath="$PROJECT_DIR$/src/utils/httpUtil.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -94,15 +89,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Dialog.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Dialog.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Dialog/Dialog.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="395">
-              <caret line="84" column="28" lean-forward="false" selection-start-line="84" selection-start-column="28" selection-end-line="84" selection-end-column="28" />
+            <state relative-caret-position="1694">
+              <caret line="80" column="61" lean-forward="false" selection-start-line="80" selection-start-column="61" selection-end-line="80" selection-end-column="61" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
                 <element signature="n#!!block;n#onChange#0;n#DialogForm#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="httpUtil.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/utils/httpUtil.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="395">
+              <caret line="145" column="18" lean-forward="true" selection-start-line="145" selection-start-column="18" selection-end-line="145" selection-end-column="18" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -112,16 +117,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="132">
               <caret line="6" column="30" lean-forward="false" selection-start-line="6" selection-start-column="30" selection-end-line="6" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Dialog.less" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/Dialog/Dialog.less">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="22">
-              <caret line="1" column="23" lean-forward="false" selection-start-line="1" selection-start-column="23" selection-end-line="1" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -183,7 +178,6 @@
         <option value="$PROJECT_DIR$/src/contents/RoleManage/RoleManage.js" />
         <option value="$PROJECT_DIR$/src/contents/UserGroupManage/UserGroupManage.js" />
         <option value="$PROJECT_DIR$/src/contents/ModulesManage/ModulesManage.js" />
-        <option value="$PROJECT_DIR$/src/utils/httpUtil.js" />
         <option value="$PROJECT_DIR$/src/contents/ApartmentManage/ApartmentManage.js" />
         <option value="$PROJECT_DIR$/src/components/Nav/Nav.js" />
         <option value="$PROJECT_DIR$/src/index.js" />
@@ -199,6 +193,7 @@
         <option value="$PROJECT_DIR$/啊啊啊.html" />
         <option value="$PROJECT_DIR$/src/views/dataManage/economicIndicatorsSetting/IndInfoManage/IndInfoManage.js" />
         <option value="$PROJECT_DIR$/src/components/Dialog/Dialog.js" />
+        <option value="$PROJECT_DIR$/src/utils/httpUtil.js" />
       </list>
     </option>
   </component>
@@ -218,9 +213,8 @@
       <path value="$PROJECT_DIR$/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="198" />
-    <option name="y" value="57" />
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
     <option name="width" value="1440" />
     <option name="height" value="820" />
   </component>
@@ -239,7 +233,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -247,11 +240,44 @@
               <item name="Prosperity-Forecast" type="b2602c69:ProjectViewProjectNode" />
               <item name="Prosperity-Forecast" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="Prosperity-Forecast" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Prosperity-Forecast" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Prosperity-Forecast" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Prosperity-Forecast" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Prosperity-Forecast" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Prosperity-Forecast" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Prosperity-Forecast" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Prosperity-Forecast" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="dataManage" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Prosperity-Forecast" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Prosperity-Forecast" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="dataManage" type="462c0819:PsiDirectoryNode" />
+              <item name="economicIndicatorsSetting" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -360,7 +386,9 @@
       <workItem from="1526196951028" duration="4960000" />
       <workItem from="1526227415395" duration="35626000" />
       <workItem from="1526392610167" duration="7940000" />
-      <workItem from="1526440860611" duration="38000" />
+      <workItem from="1526440860611" duration="2748000" />
+      <workItem from="1526521463851" duration="3448000" />
+      <workItem from="1526567201368" duration="11000" />
     </task>
     <task id="LOCAL-00001" summary="啊啊">
       <created>1526196702644</created>
@@ -390,24 +418,40 @@
       <option name="project" value="LOCAL" />
       <updated>1526285390870</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="添加dialogform">
+      <created>1526440948200</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1526440948201</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="168557000" />
+    <option name="totallyTimeSpent" value="174726000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="820" extended-state="6" />
+    <frame x="0" y="23" width="1440" height="820" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20436928" sideWeight="0.5802469" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20436928" sideWeight="0.5617284" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32965517" sideWeight="0.49753347" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32965517" sideWeight="0.5109232" order="10" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32965517" sideWeight="0.48907682" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20436928" sideWeight="0.41975307" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32965517" sideWeight="0.52219874" order="10" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32965517" sideWeight="0.47780126" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20436928" sideWeight="0.4382716" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32965517" sideWeight="0.4947146" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.52827585" sideWeight="0.5792812" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.52827585" sideWeight="0.57575756" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -456,7 +500,8 @@
     <MESSAGE value="eject" />
     <MESSAGE value="push" />
     <MESSAGE value="Merge branch 'master' of https://github.com/PengKen/React" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'master' of https://github.com/PengKen/React" />
+    <MESSAGE value="添加dialogform" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加dialogform" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -666,9 +711,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
           <caret line="91" column="107" lean-forward="false" selection-start-line="91" selection-start-column="69" selection-end-line="91" selection-end-column="107" />
-          <folding>
-            <element signature="e#0#41#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -690,13 +732,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="242">
           <caret line="65" column="17" lean-forward="true" selection-start-line="65" selection-start-column="17" selection-end-line="65" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/httpUtil.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="12" column="32" lean-forward="false" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
         </state>
       </provider>
     </entry>
@@ -747,7 +782,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="22">
           <caret line="1" column="23" lean-forward="false" selection-start-line="1" selection-start-column="23" selection-end-line="1" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -832,12 +866,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Dialog/Dialog.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="395">
-          <caret line="84" column="28" lean-forward="false" selection-start-line="84" selection-start-column="28" selection-end-line="84" selection-end-column="28" />
+        <state relative-caret-position="1694">
+          <caret line="80" column="61" lean-forward="false" selection-start-line="80" selection-start-column="61" selection-end-line="80" selection-end-column="61" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
             <element signature="n#!!block;n#onChange#0;n#DialogForm#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/httpUtil.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="395">
+          <caret line="145" column="18" lean-forward="true" selection-start-line="145" selection-start-column="18" selection-end-line="145" selection-end-column="18" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -8,17 +8,16 @@ class Nav extends Component{
     super(props)
     let routes = props.route.split('/').slice(1)
     this.state = {
-      routes
+        routes: routes
     }
-
   }
 
     render(){
         return(
             <div className='App-header-Breadcrumb'>
-                <Breadcrumb separator=">">
+                <Breadcrumb>
                     <Breadcrumb.Item>首页</Breadcrumb.Item>
-                    {this.state.routes.map((route)=> <Breadcrumb.Item>{routes.get(route)}</Breadcrumb.Item> )}
+                    {this.state.routes.map((route) => <Breadcrumb.Item key={route}>{routes.get(route)}</Breadcrumb.Item> )}
                 </Breadcrumb>
             </div>
         );

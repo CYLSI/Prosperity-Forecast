@@ -8,7 +8,7 @@ class IndInfoManage extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      type: [],
+      type:[],
       columns: [
         {
           label: "ID",
@@ -42,7 +42,7 @@ class IndInfoManage extends Component {
           render: (row,column,index) =>
 
                 <Checkbox.Group >
-                  <Checkbox disabled={true}  name="type" checked={row.freqMonth}></Checkbox>
+                  <Checkbox disabled={true}  name="type" checked={row.freqMonth?true:false}></Checkbox>
                 </Checkbox.Group>
 
 
@@ -53,7 +53,7 @@ class IndInfoManage extends Component {
           align: "center",
           render: (row,column,index) =>
             <Checkbox.Group>
-              <Checkbox disabled={true}  name="type" checked={row.freqSeason}></Checkbox>
+              <Checkbox disabled={true}  name="type" checked={row.freqSeason?true:false}></Checkbox>
             </Checkbox.Group>
 
         },
@@ -63,7 +63,7 @@ class IndInfoManage extends Component {
           align: "center",
           render: (row,column,index) =>
             <Checkbox.Group >
-              <Checkbox disabled={true}  name="type" checked={row.freqYear}></Checkbox>
+              <Checkbox disabled={true}  name="type" checked={row.freqYear?true:false}></Checkbox>
             </Checkbox.Group>
         },
         {
@@ -214,7 +214,6 @@ class IndInfoManage extends Component {
     this.setState({
       dialogData: this.$clone(row),
       dialogVisible: true
-      // checkboxOptions:[row.freqMonth==1?'月度':,row.freqSeason==1?'季度':,row.freqYear==1?'年度':]
     })
   }
   handleComfirm(e){
@@ -271,16 +270,7 @@ class IndInfoManage extends Component {
           form={dialogForm}
           handleComfirm={this.handleComfirm}
         >
-          {/*<Form.Item label="fuck" labelWidth="80">*/}
-            {/*<Checkbox.Group value={checkboxOptions} onChange={(e,b,c)=>{this.fuck(e,b,c)}}>*/}
-              {/*<Checkbox label="月度"  name="type"  ></Checkbox>*/}
-              {/*<Checkbox label="季度"  name="type" ></Checkbox>*/}
-              {/*<Checkbox label="年度"  name="type"  ></Checkbox>*/}
-            {/*</Checkbox.Group>*/}
-          {/*</Form.Item>*/}
-
         </DialogForm>
-
       </Layout.Col>
     );
   }

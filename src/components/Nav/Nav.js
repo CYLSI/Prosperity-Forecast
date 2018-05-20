@@ -13,9 +13,9 @@ class Nav extends Component{
   }
   componentWillReceiveProps(nextProps){
     let routes =nextProps.route.split('/').slice(1)
-    this.state = {
+    this.setState({
       routes: routes
-    }
+    })
   }
     render(){
     console.log("render")

@@ -81,7 +81,7 @@ class DialogForm extends Component{
                     item.checkBoxItems.map( checkBoxItem =>
 
 
-                            <Checkbox label={123} name="type"></Checkbox>
+                            <Checkbox label={"aaa"} key={item.label} name="type"></Checkbox>
 
 
                     )

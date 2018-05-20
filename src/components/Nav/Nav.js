@@ -11,8 +11,14 @@ class Nav extends Component{
         routes: routes
     }
   }
-
+  componentWillReceiveProps(nextProps){
+    let routes =nextProps.route.split('/').slice(1)
+    this.state = {
+      routes: routes
+    }
+  }
     render(){
+    console.log("render")
         return(
             <div className='App-header-Breadcrumb'>
                 <Breadcrumb>

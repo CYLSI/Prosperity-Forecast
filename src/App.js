@@ -12,7 +12,6 @@ Component.prototype.$clone = clone
 class App extends Component {
     render() {
       console.log(this.props)
-      console.dir(this.$clone({a:1}))
         return (
             <div className="App" >
                 <Header/>

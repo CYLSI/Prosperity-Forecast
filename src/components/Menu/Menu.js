@@ -15,7 +15,7 @@ class Menus extends Component{
     render(){
         return(
                 <Layout.Col span={5}>
-                    <Menu className="el-menu-vertical-demo" defaultOpeneds={['1']} uniqueOpened = {true} onSelect={e => this.handleClick(e)}>
+                    <Menu className="el-menu-vertical-demo" defaultOpeneds={['1']} uniqueOpened = {true} >
                         <Menu.SubMenu className={this.props.className} index="1" title="首页">
                             <Menu.SubMenu index='2' title={<span>系统管理</span>}>
                                 <Menu.SubMenu index='3' title={<p>用户与权限管理</p>}>

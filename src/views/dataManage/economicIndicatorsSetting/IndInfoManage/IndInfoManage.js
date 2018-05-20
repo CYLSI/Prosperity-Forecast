@@ -193,12 +193,30 @@ class IndInfoManage extends Component {
           label:'部门',
           param:'dept'
         },
-        {
-          label:'fuck',
-          type:'checkBox',
-          checkBoxItems:[{freqMonth:'月度'},{freqSeason:'季度'},{freqYear:'年度'}]
-
-        }
+        // {
+        //   label:'fuck',
+        //   type:'checkBox',
+        //   checkBoxItems:[{freqMonth:'月度'},{freqSeason:'季度'},{freqYear:'年度'}]
+        //
+        // }
+          {
+              label:'月度',
+              type:'checkBox',
+              checkBoxItems:[{freqMonth:'月度'}],
+              param:"freqMonth"
+          },
+          {
+              label:'季度',
+              type:'checkBox',
+              checkBoxItems:[{freqSeason:'季度'}],
+              param:"freqSeason"
+          },
+          {
+              label:'年度',
+              type:'checkBox',
+              checkBoxItems:[{freqYear:'年度'}],
+              param:"freqYear"
+          }
       ]
     }
 

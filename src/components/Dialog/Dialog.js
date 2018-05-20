@@ -12,6 +12,7 @@ class DialogForm extends Component{
     }
 
   }
+
   componentWillReceiveProps(nextProps){
     let checkBoxItems = []
     nextProps.form.map((item)=>{
@@ -76,15 +77,12 @@ class DialogForm extends Component{
 
               return(
               <Form.Item label={item.label} labelWidth="80">
-                <Checkbox.Group value={checkBoxItems }>
+                <Checkbox.Group value={checkBoxItems}  onChange={this.onChange.bind(this,item.param)}>
                   {
                     item.checkBoxItems.map( checkBoxItem =>
-
-
-                            <Checkbox label={123} name="type"></Checkbox>
-
-
+                        <Checkbox label={item.label} name="type" checked={dialogData[item.param]}></Checkbox>
                     )
+
                   }
                 </Checkbox.Group>
               </Form.Item>

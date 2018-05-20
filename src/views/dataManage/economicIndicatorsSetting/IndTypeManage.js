@@ -1,12 +1,9 @@
-import React, { Component } from 'react';
-class IndTypeManage extends  Component {
-    render() {
+import React,{Component} from  'react';
+class IndTypeManage extends Component{
+    render(){
         return (
-            <div>
-
-            </div>
+            <div></div>
         )
-
     }
 }
 export default IndTypeManage

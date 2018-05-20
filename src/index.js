@@ -15,7 +15,7 @@ import ModifyPassword from './contents/UserManage/ModifyPassword/ModifyPassword'
 import IndInfoManage from '@views/dataManage/economicIndicatorsSetting/IndInfoManage/IndInfoManage'
 import IndDataManage from '@views/dataManage/economicIndicatorsSetting/IndDataManage/IndDataManage'
 import IndProviderManage from '@views/dataManage/economicIndicatorsSetting/IndProviderManage'
-import IndTypeManage from '@views/dataManage/economicIndicatorsSetting/IndTypeManage'
+import IndTypeManage from '@views/dataManage/economicIndicatorsSetting/IndTypeManage/IndTypeManage'
 ReactDOM.render((
     <Router history={hashHistory}>
         <Route path='/' components={App}>

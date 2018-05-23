@@ -16,6 +16,7 @@ import IndInfoManage from '@views/dataManage/economicIndicatorsSetting/IndInfoMa
 import IndDataManage from '@views/dataManage/economicIndicatorsSetting/IndDataManage/IndDataManage'
 import IndProviderManage from '@views/dataManage/economicIndicatorsSetting/IndProviderManage'
 import IndTypeManage from '@views/dataManage/economicIndicatorsSetting/IndTypeManage/IndTypeManage'
+import relationAnalyse from "./views/basicAnalyseTool/relationAnalyse";
 ReactDOM.render((
     <Router history={hashHistory}>
         <Route path='/' components={App}>
@@ -39,6 +40,11 @@ ReactDOM.render((
           <Route path='/dataManage/economicIndicatorsSetting/IndProviderManage' component={IndProviderManage}/>
 
 
+          /*
+            基本分析工具
+           */
+          <Route path='/basicAnalyseTool/relationAnalyse' component={relationAnalyse}/>
+          <Route path='/basicAnalyseTool/relationAnalyse' component={relationAnalyse}/>
 
 
         </Route>

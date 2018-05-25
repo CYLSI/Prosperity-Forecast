@@ -55,19 +55,8 @@ class Menus extends Component{
                             <Menu.SubMenu index="6" title={<span>基本分析工具</span>}>
                               <Link to='/basicAnalyseTool/relationAnalyse'><Menu.Item index="5-1">相关性分析</Menu.Item></Link>
                             </Menu.SubMenu>
-                            <Menu.SubMenu index="7" title={<span>模型配置</span>}>
-                                <Menu.Item index="7-1">选项3</Menu.Item>
-                            </Menu.SubMenu>
-                            <Menu.SubMenu index="8" title={<span>主题分析</span>}>
-                                <Menu.Item index="8-1">选项3</Menu.Item>
-                            </Menu.SubMenu>
-                            <Menu.SubMenu index="9" title={<span>景气预测</span>}>
-                                <Menu.Item index="9-1">选项3</Menu.Item>
-                            </Menu.SubMenu>
 
-                            <Menu.SubMenu index="10" title={<span>基本分析工具</span>}>
-                                <Menu.Item index="10-1">选项3</Menu.Item>
-                            </Menu.SubMenu>
+
                             <Menu.SubMenu index="11" title={<span>模型配置</span>}>
                                 <Menu.Item index="11-1">选项3</Menu.Item>
                             </Menu.SubMenu>

@@ -113,26 +113,26 @@ function get (url, params = {}){
 }
 
 
- async function post(url ,data = {}){
-  return Axios.post(url,data)
-    .then(res=>{
-      return res
-    }).catch(err => {
-      console.log("error")
-    })
- }
-//  function post(url, data = {}){
-//   return new Promise((reslove,reject) => {
-//     Axios.post(url,data)
-//       .then(
-//         (response) => {
-//           reslove(response);
-//         }).catch(
-//       (error) => {
-//         reject(error);
-//       })
-//   })
-// }
+ // async function post(url ,data = {}){
+ //  return Axios.post(url,data)
+ //    .then(res=>{
+ //      return res
+ //    }).catch(err => {
+ //      console.log("error")
+ //    })
+ // }
+ function post(url, data = {}){
+  return new Promise((reslove,reject) => {
+    Axios.post(url,data)
+      .then(
+        (response) => {
+          reslove(response);
+        }).catch(
+      (error) => {
+        reject(error);
+      })
+  })
+}
 /*
     使用方法:
     在组件的任意位置都可以调用

@@ -1,6 +1,14 @@
 import React,{Component} from  'react'
 import {Form,Checkbox} from 'element-react'
+import { PubSub } from 'pubsub-js'
+
 class IndDataManage extends Component{
+
+    componentDidMount(){
+        // this.getList()
+        PubSub.publish('route',this.props.location.pathname);
+    }
+
   constructor(props) {
     super(props);
 

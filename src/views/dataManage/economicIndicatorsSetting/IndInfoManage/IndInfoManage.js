@@ -1,10 +1,15 @@
 import React, {Component} from 'react'
-import {Layout, Input, Button, Select, Checkbox, Table, Form} from 'element-react';
-// import Dialog from '../../../../components/Dialog/Dialog'
+import {Layout, Input, Button, Select, Checkbox, Table} from 'element-react';
 import DialogForm from '@components/Dialog/Dialog'
 import './IndInfoManage.less'
+import { PubSub } from 'pubsub-js'
 
 class IndInfoManage extends Component {
+
+    componentDidMount(){
+        PubSub.publish('route',this.props.location.pathname);
+    }
+
   constructor(props) {
     super(props)
     this.state = {

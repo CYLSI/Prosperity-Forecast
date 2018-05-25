@@ -7,18 +7,18 @@ import { PubSub } from 'pubsub-js'
 
 class Nav extends Component{
 
-    componentDidMount(){
-        this.pubsub_token = PubSub.subscribe('route', function (topic,message) {
-            let routes = message.split('/').slice(1);
-            this.setState({
-                routes: routes
-            })
-        }.bind(this));
-    }
-
-    componentWillUnmount(){
-       PubSub.unsubscribe(this.pubsub_token);
-    }
+    // componentDidMount(){
+    //     this.pubsub_token = PubSub.subscribe('route', function (topic,message) {
+    //         let routes = message.split('/').slice(1);
+    //         this.setState({
+    //             routes: routes
+    //         })
+    //     }.bind(this));
+    // }
+    //
+    // componentWillUnmount(){
+    //    PubSub.unsubscribe(this.pubsub_token);
+    // }
 
   constructor(props){
       super(props)
@@ -32,9 +32,10 @@ class Nav extends Component{
     this.setState({
       routes: routes
     })
+
   }
     render(){
-    console.log("render")
+      console.log(this.state.routes)
         return(
             <div className='App-header-Breadcrumb'>
                 <Breadcrumb>

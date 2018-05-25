@@ -13,7 +13,7 @@ class UserManage extends Component{
             .then(res=>{
                 console.log(res)
                 this.setState({
-                    data: res
+                    // data: res
                 })
             }).catch(e=>{
             console.log(e)

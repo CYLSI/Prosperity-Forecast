@@ -34,10 +34,13 @@ class Menus extends Component{
                                   <Link to='/dataManage/economicIndicatorsSetting/IndProviderManage'><Menu.Item index="5-4">指标提供者管理</Menu.Item></Link>
                               </Menu.SubMenu>
                                 <Menu.SubMenu index='6' title={<p>指标数据管理</p>}>
-                                    <Menu.SubMenu index="7" title={<p className="el-submenu__titles">月度数据管理</p>}>
-                                        <Link to='/dataManage/indexDataManage/MonthlyDataManage/MonthlyDataQuery'><Menu.Item index="7-1">月度数据查询</Menu.Item></Link>
-                                        <Link to= '/dataManage/indexDataManage/MonthlyDataManage/MonthlyDataImport'><Menu.Item index="7-2">月度数据导入</Menu.Item></Link>
+                                  <Link to='/dataManage/indexDataManage/MonthlyDataManage/MonthlyDataQuery'>
+                                    <Menu.SubMenu  index="7" title={<p className="el-submenu__titles">月度数据管理</p>}>
+                                      <Link to='/dataManage/indexDataManage/MonthlyDataManage/MonthlyDataQuery'><Menu.Item index="7-1">月度数据查询</Menu.Item></Link>
+                                      <Link to= '/dataManage/indexDataManage/MonthlyDataManage/MonthlyDataImport'><Menu.Item index="7-2">月度数据导入</Menu.Item></Link>
                                     </Menu.SubMenu>
+                                  </Link>
+
                                     <Menu.SubMenu index="8" title={<p className="el-submenu__titles">季度数据管理</p>}>
                                         <Link to='/dataManage/indexDataManage/MonthlyDataManage/QuarterlyDataQuery'><Menu.Item index="8-1">季度数据查询</Menu.Item></Link>
                                         <Link to= '/dataManage/indexDataManage/MonthlyDataManage/QuarterlyDataImport'><Menu.Item index="8-2">季度数据导入</Menu.Item></Link>

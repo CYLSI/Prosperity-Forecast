@@ -118,7 +118,7 @@ function get (url, params = {}){
     .then(res=>{
       return res
     }).catch(err => {
-      return err
+      console.log("error")
     })
  }
 //  function post(url, data = {}){

@@ -15,7 +15,7 @@ import IndInfoManage from '@views/dataManage/economicIndicatorsSetting/IndInfoMa
 import IndDataManage from '@views/dataManage/economicIndicatorsSetting/IndDataManage/IndDataManage'
 import IndProviderManage from '@views/dataManage/economicIndicatorsSetting/IndProviderManage'
 import IndTypeManage from '@views/dataManage/economicIndicatorsSetting/IndTypeManage'
-import MonthlyDataImport from '@views/dataManage/indexDataManage/MonthlyDataManage/MonthlyDataImport'
+import MonthlyDataImport from '@views/dataManage/indexDataManage/MonthlyDataManage/MonthlyDataImport/MonthlyDataImport'
 import MonthlyDataQuery from '@views/dataManage/indexDataManage/MonthlyDataManage/MonthlyDataQuery/MonthlyDataQuery'
 import AnnualDataImport from '@views/dataManage/indexDataManage/AnnualDataManage/AnnualDataImport'
 import AnnualDataQuery from '@views/dataManage/indexDataManage/AnnualDataManage/AnnualDataQuery'

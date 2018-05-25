@@ -7,7 +7,19 @@ import { PubSub } from 'pubsub-js'
 class IndInfoManage extends Component {
 
     componentDidMount(){
-        PubSub.publish('route',this.props.location.pathname);
+      this.$post('/quota/list')
+        .then(res => {
+          this.setState({
+            // data:res
+          })
+        })
+    }
+
+    handleDelete(e,row){
+      this.$post('/quota/del',{id:3})
+        .then(res => {
+          console.log(res)
+        })
     }
 
   constructor(props) {
@@ -93,7 +105,7 @@ class IndInfoManage extends Component {
             return (
               <div className="operation">
               <Button type="text" size="small" onClick={e => this.handleClickForEdit(e, row)}>编辑</Button>
-              <Button type="text" size="small">删除</Button>
+              <Button type="text" size="small" onClick={e => this.handleDelete(e, row)}>删除</Button>
                 </div>
             )
           }

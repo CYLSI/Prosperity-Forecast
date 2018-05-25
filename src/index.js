@@ -15,6 +15,7 @@ import IndInfoManage from '@views/dataManage/economicIndicatorsSetting/IndInfoMa
 import IndDataManage from '@views/dataManage/economicIndicatorsSetting/IndDataManage/IndDataManage'
 import IndProviderManage from '@views/dataManage/economicIndicatorsSetting/IndProviderManage'
 import IndTypeManage from '@views/dataManage/economicIndicatorsSetting/IndTypeManage'
+import MonthlyDataManage from '@views/dataManage/indexDataManage/MonthlyDataManage/MonthlyDataManage'
 import MonthlyDataImport from '@views/dataManage/indexDataManage/MonthlyDataManage/MonthlyDataImport/MonthlyDataImport'
 import MonthlyDataQuery from '@views/dataManage/indexDataManage/MonthlyDataManage/MonthlyDataQuery/MonthlyDataQuery'
 import AnnualDataImport from '@views/dataManage/indexDataManage/AnnualDataManage/AnnualDataImport'
@@ -41,6 +42,7 @@ ReactDOM.render((
             <Route path='/dataManage/economicIndicatorsSetting/IndDataManage' component={IndDataManage}/>
             <Route path='/dataManage/economicIndicatorsSetting/IndTypeManage' component={IndTypeManage}/>
             <Route path='/dataManage/economicIndicatorsSetting/IndProviderManage' component={IndProviderManage}/>
+            <Route path='/dataManage/indexDataManage/MonthlyDataManage/MonthlyDataManage' component={MonthlyDataManage}/>
             <Route path='/dataManage/indexDataManage/MonthlyDataManage/MonthlyDataQuery' component={MonthlyDataQuery}/>
             <Route path='/dataManage/indexDataManage/MonthlyDataManage/MonthlyDataImport' component={MonthlyDataImport}/>
             <Route path='/dataManage/indexDataManage/MonthlyDataManage/AnnualDataQuery' component={AnnualDataQuery}/>

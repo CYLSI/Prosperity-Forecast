@@ -96,7 +96,7 @@ class UserGroupManage extends Component{
                 },
                 {
                     label: "用户组名称",
-                    prop: "userGroupName",
+                    prop: "name",
                 },
                 {
                     label: "操作",

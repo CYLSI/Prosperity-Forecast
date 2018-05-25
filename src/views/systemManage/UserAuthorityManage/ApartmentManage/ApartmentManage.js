@@ -44,20 +44,20 @@ class ApartmentManage extends Component{
     }
 
     handleClickForEdit(e){
-       /* let addedApartmentName = this.state.addedApartmentName;
+        let name = this.state.newApartmentName;
         let id = this.state.id;
-            this.$post('/dept/list',{id,addedApartmentName})
+            this.$post('/dept/upd',{id,name})
             .then(res=>{
                 if(res === 1){
                    this.getList()
                 }
             }).catch(e=>{
             console.log(e)
-        })*/
+        })
     }
 
     handleClickForDelete(e){
-      /* let id = this.state.id
+      let id = this.state.id
             this.$post('/dept/del',{id})
             .then(res=>{
                if(res === 1){
@@ -65,21 +65,20 @@ class ApartmentManage extends Component{
                }
             }).catch(e=>{
             console.log(e)
-        })*/
+        })
     }
 
     handleClickForAdd(e){
-        /*console.log(this.state.id,this.state.addedApartmentName);
-        let addedApartmentName = this.state.addedApartmentName;
-        let id = this.state.id;
-            this.$post('/dept/add',{id,addedApartmentName})
+        let name = this.state.addedApartmentName;
+        let parent = this.state.id;
+            this.$post('/dept/add',{parent,name})
             .then(res=>{
                 if(res === 1){
                    this.getList()
                 }
             }).catch(e=>{
             console.log(e)
-        })*/
+        })
     }
 
     constructor(props) {

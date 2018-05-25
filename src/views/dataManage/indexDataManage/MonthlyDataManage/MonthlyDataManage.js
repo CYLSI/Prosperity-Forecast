@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {PubSub} from "pubsub-js";
-import '../../../../../App.css';
-import './MonthlyDataQuery.css'
+import '../../../../App.css';
+import './MonthlyDataManage.css'
 import { Input,Button,Dropdown,Table,Layout } from 'element-react';
 
 class MonthlyDataManage extends  Component {
@@ -69,7 +69,7 @@ class MonthlyDataManage extends  Component {
                             </Dropdown.Menu>
                         )}
                         >
-                            <Button type="primary" size="small" className="MonDataQuery_button">
+                            <Button type="primary" size="small" className="MonDataManage_button">
                                 农业状况<i className="el-icon-caret-bottom el-icon--right"></i>
                             </Button>
                         </Dropdown>
@@ -82,7 +82,7 @@ class MonthlyDataManage extends  Component {
                             </Dropdown.Menu>
                         )}
                         >
-                            <Button type="primary" size="small" className="MonDataQuery_button">
+                            <Button type="primary" size="small" className="MonDataManage_button">
                                 ——<i className="el-icon-caret-bottom el-icon--right"></i>
                             </Button>
                         </Dropdown>
@@ -93,7 +93,7 @@ class MonthlyDataManage extends  Component {
                             </Dropdown.Menu>
                         )}
                         >
-                            <Button type="primary" size="small" className="MonDataQuery_button">
+                            <Button type="primary" size="small" className="MonDataManage_button">
                                 ——<i className="el-icon-caret-bottom el-icon--right"></i>
                             </Button>
                         </Dropdown>
@@ -104,13 +104,13 @@ class MonthlyDataManage extends  Component {
                             </Dropdown.Menu>
                         )}
                         >
-                            <Button type="primary" size="small" className="MonDataQuery_button">
+                            <Button type="primary" size="small" className="MonDataManage_button">
                                 当期数据<i className="el-icon-caret-bottom el-icon--right"></i>
                             </Button>
                         </Dropdown>
                         <Button type="primary" size="small">显示数据</Button>
                         <Button type="primary" size="small">增加</Button>
-                        <div className="MonDataQuery_table">
+                        <div className="MonDataManage_table">
                             <Table
                                 columns={columns}
                                 data={data}

@@ -11,7 +11,6 @@ class UserManage extends Component{
     getList(){
         this.$post('/user/list')
             .then(res=>{
-                console.log(res)
                 this.setState({
                     data: res
                 })
@@ -53,21 +52,18 @@ class UserManage extends Component{
     }
 
     handleComfirm1(){
-        /*let id = this.state.dialogData1.loginName;
-        let form = this.state.dialogData1;*/
-        console.log(this.state.dialogData1)
-        console.log(this.state.id)
+        let form = this.state.dialogData1;
         this.setState({
             dialogVisible1: false
         })
-        /*this.$post('/user/edit',{id,form})
+        this.$post('/user/upd',form)
             .then(res=>{
                 if(res == 1){
                     this.getList()
                 }
             }).catch(e=>{
             console.log(e)
-        })*/
+        })
     }
 
     handleComfirm2(){
@@ -110,7 +106,7 @@ class UserManage extends Component{
                 },
                 {
                     label: "用户职务",
-                    prop: "duties",
+                    prop: "post"
                 },
                 {
                     label: "部门",
@@ -120,7 +116,7 @@ class UserManage extends Component{
                 {
                     label: "角色",
                     prop: "role",
-                    width: '100%'
+                    width: '110%'
                 },
                 {
                     label: "电子邮件",
@@ -163,7 +159,7 @@ class UserManage extends Component{
             dialogForm1: [
                 {
                     label:'登录名',
-                    param:'loginName'
+                    param:'userName'
                 },
                 {
                     label:'用户名',
@@ -174,7 +170,7 @@ class UserManage extends Component{
                 },
                 {
                     label:'部门',
-                    param:'apartment'
+                    param:'department'
                 },{
                     label:'角色',
                     param:'role'
@@ -184,7 +180,7 @@ class UserManage extends Component{
                     param:'email'
                 },{
                     label:'联系电话',
-                    param:'contact'
+                    param:'phone'
                 }],
             dialogForm2:[
                 {

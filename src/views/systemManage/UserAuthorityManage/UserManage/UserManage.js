@@ -114,7 +114,7 @@ class UserManage extends Component{
                 },
                 {
                     label: "部门",
-                    prop: "dept",
+                    prop: "apartment",
                     width: '70%'
                 },
                 {
@@ -150,7 +150,7 @@ class UserManage extends Component{
                 userName: 'Admin',
                 name: '管理员',
                 duties: '--',
-                department: '华农',
+                apartment: '华农',
                 role: '普通用户',
                 email: '000000',
                 phone: '13300000000',
@@ -170,21 +170,60 @@ class UserManage extends Component{
                     param:'name'
                 },{
                     label:'用户职务',
-                    param:'duties'
+                    param:'duties',
+                    type:'Select',
+                    options:[{
+                        value:"普通用户",
+                        label:"普通用户"
+                    },{
+                        value:"黑名单用户",
+                        label:"黑名单用户"
+                    },{
+                        value:"VIP用户",
+                        label:"VIP用户"
+                    }]
                 },
                 {
                     label:'部门',
-                    param:'apartment'
+                    param:'apartment',
+                    type:'Select',
+                    options:[{
+                        value:"华农",
+                        label:"华农"
+                    },{
+                        value:"部门2",
+                        label:"部门2"
+                    },{
+                        value:"部门3",
+                        label:"部门3"
+                    },{
+                        value:"部门4",
+                        label:"部门4"
+                    },{
+                        value:"部门5",
+                        label:"部门5"
+                    },]
                 },{
                     label:'角色',
-                    param:'role'
+                    param:'role',
+                    type:'Select',
+                    options:[{
+                        value:"普通用户",
+                        label:"普通用户"
+                    },{
+                        value:"黑名单用户",
+                        label:"黑名单用户"
+                    },{
+                        value:"VIP用户",
+                        label:"VIP用户"
+                    }]
                 },
                 {
                     label:'电子邮件',
                     param:'email'
                 },{
                     label:'联系电话',
-                    param:'contact'
+                    param:'phone'
                 }],
             dialogForm2:[
                 {

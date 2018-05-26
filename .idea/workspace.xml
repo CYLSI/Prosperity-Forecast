@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="231f918f-4178-44e8-ac4a-e618a0014516" name="Default" comment="改进dialogform">
+    <list default="true" id="231f918f-4178-44e8-ac4a-e618a0014516" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Dialog/Dialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dialog/Dialog.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/systemManage/UserAuthorityManage/UserManage/UserManage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/systemManage/UserAuthorityManage/UserManage/UserManage.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -41,10 +42,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserManage.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="UserManage.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/views/systemManage/UserAuthorityManage/UserManage/UserManage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1984">
+            <state relative-caret-position="1129">
               <caret line="283" column="22" lean-forward="true" selection-start-line="283" selection-start-column="22" selection-end-line="283" selection-end-column="22" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
@@ -53,11 +54,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Dialog.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Dialog.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Dialog/Dialog.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="4" selection-start-column="4" selection-end-column="4" />
+            <state relative-caret-position="152">
+              <caret line="89" column="26" lean-forward="true" selection-start-line="89" selection-start-column="26" selection-end-line="89" selection-end-column="26" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
               </folding>
@@ -208,8 +209,8 @@
         <option value="$PROJECT_DIR$/src/components/Menu/Menu.js" />
         <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/src/utils/httpUtil.js" />
-        <option value="$PROJECT_DIR$/src/views/systemManage/UserAuthorityManage/UserManage/UserManage.js" />
         <option value="$PROJECT_DIR$/src/components/Dialog/Dialog.js" />
+        <option value="$PROJECT_DIR$/src/views/systemManage/UserAuthorityManage/UserManage/UserManage.js" />
       </list>
     </option>
   </component>
@@ -426,7 +427,7 @@
       <workItem from="1527223204114" duration="7945000" />
       <workItem from="1527231990906" duration="2716000" />
       <workItem from="1527237411020" duration="22000" />
-      <workItem from="1527302146812" duration="10491000" />
+      <workItem from="1527302146812" duration="9652000" />
     </task>
     <task id="LOCAL-00001" summary="啊啊">
       <created>1526196702644</created>
@@ -498,30 +499,22 @@
       <option name="project" value="LOCAL" />
       <updated>1527325190544</updated>
     </task>
-    <task id="LOCAL-00011" summary="改进dialogform">
-      <created>1527325419799</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1527325419799</updated>
-    </task>
-    <option name="localTasksCounter" value="12" />
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="221753000" />
+    <option name="totallyTimeSpent" value="220914000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1358" height="814" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6645435" visible="true" weight="0.16592261" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.51785713" side_tool="true" visible="true" weight="0.32714286" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="9" sideWeight="0.48214287" visible="true" weight="0.32714286" />
+      <window_info active="true" anchor="bottom" id="Event Log" order="10" sideWeight="0.51488096" side_tool="true" visible="true" weight="0.32714286" />
+      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.4828326" weight="0.32827586" />
       <window_info id="npm" order="2" sideWeight="0.33545646" side_tool="true" visible="true" weight="0.16592261" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.48511904" weight="0.32714286" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.48511904" visible="true" weight="0.32714286" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.5758226" weight="0.52827585" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -825,6 +818,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/dataManage/indexDataManage/MonthlyDataManage/MonthlyDataImport/MonthlyDataImport.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/views/dataManage/economicIndicatorsSetting/IndTypeManage.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
@@ -852,29 +852,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/systemManage/UserAuthorityManage/UserManage/UserManage.js">
+    <entry file="file://$PROJECT_DIR$/src/components/Dialog/Dialog.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1984">
-          <caret line="283" column="22" lean-forward="true" selection-start-line="283" selection-start-column="22" selection-end-line="283" selection-end-column="22" />
+        <state relative-caret-position="152">
+          <caret line="89" column="26" lean-forward="true" selection-start-line="89" selection-start-column="26" selection-end-line="89" selection-end-column="26" />
           <folding>
-            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#0#38#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/dataManage/indexDataManage/MonthlyDataManage/MonthlyDataImport/MonthlyDataImport.js">
+    <entry file="file://$PROJECT_DIR$/src/views/systemManage/UserAuthorityManage/UserManage/UserManage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Dialog/Dialog.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="4" selection-start-column="4" selection-end-column="4" />
+        <state relative-caret-position="1129">
+          <caret line="283" column="22" lean-forward="true" selection-start-line="283" selection-start-column="22" selection-end-line="283" selection-end-column="22" />
           <folding>
-            <element signature="e#0#38#0" expanded="true" />
+            <element signature="e#0#41#0" expanded="true" />
           </folding>
         </state>
       </provider>

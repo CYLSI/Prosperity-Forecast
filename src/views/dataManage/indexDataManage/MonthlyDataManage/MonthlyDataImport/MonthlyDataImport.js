@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {PubSub} from "pubsub-js";
 
-class IndTypeManage extends  Component {
+class MonthlyDataImport extends  Component {
 
     componentDidMount(){
         // this.getList()
@@ -11,10 +11,10 @@ class IndTypeManage extends  Component {
     render() {
         return (
             <div>
-
+                here
             </div>
         )
 
     }
 }
-export default IndTypeManage
+export default MonthlyDataImport

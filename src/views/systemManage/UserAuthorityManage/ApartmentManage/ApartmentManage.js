@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import '../../App.css';
+import '../../../../App.css';
 import './ApartmentManage.css';
 import { Layout,Tree,Input,Button } from 'element-react';
+import {PubSub} from "pubsub-js";
 
 class ApartmentManage extends Component{
 
@@ -17,7 +18,8 @@ class ApartmentManage extends Component{
     }
 
     componentDidMount(){
-        this.getList()
+       this.getList()
+        PubSub.publish('route',this.props.location.pathname);
     }
 
     onChange1(key, value) {
@@ -55,7 +57,7 @@ class ApartmentManage extends Component{
     }
 
     handleClickForDelete(e){
-       let id = this.state.id
+      /* let id = this.state.id
             this.$post('/dept/del',{id})
             .then(res=>{
                if(res === 1){
@@ -63,7 +65,7 @@ class ApartmentManage extends Component{
                }
             }).catch(e=>{
             console.log(e)
-        })
+        })*/
     }
 
     handleClickForAdd(e){

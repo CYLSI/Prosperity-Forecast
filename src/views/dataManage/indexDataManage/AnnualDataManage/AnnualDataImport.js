@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import {PubSub} from "pubsub-js";
 
-class IndTypeManage extends  Component {
+class AnnualDataImport extends  Component {
 
     componentDidMount(){
         // this.getList()
-        // PubSub.publish('route',this.props.location.pathname);
+        PubSub.publish('route',this.props.location.pathname);
     }
 
     render() {
         return (
             <div>
-
+                AnnualImport
             </div>
         )
 
     }
 }
-export default IndTypeManage
+export default AnnualDataImport

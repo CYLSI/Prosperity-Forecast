@@ -1,44 +1,41 @@
 import React, { Component } from 'react';
-import '../../App.css';
+import '../../../../App.css';
 import './UserGroupManage.css';
-import { Layout,Input,Button,Table,Form,Dialog } from 'element-react';
+import { Layout,Input,Button,Table} from 'element-react';
+import {PubSub} from "pubsub-js";
+import DialogForm from '@components/Dialog/Dialog'
 
 class UserGroupManage extends Component{
 
-    /*componentDidMount(){
-       getList()
-    }*/
+    getList(){
+        this.$post('/group/list')
+            .then(res=>{
+                this.setState({
+                    data: res
+                })
+            }).catch(e=>{
+            console.log(e)
+        })
+    }
+
+    componentDidMount(){
+       this.getList()
+        PubSub.publish('route',this.props.location.pathname);
+    }
 
     onChange(key, value) {
-        this.state.form[key] = value;
         this.setState({
             [key]: value
         });
         this.forceUpdate();
     }
 
-    handleClick(e,row){
+    handleClickForEdit(e,row){
         this.setState({
             dialogVisible: true,
-            dialogData: row,
+            dialogData: this.$clone(row),
             id: row.id
         })
-    }
-
-    handleClickForEdit(){
-        this.setState({
-            dialogVisible: false
-        })
-        /*let id = this.state.id;
-        let form = this.state.form;
-        this.$post('/usergroup/edit',{id,form})
-            .then(res=>{
-               if(res == 1){
-                    getList()
-               }
-            }).catch(e=>{
-            console.log(e)
-        })*/
     }
 
     handleClickForDelete(e,row){
@@ -53,6 +50,7 @@ class UserGroupManage extends Component{
    }
 
     handleClickForAdd(){
+        console.log(this.state.addedUserGroup)
         /*this.$post('/usergroup/add',this.state.addedUserGroup)
             .then(res=>{
                 if(res == 1){
@@ -63,14 +61,31 @@ class UserGroupManage extends Component{
         })*/
     }
 
+    handleComfirm(){
+        // let id = this.state.dialogData.id;
+        console.log(this.state.dialogData)
+        console.log(this.state.id)
+        this.setState({
+            dialogVisible: false
+        })
+        /*this.$post('/user/edit',{id,form})
+            .then(res=>{
+                if(res == 1){
+                    this.getList()
+                }
+            }).catch(e=>{
+            console.log(e)
+        })*/
+    }
+
     constructor(props) {
         super(props);
 
-        this.handleClick = this.handleClick.bind(this);
         this.onChange = this.onChange.bind(this);
         this.handleClickForDelete = this.handleClickForDelete.bind(this);
         this.handleClickForEdit = this.handleClickForEdit.bind(this);
         this.handleClickForAdd = this.handleClickForAdd.bind(this);
+        this.handleComfirm = this.handleComfirm.bind(this);
 
         this.state = {
             columns: [
@@ -89,7 +104,7 @@ class UserGroupManage extends Component{
                     width: '100%',
                     render: (row) => {
                         return <span>
-                                    <Button type="text" size="small" onClick={e => this.handleClick(e,row)}>编辑</Button>
+                                    <Button type="text" size="small" onClick={e => this.handleClickForEdit(e,row)}>编辑</Button>
                                     <Button type="text" size="small" onClick={e => this.handleClickForDelete(e,row)}>删除</Button>
                                 </span>
                     }
@@ -107,17 +122,22 @@ class UserGroupManage extends Component{
             }],
             dialogVisible: false,
             dialogData:'',
-            form: {
-                id: '',
-                userGroupName: ''
-            },
+            dialogForm:[
+                {
+                    label:'ID',
+                    param:'id'
+                },
+                {
+                    label:'用户组名称',
+                    param:'userGroupName'
+                }],
             id: '',
             addedUserGroup: '请输入内容'
         }
     }
 
     render(){
-        const { dialogVisible,dialogData,columns,data,addedUserGroup } = this.state
+        const { dialogForm,dialogVisible,dialogData,columns,data,addedUserGroup } = this.state
         return (
             <div>
                 <h3>用户组管理</h3>
@@ -133,49 +153,24 @@ class UserGroupManage extends Component{
                 <h4>添加用户组</h4>
                 <Layout.Col span={10}>
                     <div>
-                        用户组名称：<Input placeholder={ addedUserGroup } onChange={this.onChange.bind(this, 'addedUserGroup')} className="inline-input"/>（十个汉字以内）
+                        用户组名称：<Input placeholder={ addedUserGroup } className="inline-input" onChange={this.onChange.bind(this, 'addedUserGroup')}/>（十个汉字以内）
                     </div>
                     <div className="UserGroupManage-button">
                         <Button type="primary" size="small" onClick={this.handleClickForAdd.bind(this) }>添加用户组</Button>
                     </div>
                 </Layout.Col>
                 <div>
-                    <Dialog
-                        title="修改"
-                        visible={ dialogVisible }
-                        onCancel={ e => this.setState({ dialogVisible: false }) }
-                        dialogData={ dialogData }
-                        size="tiny"
-                    >
-                        <Dialog.Body>
-                            <Form>
-                                <Form.Item label="ID" labelWidth="80">
-                                    <Input placeholder={dialogData.id} onChange={this.onChange.bind(this, 'id')} className="inline-input"></Input>
-                                </Form.Item>
-                                <Form.Item label="用户组名称" labelWidth="80">
-                                    <Input placeholder={dialogData.userGroupName} onChange={this.onChange.bind(this, 'userGroupName')} className="inline-input"></Input>
-                                </Form.Item>
-                            </Form>
-                        </Dialog.Body>
-                        <Dialog.Footer className="dialog-footer">
-                            <Button type="primary" onClick={this.handleClickForEdit.bind(this) }>确 定</Button>
-                        </Dialog.Footer>
-                    </Dialog>
+                   <DialogForm
+                       dialogData={dialogData}
+                       dialogVislble={dialogVisible}
+                       form={dialogForm}
+                       handleComfirm={this.handleComfirm.bind(this)}
+                   >
+                   </DialogForm>
                 </div>
             </div>
         );
     }
-}
-
-function  getList(){
-    this.$post('/usergroup/list')
-        .then(res=>{
-            this.setState({
-                data: res.data
-            })
-        }).catch(e=>{
-        console.log(e)
-    })
 }
 
 export default UserGroupManage;

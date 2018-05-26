@@ -1,46 +1,34 @@
 import React, { Component } from 'react';
-import '../../App.css';
+import '../../../../App.css';
 import './RoleManage.css';
-import { Layout,Input,Button,Table,Form,Dialog } from 'element-react';
+import { Layout,Input,Button,Table} from 'element-react';
+import DialogForm from '@components/Dialog/Dialog'
+import {PubSub} from "pubsub-js";
 
 class RoleManage extends Component{
 
-    /*componentDidMount(){
-        getList()
-    }*/
-
-    handleClick(e,row){
-        this.setState({
-            dialogVisible: true,
-            dialogData: row,
-            roleName: row.roleName
+    getList(){
+        this.$post('/modules/list')
+            .then(res=>{
+                this.setState({
+                    data: res.data
+                })
+            }).catch(e=>{
+            console.log(e)
         })
     }
 
-    onChange(key, value) {
-        this.setState({
-            [key]: value,
-            form:{
-                [key]: value
-            }
-        });
-        this.forceUpdate();
+    componentDidMount(){
+        //this.getList()
+        PubSub.publish('route',this.props.location.pathname);
     }
 
-    handleClickForEdit(){
+    handleClickForEdit(e,row){
         this.setState({
-            dialogVisible: false
-        });
-        /*let roleName = this.state.roleName;
-       let form = this.state.form;
-       this.$post('/role/edit',{roleName,form})
-           .then(res=>{
-              if(res == 1){
-                   getList()
-              }
-           }).catch(e=>{
-           console.log(e)
-       })*/
+            dialogVisible: true,
+            dialogData: this.$clone(row),
+            id: row.roleName
+        })
     }
 
     handleClickForDelete(e,row){
@@ -77,15 +65,31 @@ class RoleManage extends Component{
         })*/
     }
 
+    handleComfirm(){
+        // let id = this.state.dialogData.roleName;
+        console.log(this.state.dialogData)
+        console.log(this.state.id)
+        this.setState({
+            dialogVisible: false
+        })
+        /*this.$post('/user/edit',{id,form})
+            .then(res=>{
+                if(res == 1){
+                    this.getList()
+                }
+            }).catch(e=>{
+            console.log(e)
+        })*/
+    }
+
     constructor(props) {
         super(props);
 
-        this.handleClick = this.handleClick.bind(this);
-        this.onChange = this.onChange.bind(this);
         this.handleClickForDelete = this.handleClickForDelete.bind(this);
         this.handleClickForEdit = this.handleClickForEdit.bind(this);
         this.handleClickForAdd = this.handleClickForAdd.bind(this);
         this.handleClickForSearch = this.handleClickForSearch.bind(this);
+        this.handleComfirm = this.handleComfirm.bind(this);
 
         this.state = {
             columns: [
@@ -99,7 +103,7 @@ class RoleManage extends Component{
                     width: '140%',
                     render: (row) => {
                         return <span>
-                                    <Button type="text" size="small" onClick={e => this.handleClick(e,row)}>编辑</Button>
+                                    <Button type="text" size="small" onClick={e => this.handleClickForEdit(e,row)}>编辑</Button>
                                     <Button type="text" size="small" onClick={e => this.handleClickForDelete(e,row)}>删除</Button>
                                 </span>
                     }
@@ -116,16 +120,18 @@ class RoleManage extends Component{
             }],
             dialogVisible: false,
             dialogData:'',
-            form: {
-                roleName: ''
-            },
+            dialogForm:[{
+                    label:'角色名称',
+                    param:'roleName'
+                }],
             roleName: '',
-            addedRoleName: '请输入内容'
+            addedRoleName: '请输入内容',
+            id:''
         }
     }
 
     render(){
-        const { dialogVisible,dialogData,columns,data,addedRoleName } = this.state
+        const { dialogForm,dialogVisible,dialogData,columns,data,addedRoleName } = this.state
         return (
             <div>
                 <h3>用户角色管理</h3>
@@ -140,46 +146,24 @@ class RoleManage extends Component{
                 </Layout.Col>
                 <h4>添加用户角色</h4>
                 <Layout.Col span={10}>
-                    <div>角色名称：<Input placeholder={addedRoleName} onChange={this.onChange.bind(this, 'addedRoleName')} className="inline-input"/>（十个汉字以内）</div>
+                    <div>角色名称：<Input placeholder={addedRoleName} className="inline-input"/>（十个汉字以内）</div>
                     <div className="RoleManage-button">
                         <Button type="primary" size="small" onClick={this.handleClickForSearch.bind(this) }>检查重复</Button>
                         <Button type="primary" size="small" onClick={this.handleClickForAdd.bind(this) }>添加角色</Button>
                     </div>
                 </Layout.Col>
                 <div>
-                    <Dialog
-                        title="修改"
-                        visible={ dialogVisible }
-                        onCancel={ e => this.setState({ dialogVisible: false }) }
-                        dialogData={ dialogData }
-                        size="tiny"
+                    <DialogForm
+                        dialogData={dialogData}
+                        dialogVislble={dialogVisible}
+                        form={dialogForm}
+                        handleComfirm={this.handleComfirm.bind(this)}
                     >
-                        <Dialog.Body>
-                            <Form>
-                                <Form.Item label="角色名称" labelWidth="80">
-                                    <Input placeholder={dialogData.roleName} onChange={this.onChange.bind(this, 'roleName')} className="inline-input"></Input>
-                                </Form.Item>
-                            </Form>
-                        </Dialog.Body>
-                        <Dialog.Footer className="dialog-footer">
-                            <Button type="primary" onClick={this.handleClickForEdit.bind(this) }>确 定</Button>
-                        </Dialog.Footer>
-                    </Dialog>
+                    </DialogForm>
                 </div>
             </div>
         );
     }
-}
-
-function  getList(){
-    this.$post('/role/list')
-        .then(res=>{
-            this.setState({
-                data: res.data
-            })
-        }).catch(e=>{
-        console.log(e)
-    })
 }
 
 export default RoleManage;

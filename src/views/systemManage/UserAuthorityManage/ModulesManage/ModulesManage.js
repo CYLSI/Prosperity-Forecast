@@ -1,20 +1,34 @@
 import React, { Component } from 'react';
-import '../../App.css';
+import '../../../../App.css';
 import './ModulesManage.css';
 import { Layout,Input,Button,Dropdown,Table,Form,Dialog } from 'element-react';
+import DialogForm from '@components/Dialog/Dialog'
+import {PubSub} from "pubsub-js";
 
 class ModulesManage extends Component{
 
-    /*componentDidMount(){
-        getList()
-    }*/
+     getList(){
+        this.$post('/modules/list')
+            .then(res=>{
+                this.setState({
+                    data: res.data
+                })
+            }).catch(e=>{
+            console.log(e)
+        })
+    }
 
-    handleClick(e,row){
+    componentDidMount(){
+        //this.getList()
+        PubSub.publish('route',this.props.location.pathname);
+    }
+
+    handleClickForEdit(e,row){
         this.setState({
             dialogVisible: true,
-            dialogData: row,
+            dialogData: this.$clone(row),
             oldModulesName: row.modulesName
-        });
+        })
     }
 
     handleClick2(e){
@@ -24,27 +38,10 @@ class ModulesManage extends Component{
     }
 
     onChange(key, value) {
-        this.state.form[key] = value;
         this.setState({
             [key]: value
         });
         this.forceUpdate();
-    }
-
-    handleClickForEdit(){
-        this.setState({
-            dialogVisible: false
-        });
-        /*let modulesName = this.state.modulesName;
-       let form = this.state.form;
-       this.$post('/modules/edit',{modulesName,form})
-           .then(res=>{
-              if(res == 1){
-                   getList()
-              }
-           }).catch(e=>{
-           console.log(e)
-       })*/
     }
 
     handleClickForDelete(e,row){
@@ -59,6 +56,10 @@ class ModulesManage extends Component{
     }
 
     handleClickForAdd(){
+         console.log(this.state.addedModulesName)
+        this.setState({
+            dialogVisible2: false
+        })
         /*this.$post('/modules/add',this.state.addedModulesName)
             .then(res=>{
                 if(res == 1){
@@ -69,14 +70,31 @@ class ModulesManage extends Component{
         })*/
     }
 
+    handleComfirm(){
+        // let id = this.state.dialogData.id;
+        console.log(this.state.dialogData)
+        console.log(this.state.oldModulesName)
+        this.setState({
+            dialogVisible: false
+        })
+        /*this.$post('/user/edit',{id,form})
+            .then(res=>{
+                if(res == 1){
+                    this.getList()
+                }
+            }).catch(e=>{
+            console.log(e)
+        })*/
+    }
+
     constructor(props) {
         super(props);
 
-        this.handleClick = this.handleClick.bind(this);
         this.onChange = this.onChange.bind(this);
         this.handleClickForDelete = this.handleClickForDelete.bind(this);
         this.handleClickForEdit = this.handleClickForEdit.bind(this);
         this.handleClickForAdd = this.handleClickForAdd.bind(this);
+        this.handleComfirm = this.handleComfirm.bind(this);
 
         this.state = {
             columns: [
@@ -86,7 +104,7 @@ class ModulesManage extends Component{
                     width: '100%',
                     render: (row) => {
                         return <span>
-                                    <Button type="text" size="small" onClick={e => this.handleClick(e,row)}>编辑</Button>
+                                    <Button type="text" size="small" onClick={e => this.handleClickForEdit(e,row)}>编辑</Button>
                                     <Button type="text" size="small" onClick={e => this.handleClickForDelete(e,row)}>删除</Button>
                                 </span>
                     }
@@ -150,18 +168,23 @@ class ModulesManage extends Component{
             dialogVisible: false,
             dialogData:'',
             dialogVisible2: false,
-            form: {
-                modulesName: '',
-                page: '--',
-                illustrate:''
-            },
+            dialogForm:[{
+                label:'模块名称',
+                param:'modulesName'
+            },{
+                label:'实际页面',
+                param:'page'
+            },{
+                label:'说明',
+                param:'illustrate'
+            }],
             oldModulesName: '',
             addedModulesName: ''
         }
     }
 
     render(){
-        const { dialogVisible,dialogData,columns,data,dialogVisible2 } = this.state;
+        const { dialogForm,dialogVisible,dialogData,dialogVisible2,columns,data } = this.state;
         return(
             <div>
                 <Layout.Col span={15}>
@@ -210,45 +233,17 @@ class ModulesManage extends Component{
                     </Dialog>
                 </Layout.Col>
                 <div className="ModulesManage-dialog">
-                    <Dialog
-                        title="修改"
-                        visible={ dialogVisible }
-                        onCancel={ e => this.setState({ dialogVisible: false }) }
-                        dialogData={ dialogData }
-                        size="tiny"
+                    <DialogForm
+                        dialogData={dialogData}
+                        dialogVislble={dialogVisible}
+                        form={dialogForm}
+                        handleComfirm={this.handleComfirm.bind(this)}
                     >
-                        <Dialog.Body>
-                            <Form>
-                                <Form.Item label="模块名称" labelWidth="80">
-                                    <Input placeholder={dialogData.modulesName} onChange={this.onChange.bind(this, 'modulesName')} className="inline-input"></Input>
-                                </Form.Item>
-                                <Form.Item label="实际页面" labelWidth="80">
-                                    <Input placeholder={dialogData.page} onChange={this.onChange.bind(this, 'page')} className="inline-input"></Input>
-                                </Form.Item>
-                                <Form.Item label="说明" labelWidth="80">
-                                    <Input placeholder={dialogData.illustrate} onChange={this.onChange.bind(this, 'illustrate')} className="inline-input"></Input>
-                                </Form.Item>
-                            </Form>
-                        </Dialog.Body>
-                        <Dialog.Footer className="dialog-footer">
-                            <Button type="primary"  onClick={this.handleClickForEdit.bind(this) }>确 定</Button>
-                        </Dialog.Footer>
-                    </Dialog>
+                    </DialogForm>
                 </div>
             </div>
         );
     }
-}
-
-function  getList(){
-    this.$post('/modules/list')
-        .then(res=>{
-            this.setState({
-                data: res.data
-            })
-        }).catch(e=>{
-        console.log(e)
-    })
 }
 
 export default ModulesManage;

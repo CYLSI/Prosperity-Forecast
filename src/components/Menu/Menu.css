@@ -16,6 +16,10 @@
     margin:0px 0px 0px 35px;
 }
 
+.el-menu-vertical-demo .el-submenu__title .el-submenu__titles{
+    margin:0px 0px 0px 45px;
+}
+
 .el-menu-vertical-demo .el-menu-item,
 .el-menu-vertical-demo :first-child.el-menu-item{
     margin:0px 0px 0px 45px;

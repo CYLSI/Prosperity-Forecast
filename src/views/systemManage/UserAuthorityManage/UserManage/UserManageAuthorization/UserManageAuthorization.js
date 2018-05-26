@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../../../App.css';
 import './UserManageAuthorization.css';
 import { Layout,Button,Checkbox,Table } from 'element-react';
 

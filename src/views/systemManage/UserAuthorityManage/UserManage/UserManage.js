@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
-import '../../App.css';
+import '../../../../App.css';
 import './UserManage.css';
-import { Layout,Input,Button,Dropdown,Table,Dialog,Form } from 'element-react';
+import DialogForm from '@components/Dialog/Dialog'
+import { Layout,Input,Button,Dropdown,Table} from 'element-react';
 import { Link } from 'react-router';
+import {PubSub} from "pubsub-js";
 
 class UserManage extends Component{
 
     getList(){
         this.$post('/user/list')
             .then(res=>{
+                console.log(res)
                 this.setState({
-                    data: res
+                    // data: res
                 })
             }).catch(e=>{
             console.log(e)
@@ -18,37 +21,24 @@ class UserManage extends Component{
     }
 
     componentDidMount(){
-        //this.getList()
+        this.getList()
+        PubSub.publish('route',this.props.location.pathname);
     }
 
-    onChange(key, value) {
-        this.state.form[key] = value;
-        this.forceUpdate();
-    }
-
-    handleClick(e,row){
+    modifyPassword(e,row){
         this.setState({
-            dialogVisible: true,
-            dialogData: row,
-            id: row.loginName
+            dialogData2: this.$clone(row),
+            dialogVisible2: true,
+            id: row.userName
         })
     }
 
-    handleClickForEdit(){
-        console.log(this.state.id,this.state.form)
+    handleClickForEdit(e,row){
         this.setState({
-            dialogVisible: false
+            dialogVisible1: true,
+            dialogData1: this.$clone(row),
+            id: row.userName
         })
-        /*let id = this.state.id;
-        let form = this.state.form;
-        this.$post('/user/edit',{id,form})
-            .then(res=>{
-               if(res == 1){
-                    getList()
-               }
-            }).catch(e=>{
-            console.log(e)
-        })*/
     }
 
     handleClickForDelete(e,row){
@@ -62,19 +52,55 @@ class UserManage extends Component{
         })*/
     }
 
+    handleComfirm1(){
+        /*let id = this.state.dialogData1.loginName;
+        let form = this.state.dialogData1;*/
+        console.log(this.state.dialogData1)
+        console.log(this.state.id)
+        this.setState({
+            dialogVisible1: false
+        })
+        /*this.$post('/user/edit',{id,form})
+            .then(res=>{
+                if(res == 1){
+                    this.getList()
+                }
+            }).catch(e=>{
+            console.log(e)
+        })*/
+    }
+
+    handleComfirm2(){
+        let op = this.state.dialogData2.oldPassword;
+        let np = this.state.dialogData2.newPassword;
+        let id = this.state.id;
+        console.log(op,np,id)
+        this.setState({
+            dialogVisible2: false
+        })
+        /*this.$post('/user/edit',{id,form})
+           .then(res=>{
+               if(res == 1){
+                   this.getList()
+               }
+           }).catch(e=>{
+           console.log(e)
+       })*/
+    }
+
     constructor(props) {
         super(props);
 
-        this.handleClick = this.handleClick.bind(this);
-        this.onChange = this.onChange.bind(this);
         this.handleClickForDelete = this.handleClickForDelete.bind(this);
         this.handleClickForEdit = this.handleClickForEdit.bind(this);
+        this.handleComfirm1 = this.handleComfirm1.bind(this);
+        this.handleComfirm2 = this.handleComfirm2.bind(this);
 
         this.state = {
             columns: [
                 {
                     label: "登录名",
-                    prop: "loginName",
+                    prop: "userName",
                     width: '80%'
                 },
                 {
@@ -88,7 +114,7 @@ class UserManage extends Component{
                 },
                 {
                     label: "部门",
-                    prop: "apartment",
+                    prop: "dept",
                     width: '70%'
                 },
                 {
@@ -103,7 +129,7 @@ class UserManage extends Component{
                 },
                 {
                     label: "联系电话",
-                    prop: "contact",
+                    prop: "phone",
                     width: '130%'
                 },
                 {
@@ -112,43 +138,69 @@ class UserManage extends Component{
                     width: '190%',
                     render: (row) => {
                         return <span>
-                                    <Button type="text" size="small"><Link to='/contents/UserManage/UserManageAuthorization'>授权</Link></Button>
-                                    <Button type="text" size="small" onClick={e => this.handleClick(e,row)}>编辑</Button>
+                                    <Button type="text" size="small"><Link to='/systemManage/UserAuthorityManage/UserManage/UserManageAuthorization'>授权</Link></Button>
+                                    <Button type="text" size="small" onClick={e => this.handleClickForEdit(e,row)}>编辑</Button>
                                     <Button type="text" size="small" onClick={e => this.handleClickForDelete(e,row)}>删除</Button>
-                                    <Button type="text" size="small"><Link to='/contents/UserManage/ModifyPassword'>修改密码</Link></Button>
+                                    <Button type="text" size="small" onClick={e => this.modifyPassword(e,row)}>修改密码</Button>
                                 </span>
                     }
                 }
             ],
             data: [{
-                loginName: 'Admin',
+                userName: 'Admin',
                 name: '管理员',
                 duties: '--',
-                apartment: '华农',
+                department: '华农',
                 role: '普通用户',
                 email: '000000',
-                contact: '13300000000',
+                phone: '13300000000',
                 remark: '',
             }],
-            dialogVisible: false,
-            dialogData:'',
-            form: {
-                loginName: '',
-                name: '',
-                duties: '',
-                apartment: '',
-                role: '',
-                email: '',
-                contact: '',
-                remark: '',
-                 id: ''
-            }
-
+            dialogVisible1: false,
+            dialogVisible2: false,
+            dialogData1:'',
+            dialogData2:'',
+            dialogForm1: [
+                {
+                    label:'登录名',
+                    param:'loginName'
+                },
+                {
+                    label:'用户名',
+                    param:'name'
+                },{
+                    label:'用户职务',
+                    param:'duties'
+                },
+                {
+                    label:'部门',
+                    param:'apartment'
+                },{
+                    label:'角色',
+                    param:'role'
+                },
+                {
+                    label:'电子邮件',
+                    param:'email'
+                },{
+                    label:'联系电话',
+                    param:'contact'
+                }],
+            dialogForm2:[
+                {
+                    label:'旧密码',
+                    param:'oldPassword'
+                },
+                {
+                    label:'新密码',
+                    param:'newPassword'
+                }],
+            id:''
         }
     }
 
     render(){
-        const { dialogVisible,dialogData,columns,data } = this.state
+        const { dialogForm1,dialogData1,dialogVisible1,dialogVisible2,dialogData2,dialogForm2,columns,data } = this.state
         return(
             <Layout.Col span={18}>
                 <div>
@@ -197,42 +249,20 @@ class UserManage extends Component{
                         data={data}
                         border={true}
                     />
-                    <Dialog
-                        title="修改"
-                        visible={ dialogVisible }
-                        onCancel={ e => this.setState({ dialogVisible: false }) }
-                        dialogData={ dialogData }
-                        size="tiny"
+                    <DialogForm
+                        dialogData={dialogData1}
+                        dialogVislble={dialogVisible1}
+                        form={dialogForm1}
+                        handleComfirm={this.handleComfirm1.bind(this)}
                     >
-                        <Dialog.Body>
-                            <Form>
-                                <Form.Item label="登录名" labelWidth="80">
-                                    <Input placeholder={dialogData.loginName} onChange={this.onChange.bind(this, 'loginName')} className="inline-input"></Input>
-                                </Form.Item>
-                                <Form.Item label="用户名" labelWidth="80">
-                                    <Input placeholder={dialogData.name} onChange={this.onChange.bind(this, 'name')} className="inline-input"></Input>
-                                </Form.Item>
-                                <Form.Item label="用户职务" labelWidth="80">
-                                    <Input placeholder={dialogData.duties} onChange={this.onChange.bind(this, 'duties')} className="inline-input"></Input>
-                                </Form.Item>
-                                <Form.Item label="部门" labelWidth="80">
-                                    <Input placeholder={dialogData.apartment} onChange={this.onChange.bind(this, 'apartment')} className="inline-input"></Input>
-                                </Form.Item>
-                                <Form.Item label="角色" labelWidth="80">
-                                    <Input placeholder={dialogData.role} onChange={this.onChange.bind(this, 'role')} className="inline-input"></Input>
-                                </Form.Item>
-                                <Form.Item label="电子邮件" labelWidth="80">
-                                    <Input placeholder={dialogData.email} onChange={this.onChange.bind(this, 'email')} className="inline-input"></Input>
-                                </Form.Item>
-                                <Form.Item label="联系电话" labelWidth="80">
-                                    <Input placeholder={dialogData.contact} onChange={this.onChange.bind(this, 'contact')} className="inline-input"></Input>
-                                </Form.Item>
-                            </Form>
-                        </Dialog.Body>
-                        <Dialog.Footer className="dialog-footer">
-                            <Button type="primary" onClick={this.handleClickForEdit.bind(this) }>确 定</Button>
-                        </Dialog.Footer>
-                    </Dialog>
+                    </DialogForm>
+                    <DialogForm
+                        dialogData={dialogData2}
+                        dialogVislble={dialogVisible2}
+                        form={dialogForm2}
+                        handleComfirm={this.handleComfirm2.bind(this)}
+                    >
+                    </DialogForm>
                 </div>
             </Layout.Col>
         );

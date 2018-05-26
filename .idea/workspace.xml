@@ -145,7 +145,7 @@
       <workItem from="1527336571123" duration="2012000" />
       <workItem from="1527338708162" duration="528000" />
       <workItem from="1527339329550" duration="724000" />
-      <workItem from="1527340117914" duration="142000" />
+      <workItem from="1527340117914" duration="149000" />
     </task>
     <task id="LOCAL-00001" summary="revert 1.2">
       <created>1527336615319</created>
@@ -280,11 +280,18 @@
       <option name="project" value="LOCAL" />
       <updated>1527340255771</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="reset workspace">
+      <created>1527340262543</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1527340262543</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3406000" />
+    <option name="totallyTimeSpent" value="3413000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="820" extended-state="6" />

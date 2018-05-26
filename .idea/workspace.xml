@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e19ccfb5-9841-4be2-8eee-1fc2157188be" name="Default" comment="">
+    <list default="true" id="e19ccfb5-9841-4be2-8eee-1fc2157188be" name="Default" comment="reset workspace">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/components/Dialog/Dialog.js" afterPath="$PROJECT_DIR$/src/components/Dialog/Dialog.js" />
     </list>
@@ -21,7 +21,7 @@
         <entry file="file://$PROJECT_DIR$/src/components/Dialog/Dialog.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="17" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
+              <caret line="0" column="14" lean-forward="false" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -145,7 +145,7 @@
       <updated>1527336569809</updated>
       <workItem from="1527336571123" duration="2012000" />
       <workItem from="1527338708162" duration="528000" />
-      <workItem from="1527339329550" duration="256000" />
+      <workItem from="1527339329550" duration="724000" />
     </task>
     <task id="LOCAL-00001" summary="revert 1.2">
       <created>1527336615319</created>
@@ -266,11 +266,18 @@
       <option name="project" value="LOCAL" />
       <updated>1527339397650</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="reset lasttimepzh">
+      <created>1527339603665</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1527339603665</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2796000" />
+    <option name="totallyTimeSpent" value="3264000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="820" extended-state="6" />
@@ -341,7 +348,8 @@
     <MESSAGE value="workspace xml" />
     <MESSAGE value="reset pengzhihao" />
     <MESSAGE value="reset changecmx" />
-    <option name="LAST_COMMIT_MESSAGE" value="reset changecmx" />
+    <MESSAGE value="reset lasttimepzh" />
+    <option name="LAST_COMMIT_MESSAGE" value="reset lasttimepzh" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -391,7 +399,7 @@
     <entry file="file://$PROJECT_DIR$/src/components/Dialog/Dialog.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="17" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
+          <caret line="0" column="14" lean-forward="false" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="14" />
           <folding />
         </state>
       </provider>

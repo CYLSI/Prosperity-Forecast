@@ -1,5 +1,4 @@
-reset changcmxBACKTO
-reset lasttimepzh
+reset fucking 
 import React, {Component} from 'react'
 import {Input, Button,Dialog, Form,Checkbox,Select} from 'element-react';
 import './Dialog.less'

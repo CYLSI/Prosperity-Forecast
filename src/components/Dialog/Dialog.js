@@ -1,6 +1,4 @@
-123123123123123123
-1231231231231231
-
+456
 
 import React, {Component} from 'react'
 import {Input, Button,Dialog, Form,Checkbox,Select} from 'element-react';

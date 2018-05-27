@@ -1,5 +1,6 @@
+sadasfasdasfasasfasfa
 import React, {Component} from 'react'
-import {Input, Button,Dialog, Form,Checkbox} from 'element-react';
+import {Input, Button,Dialog, Form,Checkbox,Select} from 'element-react';
 import './Dialog.less'
 class DialogForm extends Component{
   constructor(props){
@@ -10,12 +11,11 @@ class DialogForm extends Component{
       dialogData:props.dialogData,
       form:props.form,
       checkBoxOptions:[],
-      abc:"abc"
+
     }
 
   }
   componentWillReceiveProps(nextProps){
-    let checkBoxItems = []
     nextProps.form.map((item)=>{
       if(item.type === 'checkBox'){
         this.setState({
@@ -50,14 +50,13 @@ class DialogForm extends Component{
   handleComfirm(){
     const {checkBoxOptions,dialogData,checkBoxItems,checkBoxParams} = this.state
 
-      checkBoxItems.map((item,index) => {
+      checkBoxItems && checkBoxItems.map((item,index) => {
         if(checkBoxOptions.indexOf(item)!== -1){
           dialogData[checkBoxParams[index]] = 1
         }else{
           dialogData[checkBoxParams[index]] = 0
         }
       })
-      this.state.abc = "kkk"
     //不用setState而采用this.state来修改state的话，页面是不会渲染的，但state中的值却会变化
     //除非等到下一次setState或this.forceUpdate()才会将state中的值渲染到页面中
 
@@ -90,7 +89,18 @@ class DialogForm extends Component{
                   }
                 </Checkbox.Group>
               </Form.Item>
-            )}
+            )}else if(item.type === "Select"){
+               return(
+                <Form.Item label={item.label} labelWidth="80">
+                    <Select value={dialogData[item.param]} onChange={this.onChange.bind(this,item.param)}>
+                        {
+                            item.options.map(el => {
+                                return <Select.Option key={el.value} label={el.label} value={el.value} />
+                            })
+                        }
+                    </Select>
+                </Form.Item>)
+            }
               else{
                 return  (
                   <Form.Item label={item.label} labelWidth="80">

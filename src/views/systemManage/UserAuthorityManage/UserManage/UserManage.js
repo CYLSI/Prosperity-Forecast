@@ -11,8 +11,9 @@ class UserManage extends Component{
     getList(){
         this.$post('/user/list')
             .then(res=>{
+                console.log(res)
                 this.setState({
-                    data: res
+                    // data: res
                 })
             }).catch(e=>{
             console.log(e)
@@ -41,30 +42,32 @@ class UserManage extends Component{
     }
 
     handleClickForDelete(e,row){
-        this.$post('/user/del',row.username)
+        /*this.$post('/user/del',row.loginName)
             .then(res=>{
                 if(res == 1){
-                    this.getList()
+                    getList()
                 }
             }).catch(e=>{
             console.log(e)
-        })
+        })*/
     }
 
     handleComfirm1(){
-        let form = this.state.dialogData1;
-        let deptId = this.state.deptId;
+        /*let id = this.state.dialogData1.loginName;
+        let form = this.state.dialogData1;*/
+        console.log(this.state.dialogData1)
+        console.log(this.state.id)
         this.setState({
             dialogVisible1: false
         })
-        this.$post('/user/upd',form)
+        /*this.$post('/user/edit',{id,form})
             .then(res=>{
                 if(res == 1){
                     this.getList()
                 }
             }).catch(e=>{
             console.log(e)
-        })
+        })*/
     }
 
     handleComfirm2(){
@@ -107,17 +110,17 @@ class UserManage extends Component{
                 },
                 {
                     label: "用户职务",
-                    prop: "post"
+                    prop: "duties",
                 },
                 {
                     label: "部门",
-                    prop: "dept",
+                    prop: "apartment",
                     width: '70%'
                 },
                 {
                     label: "角色",
                     prop: "role",
-                    width: '110%'
+                    width: '100%'
                 },
                 {
                     label: "电子邮件",
@@ -147,7 +150,7 @@ class UserManage extends Component{
                 userName: 'Admin',
                 name: '管理员',
                 duties: '--',
-                department: '华农',
+                apartment: '华农',
                 role: '普通用户',
                 email: '000000',
                 phone: '13300000000',
@@ -160,21 +163,60 @@ class UserManage extends Component{
             dialogForm1: [
                 {
                     label:'登录名',
-                    param:'userName'
+                    param:'loginName'
                 },
                 {
                     label:'用户名',
                     param:'name'
                 },{
                     label:'用户职务',
-                    param:'duties'
+                    param:'duties',
+                    type:'Select',
+                    options:[{
+                        value:"普通用户",
+                        label:"普通用户"
+                    },{
+                        value:"黑名单用户",
+                        label:"黑名单用户"
+                    },{
+                        value:"VIP用户",
+                        label:"VIP用户"
+                    }]
                 },
                 {
                     label:'部门',
-                    param:'department'
+                    param:'apartment',
+                    type:'Select',
+                    options:[{
+                        value:"华农",
+                        label:"华农"
+                    },{
+                        value:"部门2",
+                        label:"部门2"
+                    },{
+                        value:"部门3",
+                        label:"部门3"
+                    },{
+                        value:"部门4",
+                        label:"部门4"
+                    },{
+                        value:"部门5",
+                        label:"部门5"
+                    },]
                 },{
                     label:'角色',
-                    param:'role'
+                    param:'role',
+                    type:'Select',
+                    options:[{
+                        value:"普通用户",
+                        label:"普通用户"
+                    },{
+                        value:"黑名单用户",
+                        label:"黑名单用户"
+                    },{
+                        value:"VIP用户",
+                        label:"VIP用户"
+                    }]
                 },
                 {
                     label:'电子邮件',

@@ -5,7 +5,7 @@ class IndTypeManage extends  Component {
 
     componentDidMount(){
         // this.getList()
-        PubSub.publish('route',this.props.location.pathname);
+        // PubSub.publish('route',this.props.location.pathname);
     }
 
     render() {

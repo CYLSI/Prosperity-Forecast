@@ -201,19 +201,15 @@ class IndInfoManage extends Component {
         {
           label:'fuck',
           type:'checkBox',
-          checkBoxItems:[{freqMonth:'月度'},{freqSeason:'季度'},{freqYear:'年度'}]
-
+          checkBoxItems:['月度','季度','年度'],
+          checkBoxParams:['freqMonth','freqSeason','freqYear']
         }
+
       ]
     }
 
   }
-  fuck(){
-    console.log(arguments)
-  }
-  fuck2(){
-    console.log("fuck2")
-  }
+
   handleClickForEdit(e, row) {
     this.state.checkboxOptions = "123"
     this.setState({
@@ -236,7 +232,7 @@ class IndInfoManage extends Component {
       <Layout.Col span={19}>
         <div className="search">
           <div className="keyword-search">
-            <span>关键字查询</span>
+            <span>关键字搜索</span>
             <Select value={this.state.value}>
               {
                 this.state.keywordOptions.map(el => {
@@ -246,7 +242,7 @@ class IndInfoManage extends Component {
 
             </Select>
             <Input className="inline-input"></Input>
-            <Button type="primary" size="small" onClick={() => this.setState({dialogVisible: false})}>确 定</Button>
+            <Button type="primary" size="small" onClick={() =>this.setState({dialogVisible: false})}>确 定</Button>
           </div>
           <div className="ind-search">
             <span>指标组查询</span>

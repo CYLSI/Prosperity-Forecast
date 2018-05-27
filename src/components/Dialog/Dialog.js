@@ -8,7 +8,9 @@ class DialogForm extends Component{
     this.state = {
       dialogVisible:props.dialogVislble,//布尔类型
       dialogData:props.dialogData,
-      form:props.form
+      form:props.form,
+      checkBoxOptions:[],
+      abc:"abc"
     }
 
   }
@@ -16,53 +18,56 @@ class DialogForm extends Component{
     let checkBoxItems = []
     nextProps.form.map((item)=>{
       if(item.type === 'checkBox'){
-
-        item.checkBoxItems.map((checkBoxItem,index)=>{
-          for(let dataItem in nextProps.dialogData){
-            for(let key in checkBoxItem){
-              if(dataItem=== key && nextProps.dialogData[dataItem] === 1){
-                checkBoxItems.push(key)
-              }
-            }
-
-          }
-
+        this.setState({
+          checkBoxItems: item.checkBoxItems,
+          checkBoxParams: item.checkBoxParams
         })
+
       }
     })
     this.setState({
       dialogData:nextProps.dialogData,
       dialogVisible:nextProps.dialogVislble,
-      checkBoxItems
+      checkBoxOptions:[]
     })
   }
   handleCancel(){
     this.setState({dialogVisible: false})
   }
   onChange(key,value){
+    console.log(key,value)
     this.state.dialogData[key] = value
     this.forceUpdate()
   }
-  handleCheckBoxItems(){
-    let checkBoxOptions = {}
-    this.state.checkBoxItems.map((item)=>{
+  renderCheckBoxItems(checkBoxItem,index,checkBoxParams){
 
+             if(this.state.dialogData[checkBoxParams[index]]) {
+               this.state.checkBoxOptions.push(checkBoxItem)
+             }
+    return <Checkbox label={checkBoxItem} key={checkBoxItem}  name="type"></Checkbox>
 
-    })
-    this.setState({
-      dialogData:{...this.state.dialogData,}
-    })
   }
   handleComfirm(){
+    const {checkBoxOptions,dialogData,checkBoxItems,checkBoxParams} = this.state
+
+      checkBoxItems.map((item,index) => {
+        if(checkBoxOptions.indexOf(item)!== -1){
+          dialogData[checkBoxParams[index]] = 1
+        }else{
+          dialogData[checkBoxParams[index]] = 0
+        }
+      })
+      this.state.abc = "kkk"
+    //不用setState而采用this.state来修改state的话，页面是不会渲染的，但state中的值却会变化
+    //除非等到下一次setState或this.forceUpdate()才会将state中的值渲染到页面中
 
     this.setState({
-      dialogVisible: false,
-
+      dialogVisible: false
     })
-     this.props.handleComfirm({...this.state.dialogData,})
+     this.props.handleComfirm({...dialogData})
   }
   render(){
-    const {dialogVisible,dialogData,form,checkBoxItems } = this.state
+    const {dialogVisible,dialogData,form,checkBoxOptions } = this.state
     return (<Dialog
       title="修改"
       visible={dialogVisible}
@@ -71,19 +76,16 @@ class DialogForm extends Component{
     >
       <Dialog.Body>
         <Form  ref="form" model={dialogData}>
-          {this.props.form.map((item)=>{
+          {form.map((item)=>{
             if(item.type === 'checkBox'){
 
               return(
               <Form.Item label={item.label} labelWidth="80">
-                <Checkbox.Group value={checkBoxItems }>
+                <Checkbox.Group value={checkBoxOptions}>
                   {
-                    item.checkBoxItems.map( checkBoxItem =>
+                    item.checkBoxItems.map( (checkBoxItem,index) =>
 
-
-                            <Checkbox label={123} name="type"></Checkbox>
-
-
+                      this.renderCheckBoxItems(checkBoxItem,index,item.checkBoxParams)
                     )
                   }
                 </Checkbox.Group>

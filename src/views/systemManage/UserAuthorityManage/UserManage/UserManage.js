@@ -12,7 +12,7 @@ class UserManage extends Component{
         this.$post('/user/list')
             .then(res=>{
                 this.setState({
-                    data: res
+                    // data: res
                 })
             }).catch(e=>{
             console.log(e)

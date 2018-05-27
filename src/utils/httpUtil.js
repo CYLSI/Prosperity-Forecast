@@ -4,7 +4,7 @@ import 'element-theme-default';
 
 import { Notification } from 'element-react';
 //
-const url = 'http://192.168.43.137:414';
+const url = 'http://172.18.173.145:414';
 /* 服务器ip地址 */
 
 Axios.defaults.timeout = 5000;//响应时间
@@ -114,12 +114,12 @@ function get (url, params = {}){
 
 
  // async function post(url ,data = {}){
- //      return Axios.post(url,data)
- //        .then(res=>{
- //          return res
- //        }).catch(err => {
- //          return err
- //        })
+ //  return Axios.post(url,data)
+ //    .then(res=>{
+ //      return res
+ //    }).catch(err => {
+ //      console.log("error")
+ //    })
  // }
  function post(url, data = {}){
   return new Promise((reslove,reject) => {

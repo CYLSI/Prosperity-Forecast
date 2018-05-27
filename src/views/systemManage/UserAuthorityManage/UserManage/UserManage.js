@@ -12,7 +12,7 @@ class UserManage extends Component{
         this.$post('/user/list')
             .then(res=>{
                 this.setState({
-                    // data: res
+                    data: res
                 })
             }).catch(e=>{
             console.log(e)
@@ -41,18 +41,19 @@ class UserManage extends Component{
     }
 
     handleClickForDelete(e,row){
-        /*this.$post('/user/del',row.loginName)
+        this.$post('/user/del',row.username)
             .then(res=>{
                 if(res == 1){
-                    getList()
+                    this.getList()
                 }
             }).catch(e=>{
             console.log(e)
-        })*/
+        })
     }
 
     handleComfirm1(){
         let form = this.state.dialogData1;
+        let deptId = this.state.deptId;
         this.setState({
             dialogVisible1: false
         })

@@ -1,4 +1,4 @@
-sadasfasdasfasasfasfa
+
 import React, {Component} from 'react'
 import {Input, Button,Dialog, Form,Checkbox,Select} from 'element-react';
 import './Dialog.less'
@@ -95,7 +95,7 @@ class DialogForm extends Component{
                     <Select value={dialogData[item.param]} onChange={this.onChange.bind(this,item.param)}>
                         {
                             item.options.map(el => {
-                                return <Select.Option key={el.value} label={el.label} value={el.value} />
+                                return <Select.Option key={el.id} label={el.name} value={el.id} />
                             })
                         }
                     </Select>

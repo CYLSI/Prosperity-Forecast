@@ -9,17 +9,28 @@ import {PubSub} from "pubsub-js";
 class UserManage extends Component{
 
     getList(){
-        this.$post('/user/list')
+        this.$post('/user/listForm')
             .then(res=>{
                 console.log(res)
                 this.setState({
-                    // data: res
+                    data:res.userList,
+                    deptOption:res.deptOption,
+                    roleOption:res.roleOption
+                },()=>{
+                    this.handleOption()
                 })
             }).catch(e=>{
             console.log(e)
         })
     }
+    handleOption(){
 
+        const {deptOption,roleOption,dialogForm1 } = this.state
+             this.state.dialogForm1[3] = Object.assign({},this.state.dialogForm1[3],{options:deptOption})
+             this.state.dialogForm1[4] = Object.assign({},this.state.dialogForm1[4],{options:roleOption})
+            this.forceUpdate()
+            //console.log(this.state)
+    }
     componentDidMount(){
         this.getList()
         PubSub.publish('route',this.props.location.pathname);
@@ -110,11 +121,11 @@ class UserManage extends Component{
                 },
                 {
                     label: "用户职务",
-                    prop: "duties",
+                    prop: "post",
                 },
                 {
                     label: "部门",
-                    prop: "apartment",
+                    prop: "dept",
                     width: '70%'
                 },
                 {
@@ -149,8 +160,8 @@ class UserManage extends Component{
             data: [{
                 userName: 'Admin',
                 name: '管理员',
-                duties: '--',
-                apartment: '华农',
+                post: '--',
+                dept: '华农',
                 role: '普通用户',
                 email: '000000',
                 phone: '13300000000',
@@ -168,24 +179,14 @@ class UserManage extends Component{
                 {
                     label:'用户名',
                     param:'name'
-                },{
+                },
+                {
                     label:'用户职务',
-                    param:'duties',
-                    type:'Select',
-                    options:[{
-                        value:"普通用户",
-                        label:"普通用户"
-                    },{
-                        value:"黑名单用户",
-                        label:"黑名单用户"
-                    },{
-                        value:"VIP用户",
-                        label:"VIP用户"
-                    }]
+                    param:'post'
                 },
                 {
                     label:'部门',
-                    param:'apartment',
+                    param:'dept',
                     type:'Select',
                     options:[{
                         value:"华农",

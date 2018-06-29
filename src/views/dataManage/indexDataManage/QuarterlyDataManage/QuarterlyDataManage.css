@@ -1,62 +1,55 @@
-.MonDataManage_button{
+.QuaDataManage_button{
     background-color: gray;
     border:gray;
     margin:5px 10px;
 }
 
-.MonDataManage_table{
+.QuaDataManage_table{
     margin:8px 0px;
 }
 
-.MonDataImport_1 h3{
+.QuaDataImport_1 h3{
     margin:30px 0px 0px 0px;
     padding:0px;
 }
 
-.MonDataImport_1 div{
+.QuaDataImport_1 div{
     text-align: left;
     margin:0px 0px 0px 95px;
 }
 
-.MonDataImport_1 a{
+.QuaDataImport_1 a{
     color:gray;
     margin:0px 5px;
     padding:0px;
 }
 
-.MonDataImport_2 div{
+.QuaDataImport_2 div{
     margin:5px;
 }
 
-.MonDataImport_2 h2,
-.MonDataImport_3 h2{
+.QuaDataImport_2 h2,
+.QuaDataImport_3 h2{
     margin:30px 0px 5px 100px;
     text-align: left;
     color:#61abf8;
 }
 
-.MonDataManage_Select {
+.QuaDataManage_Select {
     max-width:105px;
     margin:5px 5px;
 }
 
-.MonDataManage .inline-input{
+.QuaDataManage .inline-input{
     width:100px;
 }
 
-.MonDataImport_3 .inline-input_file{
-    display:inline-block;
-    max-width: 200px;
-    margin:0px 10px 0px 5px;
-    color:blue;
-}
-
-.MonDataQuery_Select{
+.QuaDataQuery_Select{
     width:95px;
     margin:0px 5px;
 }
 
-.MonDataQuery .inline-input{
+.QuaDataQuery .inline-input{
     margin:0px 5px;
     width:100px;
 }

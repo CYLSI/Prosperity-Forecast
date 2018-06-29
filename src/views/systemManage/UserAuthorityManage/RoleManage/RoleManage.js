@@ -3,15 +3,14 @@ import '../../../../App.css';
 import './RoleManage.css';
 import { Layout,Input,Button,Table} from 'element-react';
 import DialogForm from '@components/Dialog/Dialog'
-import {PubSub} from "pubsub-js";
 
 class RoleManage extends Component{
 
     getList(){
-        this.$post('/modules/list')
+        this.$post('/role/list')
             .then(res=>{
                 this.setState({
-                    data: res.data
+                    data: res
                 })
             }).catch(e=>{
             console.log(e)
@@ -19,67 +18,71 @@ class RoleManage extends Component{
     }
 
     componentDidMount(){
-        //this.getList()
-        PubSub.publish('route',this.props.location.pathname);
+        this.getList()
+    }
+
+    onChange(key, value) {
+        this.setState({
+            addedRoleName: value,
+            roleName:value
+        })
+        this.forceUpdate();
     }
 
     handleClickForEdit(e,row){
         this.setState({
             dialogVisible: true,
             dialogData: this.$clone(row),
-            id: row.roleName
+            id: row.id
         })
     }
 
     handleClickForDelete(e,row){
-       /*this.$post('/role/del',row.roleName)
+       this.$post('/role/del',{id: row.id})
            .then(res=>{
                if(res == 1){
-                   getList()
+                   this.getList()
                }
            }).catch(e=>{
            console.log(e)
-       })*/
+       })
    }
 
     handleClickForAdd(){
-        /*this.$post('/role/add',this.state.addedRoleName)
-            .then(res=>{
-                if(res == 1){
-                    getList()
-                }
-            }).catch(e=>{
-            console.log(e)
-        })*/
-    }
-
-    handleClickForSearch(){
-        /*this.$post('/role/search',this.state.addedRoleName)
-            .then(res=>{
-                if(res == 1){
-                   alert("此角色可添加")
-                }else{
-                alert("此角色已存在")}
-            }).catch(e=>{
-            console.log(e)
-        })*/
-    }
-
-    handleComfirm(){
-        // let id = this.state.dialogData.roleName;
-        console.log(this.state.dialogData)
-        console.log(this.state.id)
-        this.setState({
-            dialogVisible: false
-        })
-        /*this.$post('/user/edit',{id,form})
+        this.$post('/role/add',{name: this.state.addedRoleName})
             .then(res=>{
                 if(res == 1){
                     this.getList()
                 }
             }).catch(e=>{
             console.log(e)
-        })*/
+        })
+    }
+
+    handleClickForSearch(){
+        this.$post('/role/check',{name:this.state.roleName})
+            .then(res=>{
+                if(res){
+                   alert("此角色可添加")
+                }else{
+                alert("此角色已存在")}
+            }).catch(e=>{
+            console.log(e)
+        })
+    }
+
+    handleComfirm(){
+        this.setState({
+            dialogVisible: false
+        })
+        this.$post('/role/upd',{id:this.state.id,name:this.state.dialogData.name})
+            .then(res=>{
+                if(res == 1){
+                    this.getList()
+                }
+            }).catch(e=>{
+            console.log(e)
+        })
     }
 
     constructor(props) {
@@ -90,12 +93,13 @@ class RoleManage extends Component{
         this.handleClickForAdd = this.handleClickForAdd.bind(this);
         this.handleClickForSearch = this.handleClickForSearch.bind(this);
         this.handleComfirm = this.handleComfirm.bind(this);
+        this.onChange = this.onChange.bind(this);
 
         this.state = {
             columns: [
                 {
                     label: "角色名称",
-                    prop: "roleName",
+                    prop: "name",
                 },
                 {
                     label: "操作",
@@ -110,19 +114,19 @@ class RoleManage extends Component{
                 }
             ],
             data: [{
-                roleName: '系统管理员'
+                name: '系统管理员'
             },{
-                roleName: '普通用户'
+                name: '普通用户'
             },{
-                roleName: '数据访问'
+                name: '数据访问'
             },{
-                roleName: '基本分析工具'
+                name: '基本分析工具'
             }],
             dialogVisible: false,
             dialogData:'',
             dialogForm:[{
                     label:'角色名称',
-                    param:'roleName'
+                    param:'name'
                 }],
             roleName: '',
             addedRoleName: '请输入内容',
@@ -146,7 +150,7 @@ class RoleManage extends Component{
                 </Layout.Col>
                 <h4>添加用户角色</h4>
                 <Layout.Col span={10}>
-                    <div>角色名称：<Input placeholder={addedRoleName} className="inline-input"/>（十个汉字以内）</div>
+                    <div>角色名称：<Input placeholder={addedRoleName} className="inline-input" onChange={this.onChange.bind(this, 'addedRoleName')}/>（十个汉字以内）</div>
                     <div className="RoleManage-button">
                         <Button type="primary" size="small" onClick={this.handleClickForSearch.bind(this) }>检查重复</Button>
                         <Button type="primary" size="small" onClick={this.handleClickForAdd.bind(this) }>添加角色</Button>

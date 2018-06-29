@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import {Layout, Input, Button, Select, Checkbox, Table} from 'element-react';
 import DialogForm from '@components/Dialog/Dialog'
 import './IndInfoManage.less'
-import { PubSub } from 'pubsub-js'
 
 class IndInfoManage extends Component {
 

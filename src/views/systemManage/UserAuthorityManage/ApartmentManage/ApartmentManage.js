@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import '../../../../App.css';
 import './ApartmentManage.css';
 import { Layout,Tree,Input,Button } from 'element-react';
-import {PubSub} from "pubsub-js";
 
 class ApartmentManage extends Component{
 
@@ -19,7 +18,6 @@ class ApartmentManage extends Component{
 
     componentDidMount(){
        this.getList()
-        PubSub.publish('route',this.props.location.pathname);
     }
 
     onChange1(key, value) {

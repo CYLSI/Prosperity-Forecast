@@ -3,7 +3,6 @@ import '../../../../App.css';
 import './ModulesManage.css';
 import { Layout,Input,Button,Dropdown,Table,Form,Dialog } from 'element-react';
 import DialogForm from '@components/Dialog/Dialog'
-import {PubSub} from "pubsub-js";
 
 class ModulesManage extends Component{
 
@@ -20,7 +19,6 @@ class ModulesManage extends Component{
 
     componentDidMount(){
         //this.getList()
-        PubSub.publish('route',this.props.location.pathname);
     }
 
     handleClickForEdit(e,row){

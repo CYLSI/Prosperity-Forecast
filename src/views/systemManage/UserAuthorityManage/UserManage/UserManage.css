@@ -8,7 +8,7 @@
 }
 
 .UserManage-Table{
-    margin:20px 30px;
+    margin:10px 30px;
 }
 
 .UserManage-Table a,
@@ -20,5 +20,9 @@
 
 .UserManage-Table a:hover{
     color:#4db3ff;
+}
+
+.UserManage_Select{
+    width:110px;
 }
 

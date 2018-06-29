@@ -1,62 +1,55 @@
-.MonDataManage_button{
+.AnnDataManage_button{
     background-color: gray;
     border:gray;
     margin:5px 10px;
 }
 
-.MonDataManage_table{
+.AnnDataManage_table{
     margin:8px 0px;
 }
 
-.MonDataImport_1 h3{
+.AnnDataImport_1 h3{
     margin:30px 0px 0px 0px;
     padding:0px;
 }
 
-.MonDataImport_1 div{
+.AnnDataImport_1 div{
     text-align: left;
     margin:0px 0px 0px 95px;
 }
 
-.MonDataImport_1 a{
+.AnnDataImport_1 a{
     color:gray;
     margin:0px 5px;
     padding:0px;
 }
 
-.MonDataImport_2 div{
+.AnnDataImport_2 div{
     margin:5px;
 }
 
-.MonDataImport_2 h2,
-.MonDataImport_3 h2{
+.AnnDataImport_2 h2,
+.AnnDataImport_3 h2{
     margin:30px 0px 5px 100px;
     text-align: left;
     color:#61abf8;
 }
 
-.MonDataManage_Select {
+.AnnDataManage_Select {
     max-width:105px;
     margin:5px 5px;
 }
 
-.MonDataManage .inline-input{
+.AnnDataManage .inline-input{
     width:100px;
 }
 
-.MonDataImport_3 .inline-input_file{
-    display:inline-block;
-    max-width: 200px;
-    margin:0px 10px 0px 5px;
-    color:blue;
-}
-
-.MonDataQuery_Select{
+.AnnDataQuery_Select{
     width:95px;
     margin:0px 5px;
 }
 
-.MonDataQuery .inline-input{
+.AnnDataQuery .inline-input{
     margin:0px 5px;
     width:100px;
 }

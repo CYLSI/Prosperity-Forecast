@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import '../../../../App.css';
 import './UserGroupManage.css';
 import { Layout,Input,Button,Table} from 'element-react';
-import {PubSub} from "pubsub-js";
 import DialogForm from '@components/Dialog/Dialog'
 
 class UserGroupManage extends Component{
@@ -20,7 +19,6 @@ class UserGroupManage extends Component{
 
     componentDidMount(){
        this.getList()
-        PubSub.publish('route',this.props.location.pathname);
     }
 
     onChange(key, value) {
@@ -39,15 +37,15 @@ class UserGroupManage extends Component{
     }
 
     handleClickForDelete(e,row){
-       this.$post('/group/del',{id:row.id})
-           .then(res=>{
-               if(res == 1){
-                   this.getList()
-               }
-           }).catch(e=>{
-           console.log(e)
-       })
-   }
+        this.$post('/group/del',{id:row.id})
+            .then(res=>{
+                if(res === 1){
+                    this.getList()
+                }
+            }).catch(e=>{
+            console.log(e)
+        })
+    }
 
     handleClickForAdd(){
         this.$post('/group/add',{name:this.state.addedUserGroup})
@@ -61,20 +59,17 @@ class UserGroupManage extends Component{
     }
 
     handleComfirm(){
-        // let id = this.state.dialogData.id;
-        console.log(this.state.dialogData)
-        console.log(this.state.id)
         this.setState({
             dialogVisible: false
         })
-        /*this.$post('/user/edit',{id,form})
+        this.$post('/group/upd',{id:this.state.id,name:this.state.dialogData.name})
             .then(res=>{
                 if(res == 1){
                     this.getList()
                 }
             }).catch(e=>{
             console.log(e)
-        })*/
+        })
     }
 
     constructor(props) {
@@ -111,13 +106,13 @@ class UserGroupManage extends Component{
             ],
             data: [{
                 id: '1',
-                userGroupName: '普通用户',
+                name: '普通用户',
             },{
                 id: '10',
-                userGroupName: '管理人员',
+                name: '管理人员',
             },{
                 id: '8',
-                userGroupName: '展示层用户',
+                name: '展示层用户',
             }],
             dialogVisible: false,
             dialogData:'',
@@ -128,7 +123,7 @@ class UserGroupManage extends Component{
                 },
                 {
                     label:'用户组名称',
-                    param:'userGroupName'
+                    param:'name'
                 }],
             id: '',
             addedUserGroup: '请输入内容'

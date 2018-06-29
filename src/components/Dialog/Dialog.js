@@ -1,11 +1,9 @@
-
 import React, {Component} from 'react'
 import {Input, Button,Dialog, Form,Checkbox,Select} from 'element-react';
 import './Dialog.less'
 class DialogForm extends Component{
   constructor(props){
     super(props)
-    console.log(1)
     this.state = {
       dialogVisible:props.dialogVislble,//布尔类型
       dialogData:props.dialogData,
@@ -92,7 +90,7 @@ class DialogForm extends Component{
             )}else if(item.type === "Select"){
                return(
                 <Form.Item label={item.label} labelWidth="80">
-                    <Select value={dialogData[item.param]} onChange={this.onChange.bind(this,item.param)}>
+                    <Select value={dialogData[item.param]} onChange={this.onChange.bind(this,item.param)} className="dialog_select">
                         {
                             item.options.map(el => {
                                 return <Select.Option key={el.id} label={el.name} value={el.id} />
@@ -103,7 +101,7 @@ class DialogForm extends Component{
             }
               else{
                 return  (
-                  <Form.Item label={item.label} labelWidth="80">
+                  <Form.Item label={item.label} labelWidth="100">
                     <Input value={dialogData[item.param]} onChange={this.onChange.bind(this,item.param)} className="inline-input"/>
                   </Form.Item>)
             }

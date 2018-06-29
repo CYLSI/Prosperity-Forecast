@@ -3,22 +3,8 @@ import '../../App.css';
 import './Nav.css';
 import { Breadcrumb } from 'element-react';
 import routes from '../../router/routes'
-import { PubSub } from 'pubsub-js'
 
 class Nav extends Component{
-
-    // componentDidMount(){
-    //     this.pubsub_token = PubSub.subscribe('route', function (topic,message) {
-    //         let routes = message.split('/').slice(1);
-    //         this.setState({
-    //             routes: routes
-    //         })
-    //     }.bind(this));
-    // }
-    //
-    // componentWillUnmount(){
-    //    PubSub.unsubscribe(this.pubsub_token);
-    // }
 
   constructor(props){
       super(props)
@@ -35,7 +21,6 @@ class Nav extends Component{
 
   }
     render(){
-      console.log(this.state.routes)
         return(
             <div className='App-header-Breadcrumb'>
                 <Breadcrumb>

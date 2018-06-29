@@ -2,16 +2,13 @@ import React, { Component } from 'react';
 import '../../../../App.css';
 import './UserManage.css';
 import DialogForm from '@components/Dialog/Dialog'
-import { Layout,Input,Button,Dropdown,Table} from 'element-react';
-import { Link } from 'react-router';
-import {PubSub} from "pubsub-js";
+import { Layout,Input,Button,Select,Table} from 'element-react';
 
 class UserManage extends Component{
 
     getList(){
         this.$post('/user/listForm')
             .then(res=>{
-                console.log(res)
                 this.setState({
                     data:res.userList,
                     deptOption:res.deptOption,
@@ -23,55 +20,45 @@ class UserManage extends Component{
             console.log(e)
         })
     }
-    handleOption(){
 
-        const {deptOption,roleOption,dialogForm1 } = this.state
-             this.state.dialogForm1[3] = Object.assign({},this.state.dialogForm1[3],{options:deptOption})
-             this.state.dialogForm1[4] = Object.assign({},this.state.dialogForm1[4],{options:roleOption})
-            this.forceUpdate()
-            //console.log(this.state)
-    }
     componentDidMount(){
         this.getList()
-        PubSub.publish('route',this.props.location.pathname);
+    }
+
+    handleOption(){
+        const {deptOption,roleOption} = this.state
+            this.state.dialogForm1[3].options = deptOption;
+            this.state.dialogForm1[4].options = roleOption;
+            this.forceUpdate()
+    }
+
+    handleIniOption(e,name){
+        if(name === "Select1"){
+            this.setState({
+                keyword: e
+            })
+        }else if(name === "Select2"){
+            this.setState({
+                groupName: e
+            })
+        }else{
+            this.setState({
+                userName: e
+            })
+        }
     }
 
     modifyPassword(e,row){
         this.setState({
             dialogData2: this.$clone(row),
             dialogVisible2: true,
-            id: row.userName
+            id: row.id
         })
     }
 
-    handleClickForEdit(e,row){
-        this.setState({
-            dialogVisible1: true,
-            dialogData1: this.$clone(row),
-            id: row.userName
-        })
-    }
-
-    handleClickForDelete(e,row){
-        /*this.$post('/user/del',row.loginName)
-            .then(res=>{
-                if(res == 1){
-                    getList()
-                }
-            }).catch(e=>{
-            console.log(e)
-        })*/
-    }
-
-    handleComfirm1(){
-        /*let id = this.state.dialogData1.loginName;
-        let form = this.state.dialogData1;*/
-        console.log(this.state.dialogData1)
-        console.log(this.state.id)
-        this.setState({
-            dialogVisible1: false
-        })
-        /*this.$post('/user/edit',{id,form})
+    handleClickForCheck(){
+        console.log(this.state.keyword,this.state.groupName,this.state.userName,this.state.search)
+        /*this.$post('/user/del',{id:row.id})
             .then(res=>{
                 if(res == 1){
                     this.getList()
@@ -81,22 +68,60 @@ class UserManage extends Component{
         })*/
     }
 
+    handleClickForEdit(e,row){
+        this.setState({
+            dialogVisible1: true,
+            dialogData1: this.$clone(row),
+            id: row.id,
+            dept: row.dept,
+            role: row.role
+        })
+    }
+
+    handleClickForDelete(e,row){
+        this.$post('/user/del',{id:row.id})
+            .then(res=>{
+                if(res == 1){
+                    this.getList()
+                }
+            }).catch(e=>{
+            console.log(e)
+        })
+    }
+
+    onChange(key, value) {
+        this.setState({
+            [key]: value
+        });
+        this.forceUpdate();
+    }
+
+    handleComfirm1(){
+        this.setState({
+            dialogVisible1: false
+        })
+        this.$post('/user/upd',this.state.dialogData1)
+            .then(res=>{
+                if(res == 1){
+                    this.getList()
+                }
+            }).catch(e=>{
+            console.log(e)
+        })
+    }
+
     handleComfirm2(){
-        let op = this.state.dialogData2.oldPassword;
-        let np = this.state.dialogData2.newPassword;
-        let id = this.state.id;
-        console.log(op,np,id)
         this.setState({
             dialogVisible2: false
         })
-        /*this.$post('/user/edit',{id,form})
+        this.$post('/user/psw',{id:this.state.id,oldPsw:this.state.dialogData2.oldPassword,newPsw:this.state.dialogData2.newPassword})
            .then(res=>{
                if(res == 1){
                    this.getList()
                }
            }).catch(e=>{
            console.log(e)
-       })*/
+       })
     }
 
     constructor(props) {
@@ -106,6 +131,9 @@ class UserManage extends Component{
         this.handleClickForEdit = this.handleClickForEdit.bind(this);
         this.handleComfirm1 = this.handleComfirm1.bind(this);
         this.handleComfirm2 = this.handleComfirm2.bind(this);
+        this.handleOption = this.handleOption.bind(this);
+        this.handleIniOption = this.handleIniOption.bind(this);
+        this.handleClickForCheck = this.handleClickForCheck.bind(this);
 
         this.state = {
             columns: [
@@ -131,7 +159,7 @@ class UserManage extends Component{
                 {
                     label: "角色",
                     prop: "role",
-                    width: '100%'
+                    width: '140%'
                 },
                 {
                     label: "电子邮件",
@@ -146,10 +174,9 @@ class UserManage extends Component{
                 {
                     label: "操作",
                     prop: "zip",
-                    width: '190%',
+                    width: '170%',
                     render: (row) => {
                         return <span>
-                                    <Button type="text" size="small"><Link to='/systemManage/UserAuthorityManage/UserManage/UserManageAuthorization'>授权</Link></Button>
                                     <Button type="text" size="small" onClick={e => this.handleClickForEdit(e,row)}>编辑</Button>
                                     <Button type="text" size="small" onClick={e => this.handleClickForDelete(e,row)}>删除</Button>
                                     <Button type="text" size="small" onClick={e => this.modifyPassword(e,row)}>修改密码</Button>
@@ -164,8 +191,7 @@ class UserManage extends Component{
                 dept: '华农',
                 role: '普通用户',
                 email: '000000',
-                phone: '13300000000',
-                remark: '',
+                phone: '13300000000'
             }],
             dialogVisible1: false,
             dialogVisible2: false,
@@ -174,7 +200,7 @@ class UserManage extends Component{
             dialogForm1: [
                 {
                     label:'登录名',
-                    param:'loginName'
+                    param:'userName'
                 },
                 {
                     label:'用户名',
@@ -191,19 +217,7 @@ class UserManage extends Component{
                     options:[{
                         value:"华农",
                         label:"华农"
-                    },{
-                        value:"部门2",
-                        label:"部门2"
-                    },{
-                        value:"部门3",
-                        label:"部门3"
-                    },{
-                        value:"部门4",
-                        label:"部门4"
-                    },{
-                        value:"部门5",
-                        label:"部门5"
-                    },]
+                    }]
                 },{
                     label:'角色',
                     param:'role',
@@ -211,12 +225,6 @@ class UserManage extends Component{
                     options:[{
                         value:"普通用户",
                         label:"普通用户"
-                    },{
-                        value:"黑名单用户",
-                        label:"黑名单用户"
-                    },{
-                        value:"VIP用户",
-                        label:"VIP用户"
                     }]
                 },
                 {
@@ -235,7 +243,25 @@ class UserManage extends Component{
                     label:'新密码',
                     param:'newPassword'
                 }],
-            id:''
+            id:'',
+            dept:'',
+            role:'',
+            keywordOptions: [{
+                value: '华农',
+                label: '华农'
+            }],
+            keywordOptions1: [{
+                value: '普通用户',
+                label: '普通用户'
+            }],
+            keywordOptions2: [{
+                value: 'admin',
+                label: 'admin'
+            }],
+            keyword:'',
+            groupName:'',
+            userName:'',
+            search:'请输入内容'
         }
     }
 
@@ -247,40 +273,31 @@ class UserManage extends Component{
                     <h3>系统用户管理</h3>
                     <div className="UserManage">
                         <span>关键字查询：按部门名称</span>
-                        <Dropdown trigger="click" menu={(
-                            <Dropdown.Menu>
-                                <Dropdown.Item>华农</Dropdown.Item>
-                            </Dropdown.Menu>
-                        )}
-                        >
-                            <Button type="primary" size="small">
-                                >>全部<i className="el-icon-caret-bottom el-icon--right"></i>
-                            </Button>
-                        </Dropdown>
+                        <Select value={this.state.value} className="UserManage_Select"  onChange={e => this.handleIniOption(e,"Select1")} clearable={true}>
+                            {
+                                this.state.keywordOptions.map(el => {
+                                    return <Select.Option key={el.value} label={el.label} value={el.value}/>
+                                })
+                            }
+                        </Select>
                         <span>按用户组名</span>
-                        <Dropdown menu={(
-                            <Dropdown.Menu>
-                                <Dropdown.Item>华农</Dropdown.Item>
-                            </Dropdown.Menu>
-                        )}
-                        >
-                            <Button type="primary" size="small">
-                                全部<i className="el-icon-caret-bottom el-icon--right"></i>
-                            </Button>
-                        </Dropdown>
+                        <Select value={this.state.value} className="UserManage_Select"  onChange={e => this.handleIniOption(e,"Select2")} clearable={true}>
+                            {
+                                this.state.keywordOptions1.map(el => {
+                                    return <Select.Option key={el.value} label={el.label} value={el.value}/>
+                                })
+                            }
+                        </Select>
                         <span>按用户名称</span>
-                        <Dropdown menu={(
-                            <Dropdown.Menu>
-                                <Dropdown.Item>华农</Dropdown.Item>
-                            </Dropdown.Menu>
-                        )}
-                        >
-                            <Button type="primary" size="small">
-                                登陆名<i className="el-icon-caret-bottom el-icon--right"></i>
-                            </Button>
-                        </Dropdown>
-                        <Input placeholder="请输入内容" className="inline-input"/>
-                        <Button type="primary" size="small">查询</Button>
+                        <Select value={this.state.value} className="UserManage_Select"  onChange={e => this.handleIniOption(e,"Select3")} clearable={true}>
+                            {
+                                this.state.keywordOptions2.map(el => {
+                                    return <Select.Option key={el.value} label={el.label} value={el.value}/>
+                                })
+                            }
+                        </Select>
+                        <Input placeholder={this.state.search} className="inline-input" onChange={this.onChange.bind(this, 'search')}/>
+                        <Button type="primary" size="small" onClick={e => this.handleClickForCheck(e)}>查询</Button>
                     </div>
                 </div>
                 <div className="UserManage-Table">

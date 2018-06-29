@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Input,Button,Select,Layout } from 'element-react';
 
-class MonthlyDataImport extends  Component {
+class QuarterlyDataImport extends  Component {
 
     handleOption(e,name){
         if(name === "Select1"){
@@ -44,16 +44,16 @@ class MonthlyDataImport extends  Component {
     render() {
         return (
             <Layout.Col span={18}>
-                <div className="MonDataImport_1">
-                    <h3>月度数据导入</h3>
+                <div className="QuaDataImport_1">
+                    <h3>季度数据导入</h3>
                     <div>
-                        <a href="#">月度面板模板</a>
-                        <a href="#">月度时序模板</a>
+                        <a href="#">季度面板模板</a>
+                        <a href="#">季度时序模板</a>
                     </div>
                 </div>
-                <div className="MonDataImport_2">
+                <div className="QuaDataImport_2">
                     <div>
-                        <h2>月度面板数据导入</h2>
+                        <h2>季度面板数据导入</h2>
                         <span>时间设定：年度</span>
                         <Select value={this.state.value} onChange={e => this.handleOption(e,"Select1")} className="QuaDataManage_Select" placeholder="--" clearable={true}>
                             {
@@ -63,7 +63,7 @@ class MonthlyDataImport extends  Component {
                             }
                         </Select>
                         <span>月份</span>
-                        <Select value={this.state.value} onChange={e => this.handleOption(e,"Select2")} className="MonDataManage_Select" placeholder="--" clearable={true}>
+                        <Select value={this.state.value} onChange={e => this.handleOption(e,"Select2")} className="QuaDataManage_Select" placeholder="--" clearable={true}>
                             {
                                 this.state.options1.map(el => {
                                     return <Select.Option key={el.value} label={el.label} value={el.value}/>
@@ -73,18 +73,18 @@ class MonthlyDataImport extends  Component {
                     </div>
                     <div>
                         <span>选择截面数据文件</span>
-                        <input type="file" className="inline-input_file"/>
+                        <input type="file" className="inline-input"/>
                         <Button type="primary" size="small">生成表格</Button>
                     </div>
                 </div>
-                <div className="MonDataImport_3">
-                    <h2>月度时序数据导入</h2>
+                <div className="QuaDataImport_3">
+                    <h2>季度时序数据导入</h2>
                     <span>选择时序数据文件</span>
-                    <input type="file" className="inline-input_file"/>
+                    <input type="file" className="inline-input"/>
                     <Button type="primary" size="small">生成表格</Button>
                 </div>
             </Layout.Col>
         )
     }
 }
-export default MonthlyDataImport
+export default QuarterlyDataImport

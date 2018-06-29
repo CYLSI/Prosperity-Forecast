@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import '../../../../App.css';
-import './MonthlyDataManage.css'
+import './AnnualDataManage.css'
 import DialogForm from '@components/Dialog/Dialog'
 import { Input,Button,Table,Layout,Select } from 'element-react';
 
-class MonthlyDataManage extends  Component {
+class AnnualDataManage extends  Component {
 
     getList(){
         this.$post('/user/listForm')
@@ -225,11 +225,11 @@ class MonthlyDataManage extends  Component {
         const {columns,data,dialogData,dialogForm,dialogVisible} = this.state
         return (
             <Layout.Col span={18}>
-                <div className="MonDataManage">
-                    <h3>月度数据管理</h3>
+                <div className="AnnDataManage">
+                    <h3>年度数据管理</h3>
                     <div>
                         <span>关键字查询</span>
-                        <Select value={this.state.value} onChange={e => this.handleOption(e,"Select1")} className="MonDataManage_Select" placeholder="农业状况" clearable={true}>
+                        <Select value={this.state.value} onChange={e => this.handleOption(e,"Select1")} className="AnnDataManage_Select" placeholder="农业状况" clearable={true}>
                             {
                                 this.state.keywordOptions.map(el => {
                                     return <Select.Option key={el.value} label={el.label} value={el.value}/>
@@ -239,38 +239,38 @@ class MonthlyDataManage extends  Component {
                         <Input placeholder={this.state.search} className="inline-input" onChange={this.onChange.bind(this, 'search')}/>
                         <Button type="primary" size="small" onClick={e => this.handleClickForSearchByKeyword(e)}>查看数据信息汇总</Button>
                         <span>年度</span>
-                        <Select value={this.state.value} className="MonDataManage_Select" placeholder="----" clearable={true} onChange={e => this.handleOption(e,"Select2")}>
+                        <Select value={this.state.value} className="AnnDataManage_Select" placeholder="----" clearable={true} onChange={e => this.handleOption(e,"Select2")}>
                             {
                                 this.state.keywordOptions1.map(el => {
                                     return <Select.Option key={el.value} label={el.label} value={el.value}/>
                                 })
-                             }
-                         </Select>
-                         <span>月份</span>
-                         <Select value={this.state.value} className="MonDataManage_Select" placeholder="--" clearable={true} onChange={e => this.handleOption(e,"Select3")}>
-                             {
-                                 this.state.keywordOptions2.map(el => {
-                                     return <Select.Option key={el.value} label={el.label} value={el.value}/>
-                                 })
-                             }
-                         </Select>
-                         <span>数据项</span>
-                         <Select value={this.state.value} className="MonDataManage_Select" placeholder="当期数据" clearable={true} onChange={e => this.handleOption(e,"Select4")}>
+                            }
+                        </Select>
+                        <span>月份</span>
+                        <Select value={this.state.value} className="AnnDataManage_Select" placeholder="--" clearable={true} onChange={e => this.handleOption(e,"Select3")}>
                             {
-                              this.state.keywordOptions3.map(el => {
-                                  return <Select.Option key={el.value} label={el.label} value={el.value}/>
-                              })
-                             }
-                         </Select>
-                         <Button type="primary" size="small" onClick={e => this.handleClickForSearchByTime(e)}>显示数据</Button>
-                         <Button type="primary" size="small">增加</Button>
-                        </div>
-                        <div className="MonDataManage_table">
-                            <Table
-                                columns={columns}
-                                data={data}
-                                border={true}
-                            />
+                                this.state.keywordOptions2.map(el => {
+                                    return <Select.Option key={el.value} label={el.label} value={el.value}/>
+                                })
+                            }
+                        </Select>
+                        <span>数据项</span>
+                        <Select value={this.state.value} className="AnnDataManage_Select" placeholder="当期数据" clearable={true} onChange={e => this.handleOption(e,"Select4")}>
+                            {
+                                this.state.keywordOptions3.map(el => {
+                                    return <Select.Option key={el.value} label={el.label} value={el.value}/>
+                                })
+                            }
+                        </Select>
+                        <Button type="primary" size="small" onClick={e => this.handleClickForSearchByTime(e)}>显示数据</Button>
+                        <Button type="primary" size="small">增加</Button>
+                    </div>
+                    <div className="AnnDataManage_table">
+                        <Table
+                            columns={columns}
+                            data={data}
+                            border={true}
+                        />
                     </div>
                 </div>
                 <DialogForm
@@ -285,4 +285,4 @@ class MonthlyDataManage extends  Component {
 
     }
 }
-export default MonthlyDataManage
+export default AnnualDataManage

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Input,Button,Select,Layout } from 'element-react';
 
-class MonthlyDataImport extends  Component {
+class AnnualDataImport extends  Component {
 
     handleOption(e,name){
         if(name === "Select1"){
@@ -14,6 +14,7 @@ class MonthlyDataImport extends  Component {
             })
         }
     }
+
 
     constructor(props){
         super(props);
@@ -44,16 +45,16 @@ class MonthlyDataImport extends  Component {
     render() {
         return (
             <Layout.Col span={18}>
-                <div className="MonDataImport_1">
-                    <h3>月度数据导入</h3>
+                <div className="AnnDataImport_1">
+                    <h3>年度数据导入</h3>
                     <div>
-                        <a href="#">月度面板模板</a>
-                        <a href="#">月度时序模板</a>
+                        <a href="#">年度面板模板</a>
+                        <a href="#">年度时序模板</a>
                     </div>
                 </div>
-                <div className="MonDataImport_2">
+                <div className="AnnDataImport_2">
                     <div>
-                        <h2>月度面板数据导入</h2>
+                        <h2>年度面板数据导入</h2>
                         <span>时间设定：年度</span>
                         <Select value={this.state.value} onChange={e => this.handleOption(e,"Select1")} className="QuaDataManage_Select" placeholder="--" clearable={true}>
                             {
@@ -73,18 +74,18 @@ class MonthlyDataImport extends  Component {
                     </div>
                     <div>
                         <span>选择截面数据文件</span>
-                        <input type="file" className="inline-input_file"/>
+                        <input type="file" className="inline-input"/>
                         <Button type="primary" size="small">生成表格</Button>
                     </div>
                 </div>
-                <div className="MonDataImport_3">
-                    <h2>月度时序数据导入</h2>
+                <div className="AnnDataImport_3">
+                    <h2>年度时序数据导入</h2>
                     <span>选择时序数据文件</span>
-                    <input type="file" className="inline-input_file"/>
+                    <input type="file" className="inline-input"/>
                     <Button type="primary" size="small">生成表格</Button>
                 </div>
             </Layout.Col>
         )
     }
 }
-export default MonthlyDataImport
+export default AnnualDataImport

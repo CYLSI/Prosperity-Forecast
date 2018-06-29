@@ -4,6 +4,7 @@ import './Menu.css';
 import { Layout,Menu } from 'element-react';
 import { Link } from 'react-router';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
+import compoundConsistentIndex from "../../views/basicAnalyseTool/compoundConsistentIndex/compoundConsistentIndex";
 
 class Menus extends Component{
 
@@ -39,21 +40,29 @@ class Menus extends Component{
                                         <Link to='/dataManage/indexDataManage/MonthlyDataManage/MonthlyDataQuery'><Menu.Item index="7-1">月度数据查询</Menu.Item></Link>
                                         <Link to= '/dataManage/indexDataManage/MonthlyDataManage/MonthlyDataImport'><Menu.Item index="7-2">月度数据导入</Menu.Item></Link>
                                     </Menu.SubMenu>
-                                  </Link>
-
+                                    </Link>
+                                    <Link to='/dataManage/indexDataManage/QuarterlyDataManage'>
                                     <Menu.SubMenu index="8" title={<p className="el-submenu__titles">季度数据管理</p>}>
-                                        <Link to='/dataManage/indexDataManage/MonthlyDataManage/QuarterlyDataQuery'><Menu.Item index="8-1">季度数据查询</Menu.Item></Link>
-                                        <Link to= '/dataManage/indexDataManage/MonthlyDataManage/QuarterlyDataImport'><Menu.Item index="8-2">季度数据导入</Menu.Item></Link>
+                                        <Link to='/dataManage/indexDataManage/QuarterlyDataManage/QuarterlyDataQuery'><Menu.Item index="8-1">季度数据查询</Menu.Item></Link>
+                                        <Link to= '/dataManage/indexDataManage/QuarterlyDataManage/QuarterlyDataImport'><Menu.Item index="8-2">季度数据导入</Menu.Item></Link>
                                     </Menu.SubMenu>
+                                    </Link>
+                                    <Link to='/dataManage/indexDataManage/AnnualDataManage'>
                                     <Menu.SubMenu index="9" title={<p className="el-submenu__titles">年度数据管理</p>}>
-                                        <Link to='/dataManage/indexDataManage/MonthlyDataManage/AnnualDataQuery'><Menu.Item index="9-1">年度数据查询</Menu.Item></Link>
-                                        <Link to= '/dataManage/indexDataManage/MonthlyDataManage/AnnualDataImport'><Menu.Item index="9-2">年度数据导入</Menu.Item></Link>
+                                        <Link to='/dataManage/indexDataManage/AnnualDataManage/AnnualDataQuery'><Menu.Item index="9-1">年度数据查询</Menu.Item></Link>
+                                        <Link to= '/dataManage/indexDataManage/AnnualDataManage/AnnualDataImport'><Menu.Item index="9-2">年度数据导入</Menu.Item></Link>
                                     </Menu.SubMenu>
+                                    </Link>
                             </Menu.SubMenu>
                             </Menu.SubMenu>
 
                             <Menu.SubMenu index="10" title={<span>基本分析工具</span>}>
-                              <Link to='/basicAnalyseTool/relationAnalyse'><Menu.Item index="5-1">相关性分析</Menu.Item></Link>
+                                <Link to='/basicAnalyseTool/primarySelectedIndex'><Menu.Item index="10-1">指标初选</Menu.Item></Link>
+                                <Menu.Item index="10-2">基本统计量</Menu.Item>
+                                <Link to='/basicAnalyseTool/relationAnalyse'><Menu.Item index="10-3">相关性分析</Menu.Item></Link>
+                                <Link to='/basicAnalyseTool/seasonalAdjustment'><Menu.Item index="10-4">季节调整</Menu.Item></Link>
+                                <Link to='/basicAnalyseTool/peakValleyGraphicAnalysis'><Menu.Item index="10-5">峰谷图形分析</Menu.Item></Link>
+                                <Link to='/basicAnalyseTool/compoundConsistentIndex'><Menu.Item index="10-6">复合一致指标</Menu.Item></Link>
                             </Menu.SubMenu>
                             <Menu.SubMenu index="11" title={<span>模型配置</span>}>
                                 <Menu.Item index="11-1">选项3</Menu.Item>

@@ -3,7 +3,7 @@ import '../../../../../App.css';
 import { Input,Button,Select,Table,Layout } from 'element-react';
 import DialogForm from '@components/Dialog/Dialog'
 
-class MonthlyDataQuery extends  Component {
+class AnnualDataQuery extends  Component {
 
     getList(){
         this.$post('/user/listForm')
@@ -202,11 +202,11 @@ class MonthlyDataQuery extends  Component {
         return(
             <div>
                 <Layout.Col span={18}>
-                    <div className="MonDataQuery">
-                        <h3>月度数据查询</h3>
+                    <div className="AnnDataQuery">
+                        <h3>年度数据查询</h3>
                         <div>
                             <span>开始时间：年份</span>
-                            <Select value={this.state.value} onChange={e => this.handleOption(e,"Select1")} className="MonDataQuery_Select" clearable={true}>
+                            <Select value={this.state.value} onChange={e => this.handleOption(e,"Select1")} className="AnnDataQuery_Select" clearable={true}>
                                 {
                                     this.state.keywordOptions.map(el => {
                                         return <Select.Option key={el.value} label={el.label} value={el.value}/>
@@ -214,7 +214,7 @@ class MonthlyDataQuery extends  Component {
                                 }
                             </Select>
                             <span>月份</span>
-                            <Select value={this.state.value} onChange={e => this.handleOption(e,"Select2")} className="MonDataQuery_Select" clearable={true}>
+                            <Select value={this.state.value} onChange={e => this.handleOption(e,"Select2")} className="AnnDataQuery_Select" clearable={true}>
                                 {
                                     this.state.keywordOptions1.map(el => {
                                         return <Select.Option key={el.value} label={el.label} value={el.value}/>
@@ -222,7 +222,7 @@ class MonthlyDataQuery extends  Component {
                                 }
                             </Select>
                             <span>结束时间：年份</span>
-                            <Select value={this.state.value} onChange={e => this.handleOption(e,"Select3")} className="MonDataQuery_Select" clearable={true}>
+                            <Select value={this.state.value} onChange={e => this.handleOption(e,"Select3")} className="AnnDataQuery_Select" clearable={true}>
                                 {
                                     this.state.keywordOptions2.map(el => {
                                         return <Select.Option key={el.value} label={el.label} value={el.value}/>
@@ -230,7 +230,7 @@ class MonthlyDataQuery extends  Component {
                                 }
                             </Select>
                             <span>月份</span>
-                            <Select value={this.state.value} onChange={e => this.handleOption(e,"Select4")} className="MonDataQuery_Select" clearable={true}>
+                            <Select value={this.state.value} onChange={e => this.handleOption(e,"Select4")} className="AnnDataQuery_Select" clearable={true}>
                                 {
                                     this.state.keywordOptions3.map(el => {
                                         return <Select.Option key={el.value} label={el.label} value={el.value}/>
@@ -242,7 +242,7 @@ class MonthlyDataQuery extends  Component {
                             <Button type="primary" size="small"  onClick={e => this.handleClickForSearch(e)}>查询</Button>
                             <Button type="primary" size="small">导出</Button>
                         </div>
-                        <div className="MonDataManage_table">
+                        <div className="AnnDataManage_table">
                             <Table
                                 columns={columns}
                                 data={data}
@@ -262,4 +262,4 @@ class MonthlyDataQuery extends  Component {
         )
     }
 }
-export default MonthlyDataQuery
+export default AnnualDataQuery

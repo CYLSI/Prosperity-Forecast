@@ -272,7 +272,7 @@ class IndInfoManage extends Component {
         <Table
           style={{width: '100%'}}
           columns={this.state.columns}
-
+          border={true}
           headerAlign="center"
           data={this.state.data}
         />

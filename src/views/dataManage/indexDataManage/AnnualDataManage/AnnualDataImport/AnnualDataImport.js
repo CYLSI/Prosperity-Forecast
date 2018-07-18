@@ -48,8 +48,8 @@ class AnnualDataImport extends  Component {
                 <div className="AnnDataImport_1">
                     <h3>年度数据导入</h3>
                     <div>
-                        <a href="#">年度面板模板</a>
-                        <a href="#">年度时序模板</a>
+                        <a href="../../PanelTemplate.xlsx" download="PanelTemplate">年度面板模板</a>
+                        <a href="../../TemporalTemplate.xlsx" download="TemporalTemplate.xlsx">年度时序模板</a>
                     </div>
                 </div>
                 <div className="AnnDataImport_2">

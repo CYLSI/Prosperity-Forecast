@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import {Layout, Button,Table} from 'element-react';
-import './compoundConsistentIndex.less';
+import './CompoundConsistentIndex.less';
 import DialogForm from '@components/Dialog/Dialog'
 
-class compoundConsistentIndex extends  Component{
+class CompoundConsistentIndex extends  Component{
 
     getList(){
         this.$post('/group/list')
@@ -14,6 +14,10 @@ class compoundConsistentIndex extends  Component{
             }).catch(e=>{
             console.log(e)
         })
+    }
+
+    componentDidMount(){
+        this.getList();
     }
 
     handleClickForEdit(e,row){
@@ -187,4 +191,4 @@ class compoundConsistentIndex extends  Component{
     }
 }
 
-export default compoundConsistentIndex
+export default CompoundConsistentIndex

@@ -1,5 +1,4 @@
-import compoundConsistentIndex from "../views/basicAnalyseTool/compoundConsistentIndex/compoundConsistentIndex";
-import primarySelectedIndex from "../views/basicAnalyseTool/primarySelectedIndex/primarySelectedIndex";
+import SecondLevelIndexConfig from "../views/displayLayerConfig/SecondLevelIndexConfig/SecondLevelIndexConfig";
 
 const routes = new Map([
     ['systemManage','系统管理'],
@@ -16,7 +15,7 @@ const routes = new Map([
     ['IndProviderManage','指标提供者管理'],
     ['IndTypeManage','指标类型管理'],
     ['basicAnalyseTool','基本分析工具'],
-    ['relationAnalyse','相关性分析'],
+    ['RelationAnalyse','相关性分析'],
     ['IndTypeManage','指标类别管理'],
     ['indexDataManage','指标数据管理'],
     ['MonthlyDataManage','月度数据管理'],
@@ -28,10 +27,46 @@ const routes = new Map([
     ['QuarterlyDataManage','季度数据管理'],
     ['QuarterlyDataImport','季度数据导入'],
     ['QuarterlyDataQuery','季度数据查询'],
-    ['seasonalAdjustment','季节调整'],
-    ['peakValleyGraphicAnalysis','峰谷图形分析'],
-    ['compoundConsistentIndex','复合一致指标'],
-    ['primarySelectedIndex','指标初选'],
-])
+    ['SeasonalAdjustment','季节调整'],
+    ['PeakValleyGraphicAnalysis','峰谷图形分析'],
+    ['CompoundConsistentIndex','复合一致指标'],
+    ['PrimarySelectedIndex','指标初选'],
+    ['modelConfig','模型配置'],
+    ['ThematicAnalysisManagement','主题分析管理'],
+    ['synDiffIndexSetting','合成/扩散指数指标设置'],
+    ['prosSignalLampSetting','景气信号灯设置'],
+    ['IndexConfiguration','指标配置'],
+    ['IndexPortfolioManage','指标组合管理'],
+    ['SignalIndexMonitor','单指标监测'],
+    ['IndexThresholdManage','指标阈值管理'],
+    ['themeAnalysis','主题分析'],
+    ['agriculturalDevelopment','农业发展'],
+    ['agriculturalDevelopmentTrend','农业发展趋势'],
+    ['syntheticIndex','合成指数'],
+    ['SynIndexCalculation','合成指数计算'],
+    ['SynIndexView','合成指数查看'],
+    ['diffusionIndex','扩散指数'],
+    ['DiffIndexCalculation','扩散指数计算'],
+    ['DiffIndexView','扩散指数查看'],
+    ['prosSignalLamp','景气信号灯'],
+    ['SyntheticalProsIndexCal','综合景情指数计算'],
+    ['ProsSignalLampView','景气信号灯查看'],
+    ['prosperityForecast','景气预测'],
+    ['singleIndexForecast','单指标预测'],
+    ['ModelListView','查看模型列表'],
+    ['NewSingleIndexModel','新建单指标模型'],
+    ['synIndexPrediction','合成指标预测'],
+    ['SynIndexModelListView','查看合成指数模型列表'],
+    ['NewSynIndexModel','新建合成指数模型'],
+    ['SyntheticalProsForecast','综合景情预测'],
+    ['NewSynProsForeModel','新建综合景情预测模型'],
+    ['InflectionPointForecast','拐点预测'],
+    ['NewInfPointForeModel','新建拐点预测模型'],
+    ['displayLayerConfig','展示层配置'],
+    ['FirstLevelThemeConfig','配置一级主题'],
+    ['SecondLevelIndexConfig','配置二级指标'],
+    ['AreaComparisonConfig','配置区域对比'],
+    ['CommentManage','展示层评论管理']
+]);
 
 export default  routes

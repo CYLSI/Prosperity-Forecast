@@ -33,7 +33,6 @@ class DialogForm extends Component{
     this.setState({dialogVisible: false})
   }
   onChange(key,value){
-    console.log(key,value)
     this.state.dialogData[key] = value
     this.forceUpdate()
   }
@@ -75,7 +74,6 @@ class DialogForm extends Component{
         <Form  ref="form" model={dialogData}>
           {form.map((item)=>{
             if(item.type === 'checkBox'){
-
               return(
               <Form.Item label={item.label} labelWidth="80">
                 <Checkbox.Group value={checkBoxOptions}>
@@ -93,7 +91,7 @@ class DialogForm extends Component{
                     <Select value={dialogData[item.param]} onChange={this.onChange.bind(this,item.param)} className="dialog_select">
                         {
                             item.options.map(el => {
-                                return <Select.Option key={el.id} label={el.name} value={el.id} />
+                                return <Select.Option key={el.label} label={el.label} value={el.label} />
                             })
                         }
                     </Select>

@@ -47,8 +47,8 @@ class MonthlyDataImport extends  Component {
                 <div className="MonDataImport_1">
                     <h3>月度数据导入</h3>
                     <div>
-                        <a href="#">月度面板模板</a>
-                        <a href="#">月度时序模板</a>
+                        <a href="../../PanelTemplate.xlsx" download="PanelTemplate.xlsx">月度面板模板</a>
+                        <a href="../../TemporalTemplate.xlsx" download="TemporalTemplate.xlsx">月度时序模板</a>
                     </div>
                 </div>
                 <div className="MonDataImport_2">

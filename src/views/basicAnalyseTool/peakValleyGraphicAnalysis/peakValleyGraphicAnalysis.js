@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Layout, Input, Button, Radio, Checkbox, DatePicker,Table} from 'element-react';
-import './peakValleyGraphicAnalysis.less';
+import './PeakValleyGraphicAnalysis.less';
 import moment from 'moment';
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/line';
@@ -8,7 +8,7 @@ import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 
-class peakValleyGraphicAnalysis extends  Component{
+class PeakValleyGraphicAnalysis extends  Component{
 
     componentDidMount() {
         let myChart = echarts.init(document.getElementById('graph'));
@@ -39,7 +39,6 @@ class peakValleyGraphicAnalysis extends  Component{
                 })
             }
         }
-
     }
 
     handleClickForAnalysis(e){
@@ -62,7 +61,7 @@ class peakValleyGraphicAnalysis extends  Component{
                 date1: '2018-06',
                 date2: '2018-07',
                 seasonalAdjust: true,
-                seasonLength: '0',
+                springLength: '0',
                 peakValleyLength: '0',
                 ppLength: '0'
             },
@@ -168,9 +167,9 @@ class peakValleyGraphicAnalysis extends  Component{
                         </div>
                         <div>
                             <span>季节调整：</span>
-                            <Checkbox className="PVGAnalysis_Checkbox" checked onChange={e => this.onChangeCheckbox(e,"checkbox_1")}>需要进行季节调整</Checkbox>
-                            <span>季节长度：</span>
-                            <Input className="inline-input-smaller" placeholder={settings.seasonLength} onChange={this.onChange.bind(this,'seasonLength')}/>
+                            <Checkbox className="PVGAnalysis_Checkbox" checked={settings.seasonalAdjust} onChange={e => this.onChangeCheckbox(e,"checkbox_1")}>需要进行季节调整</Checkbox>
+                            <span>春节长度：</span>
+                            <Input className="inline-input-smaller" placeholder={settings.springLength} onChange={this.onChange.bind(this,'seasonLength')}/>
                             <span>天(0-7天)</span>
                             <div id="PVG_dataCheck">
                                 <Button type="success" size="small">数据检查</Button>
@@ -206,4 +205,4 @@ class peakValleyGraphicAnalysis extends  Component{
     }
 }
 
-export default peakValleyGraphicAnalysis
+export default PeakValleyGraphicAnalysis

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import {Layout, Input, Button, Select,Table } from 'element-react';
-import './primarySelectedIndex.less';
+import {Layout, Input, Button, Select,Table,Dialog,Radio,Checkbox } from 'element-react';
+import './PrimarySelectedIndex.less';
 import DialogForm from '@components/Dialog/Dialog'
 
-class primarySelectedIndex extends  Component{
+class PrimarySelectedIndex extends  Component{
 
     getList(){
         this.$post('/group/list')
@@ -16,21 +16,48 @@ class primarySelectedIndex extends  Component{
         })
     }
 
+    onChangeRadio(value) {
+        this.state.dialogBodyData.search.frequency = value;
+        this.forceUpdate();
+    }
+
+    onChangeCheckbox(e){
+        this.state.dialogBodyData.reverse = e
+    }
+
     componentDidMount(){
         this.getList()
     }
 
-    handleIniOption(e){
-       this.setState({
-           indexCategory: e
-       })
+    handleIniOption(e,name){
+        if(name === "Select1"){
+            this.setState({
+                indexCategory: e
+            })
+        }else{
+            this.state.dialogBodyData.search.keywordSelect = e;
+        }
     }
 
     onChange(key, value) {
-        this.setState({
-            [key]: value
-        });
+        if(key === "dialog-search"){
+            this.state.dialogBodyData.search.keywordInput = value;
+        }else{
+            this.setState({
+                [key]: value
+            });
+        }
         this.forceUpdate();
+    }
+
+    handleClickForSearch(){
+        this.setState({
+            dialogVisible2:true
+        })
+    }
+
+    handleClickForSearching(){
+        console.log(this.state.dialogBodyData.search)
     }
 
     handleClickForEdit(e,row){
@@ -108,6 +135,14 @@ class primarySelectedIndex extends  Component{
         }
     }
 
+    handleComfirm2(){
+
+    }
+
+    handleCancel(){
+        this.setState({dialogVisible2:false})
+    }
+
     constructor(props) {
         super(props);
 
@@ -159,6 +194,7 @@ class primarySelectedIndex extends  Component{
             indexCategory:'',
             keyword:'请输入内容',
             dialogVisible: false,
+            dialogVisible2:false,
             dialogData:'',
             dialogForm:[
                 {
@@ -170,12 +206,86 @@ class primarySelectedIndex extends  Component{
                     param:'setting'
                 }],
             upd: false,
-            add: false
+            add: false,
+            columns1: [
+                {
+                    label: "指标名称",
+                    prop: "name"
+                },
+                {
+                    label: "操作",
+                    prop: "zip",
+                    width: '80%',
+                    render: (row) => {
+                        return <span>
+                                    <Button type="text" size="small">添加</Button>
+                                </span>
+                    }
+                }],
+            data1:[{
+                name:1
+            },{
+                name:2
+            },{
+                name:1
+            }],
+            columns2: [
+                {
+                    label: "指标类型",
+                    prop: "type"
+                },
+                {
+                    label: "操作",
+                    prop: "zip",
+                    width: '80%',
+                    render: (row) => {
+                        return <span>
+                                    <Button type="text" size="small">添加</Button>
+                                </span>
+                    }
+                }],
+            data2:[{
+                type:1
+            },{
+                type:2
+            }],
+            columns3: [
+                {
+                    label: "指标类型",
+                    prop: "type"
+                },
+                {
+                    label: "操作",
+                    prop: "zip",
+                    width: '80%',
+                    render: (row) => {
+                        return <span>
+                                    <Button type="text" size="small">删除</Button>
+                                </span>
+                    }
+                }],
+            data3:[{
+                type:1
+            },{
+                type:2
+            }],
+            Options: [{
+                value: '1',
+                label: '1'
+            }],
+            dialogBodyData:{
+                search:{
+                  frequency:1,
+                  keywordSelect:'',
+                  keywordInput:''
+                },
+                reverse:true,
+            }
         }
     }
 
     render(){
-        const { columns,data,dialogData,dialogVisible,dialogForm } = this.state;
+        const { columns,data,dialogData,dialogVisible,dialogForm,dialogBodyData } = this.state;
         return(
             <Layout.Col span={18}>
                 <div className="PSIndex">
@@ -183,13 +293,13 @@ class primarySelectedIndex extends  Component{
                     <div>
                         <span>基准指标：</span>
                         <Input className="inline-input"/>
-                        <Button type="primary" size="small">查询</Button>
+                        <Button type="primary" size="small" onClick={this.handleClickForSearch.bind(this)}>查询</Button>
                         <Button type="primary" size="small">显示所有分析结果</Button>
                     </div>
                     <hr />
                     <div>
                         <span>指标类别：</span>
-                        <Select value={this.state.value} onChange={e => this.handleIniOption(e)} clearable={true}>
+                        <Select value={this.state.value} onChange={e => this.handleIniOption(e,"Select1")} clearable={true}>
                             {
                                 this.state.keywordOptions.map(el => {
                                     return <Select.Option key={el.value} label={el.label} value={el.value}/>
@@ -226,9 +336,78 @@ class primarySelectedIndex extends  Component{
                     >
                     </DialogForm>
                 </div>
-            </Layout.Col>
-        )
+                <div className="PSIndex_Dialog">
+                    <Dialog
+visible={this.state.dialogVisible2}
+size="small"
+title="指标初选"
+top="20px"
+onCancel={this.handleCancel.bind(this)}
+>
+<Dialog.Body>
+<div>
+<div>
+<span>请选择一组指标：</span>
+<Select value={this.state.value} onChange={e => this.handleIniOption(e,"Select2")} clearable={true}>
+    {
+        this.state.Options.map(el => {
+            return <Select.Option key={el.value} label={el.label} value={el.value}/>
+        })
     }
+</Select>
+<Input className="inline-input" onChange={this.onChange.bind(this,"dialog-search")}/>
+</div>
+<div>
+    <Radio value="1" checked={dialogBodyData.search.frequency === 1} onChange={this.onChangeRadio.bind(this)}>月度</Radio>
+    <Radio value="2" checked={dialogBodyData.search.frequency === 2} onChange={this.onChangeRadio.bind(this)}>季度</Radio>
+    <Radio value="3" checked={dialogBodyData.search.frequency === 3} onChange={this.onChangeRadio.bind(this)}>年度</Radio>
+    <Button type="primary" size="small" onClick={this.handleClickForSearching.bind(this) }>关键字查询</Button>
+</div>
+<div className="PSIndex_Dialog-indexName">
+    <p>指标名称</p>
+    <Table
+        columns={this.state.columns1}
+        data={this.state.data1}
+        border={true}
+        scrollY={true}
+        height="100px"
+    />
+</div>
+<div className="PSIndex_Dialog-indexType">
+    <p>指标-数据类型</p>
+    <Table
+        columns={this.state.columns2}
+        data={this.state.data2}
+        border={true}
+        scrollY={true}
+        height="100px"
+    />
+</div>
+<div>
+    <Button type="primary" size="small">添加指标</Button>
+    <Checkbox checked={dialogBodyData.reverse} onChange={e => this.onChangeCheckbox(e)}>逆转</Checkbox>
+</div>
+<div>
+    <Table
+        columns={this.state.columns3}
+        data={this.state.data3}
+        border={true}
+        scrollY={true}
+        height="100px"
+    />
+    <Button type="primary" size="small">删除指标</Button>
+    <Button type="primary" size="small">删除所有已选指标</Button>
+</div>
+</div>
+</Dialog.Body>
+<Dialog.Footer>
+    <Button type="primary" size="small" onClick={this.handleComfirm2.bind(this) }>确定</Button>
+</Dialog.Footer>
+</Dialog>
+</div>
+</Layout.Col>
+)
+}
 }
 
-export default primarySelectedIndex
+export default PrimarySelectedIndex

@@ -7,7 +7,7 @@ import { Input,Button,Table,Layout,Select } from 'element-react';
 class MonthlyDataManage extends  Component {
 
     getList(){
-        this.$post('/user/listForm')
+        this.$post('/mq/list')
             .then(res=>{
                 console.log(res)
                 this.setState({
@@ -19,7 +19,7 @@ class MonthlyDataManage extends  Component {
     }
 
     componentDidMount(){
-        //this.getList()
+        this.getList()
     }
 
     onChange(key, value) {
@@ -52,7 +52,22 @@ class MonthlyDataManage extends  Component {
     handleClickForEdit(e,row){
         this.setState({
             dialogVisible: true,
-            dialogData: this.$clone(row)
+            dialogData: this.$clone(row),
+            upd: true
+        })
+    }
+
+    handleClickForAdd(){
+        this.setState({
+            dialogVisible: true,
+            add: true,
+            dialogData:{
+                time:'',
+                indexName:'',
+                dataItemName:'',
+                data:'',
+                unit:''
+            }
         })
     }
 
@@ -95,17 +110,36 @@ class MonthlyDataManage extends  Component {
     }
 
     handleComfirm(){
+        console.log(this.state.dialogData)
         this.setState({
-            dialogVisible: false
-        })
-        /*this.$post('/user/edit',{id,form})
-            .then(res=>{
-                if(res == 1){
-                    this.getList()
-                }
-            }).catch(e=>{
-            console.log(e)
-        })*/
+            dialogVisible: false,
+        });
+        if(this.state.upd === true){
+            this.$post('/group/upd',{})
+                .then(res=>{
+                    if(res === 1){
+                        this.getList()
+                    }
+                    this.setState({
+                        upd: false
+                    })
+                }).catch(e=>{
+                console.log(e)
+            })
+        }
+        if(this.state.add === true){
+            this.$post('/group/add',{})
+                .then(res=>{
+                    if(res === 1){
+                        this.getList()
+                    }
+                    this.setState({
+                        add: false
+                    })
+                }).catch(e=>{
+                console.log(e)
+            })
+        }
     }
 
     constructor(props) {
@@ -217,7 +251,9 @@ class MonthlyDataManage extends  Component {
             keyword:'',
             year:'',
             month:'',
-            CurrentData:""
+            CurrentData:"",
+            upd: false,
+            add: false
         }
     }
 
@@ -263,7 +299,7 @@ class MonthlyDataManage extends  Component {
                              }
                          </Select>
                          <Button type="primary" size="small" onClick={e => this.handleClickForSearchByTime(e)}>显示数据</Button>
-                         <Button type="primary" size="small">增加</Button>
+                         <Button type="primary" size="small" onClick={this.handleClickForAdd.bind(this)}>增加</Button>
                         </div>
                         <div className="MonDataManage_table">
                             <Table

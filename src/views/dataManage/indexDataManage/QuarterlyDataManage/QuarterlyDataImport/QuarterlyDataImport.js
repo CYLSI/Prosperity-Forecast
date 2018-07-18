@@ -47,8 +47,8 @@ class QuarterlyDataImport extends  Component {
                 <div className="QuaDataImport_1">
                     <h3>季度数据导入</h3>
                     <div>
-                        <a href="#">季度面板模板</a>
-                        <a href="#">季度时序模板</a>
+                        <a href="../../PanelTemplate.xlsx" download="PanelTemplate.xlsx">季度面板模板</a>
+                        <a href="../../TemporalTemplate.xlsx" download="TemporalTemplate.xlsx">季度时序模板</a>
                     </div>
                 </div>
                 <div className="QuaDataImport_2">

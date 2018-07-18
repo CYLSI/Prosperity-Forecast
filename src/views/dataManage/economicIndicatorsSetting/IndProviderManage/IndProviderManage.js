@@ -5,7 +5,7 @@ import DialogForm from '@components/Dialog/Dialog'
 class IndProviderManage extends  Component {
 
     getList(){
-        this.$post('/group/list')
+        this.$post('/provider/list')
             .then(res=>{
                 this.setState({
                     data: res
@@ -16,7 +16,7 @@ class IndProviderManage extends  Component {
     }
 
     componentDidMount(){
-        //this.getList()
+        this.getList()
     }
 
     handleClickForEdit(e, row) {
@@ -30,9 +30,9 @@ class IndProviderManage extends  Component {
         this.setState({
             dialogVisible: false
         })
-        this.$post('/group/upd',{id:this.state.id,name:this.state.dialogData.name})
+        this.$post('/provider/upd',this.state.dialogData)
             .then(res=>{
-                if(res === 1){
+                if(res == 1){
                     this.getList()
                 }
             }).catch(e=>{
@@ -41,7 +41,7 @@ class IndProviderManage extends  Component {
     }
 
     handleClickForDelete(e,row){
-        this.$post('/group/del',{id:row.id})
+        this.$post('/provider/del',{id:row.id})
             .then(res=>{
                 if(res === 1){
                     this.getList()
@@ -63,12 +63,12 @@ class IndProviderManage extends  Component {
                     width:'100%'
                 },{
                     label:"指标提供者名称",
-                    prop:"providerName",
+                    prop:"name",
                     align:"center",
                     width:'300%'
                 },{
                     label:"备注",
-                    prop:"remark",
+                    prop:"description",
                     align:"center"
                 },{
                     label:"操作",
@@ -87,8 +87,8 @@ class IndProviderManage extends  Component {
             ],
             data:[{
                     "id":"1",
-                    "providerName":"人行",
-                    "remark":"--"
+                    "name":"人行",
+                    "description":"--"
                 }],
             dialogVisible: false,
             dialogData: '',
@@ -99,11 +99,11 @@ class IndProviderManage extends  Component {
                 },
                 {
                     label:"指标提供者名称",
-                    param:"providerName"
+                    param:"name"
                 },
                 {
                     label:"备注",
-                    param:"remark"
+                    param:"description"
                 }
             ]
         }
@@ -117,12 +117,13 @@ class IndProviderManage extends  Component {
                 <Table
                     columns={this.state.columns}
                     data={this.state.data}
+                    border={true}
                 />
                 <DialogForm
                     dialogData={dialogData}
                     dialogVislble={dialogVisible}
                     form={dialogForm}
-                    handleComfirm={this.handleComfirm}
+                    handleComfirm={this.handleComfirm.bind(this)}
                 >
                 </DialogForm>
             </Layout.Col>

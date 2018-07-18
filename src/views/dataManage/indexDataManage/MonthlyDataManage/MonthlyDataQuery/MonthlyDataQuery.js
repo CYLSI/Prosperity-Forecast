@@ -6,7 +6,7 @@ import DialogForm from '@components/Dialog/Dialog'
 class MonthlyDataQuery extends  Component {
 
     getList(){
-        this.$post('/user/listForm')
+        this.$post('/mq/listForm')
             .then(res=>{
                 console.log(res)
                 this.setState({
@@ -49,7 +49,25 @@ class MonthlyDataQuery extends  Component {
     }
 
     handleClickForSearch(){
-        console.log(this.state.byear,this.state.bmonth,this.state.eyear,this.state.emonth,this.state.search)
+        this.$post('/mq/ret',{year1:this.state.byear,month1:this.state.bmonth,year2:this.state.eyear,month2:this.state.emonth,condition:this.state.search})
+            .then(res=>{
+                console.log(res)
+                this.setState({
+                    data:res
+                })
+            }).catch(e=>{
+            console.log(e)
+        })
+    }
+
+    handleClickForExport(){
+        this.$post('/mq/export',{year1:this.state.byear,month1:this.state.bmonth,year2:this.state.eyear,month2:this.state.emonth,condition:this.state.search})
+            .then(res=>{
+                console.log(res)
+
+            }).catch(e=>{
+            console.log(e)
+        })
     }
 
     handleClickForDelete(){
@@ -95,28 +113,60 @@ class MonthlyDataQuery extends  Component {
         this.state = {
             columns: [
                 {
-                    label: "时间",
-                    prop: "time",
-                    width: '120%'
+                    label: "年度",
+                    prop: "year",
+                    width: '80%'
                 },{
-                    label: "指标名称",
-                    prop: "indexName",
-                    width: '100%'
+                    label: "1月",
+                    prop: "jan",
+                    width: '70%'
                 },{
-                    label: "数据项名称",
-                    prop: "dataItemName",
-                    width: '130%'
+                    label: "2月",
+                    prop: "feb",
+                    width: '70%'
                 },{
-                    label: "数据值",
-                    prop: "data"
+                    label: "3月",
+                    prop: "mar",
+                    width: '70%'
                 },{
-                    label: "单位",
-                    prop: "unit",
+                    label: "4月",
+                    prop: "apr",
+                    width: '70%'
+                },{
+                    label: "5月",
+                    prop: "may",
+                    width: '70%'
+                },{
+                    label: "6月",
+                    prop: "jun",
+                    width: '70%'
+                },{
+                    label: "7月",
+                    prop: "jul",
+                    width: '70%'
+                },{
+                    label: "8月",
+                    prop: "aug",
+                    width: '70%'
+                },{
+                    label: "9月",
+                    prop: "sep",
+                    width: '70%'
+                },{
+                    label: "10月",
+                    prop: "oct",
+                    width: '70%'
+                },{
+                    label: "11月",
+                    prop: "nov",
+                    width: '70%'
+                },{
+                    label: "12月",
+                    prop: "dec",
                     width: '80%'
                 },{
                     label: "操作",
                     prop: "zip",
-                    width: '130%',
                     render: (row) => {
                         return <span>
                                     <Button type="text" size="small" onClick={e => this.handleClickForEdit(e,row)}>编辑</Button>
@@ -125,39 +175,47 @@ class MonthlyDataQuery extends  Component {
                     }
                 }],
             data: [{
-                time: '1998-1',
-                indexName: '--',
-                dataItemName: '--',
-                data: '--',
-                unit: '--'
+                year: '1998',
+                Jan: '--',
+                Feb: '--',
+                Mar: '--',
+                Apr: '--',
+                May: '--',
+                June: '--',
+                July: '--',
+                Aug: '--',
+                Sept: '--',
+                Oct: '--',
+                Nov: '--',
+                Dec: '--'
             }],
             keywordOptions: [{
-                value: '1997',
-                label: '1997'
+                value: '2000',
+                label: '2000'
             }, {
                 value: '1998',
                 label: '1998'
             }],
             keywordOptions1: [{
-                value: '一月',
-                label: '一月'
+                value: '1',
+                label: '1'
             }, {
-                value: '二月',
-                label: '二月'
+                value: '2',
+                label: '2'
             }],
             keywordOptions2: [{
-                value: '2000',
-                label: '2000'
+                value: '2020',
+                label: '2020'
             }, {
                 value: '2001',
                 label: '2001'
             }],
             keywordOptions3: [{
-                value: '七月',
-                label: '七月'
+                value: '7',
+                label: '7'
             }, {
-                value: '八月',
-                label: '八月'
+                value: '8',
+                label: '8'
             }],
             byear:'',
             bmonth:'',
@@ -239,8 +297,8 @@ class MonthlyDataQuery extends  Component {
                             </Select>
                             <span>指标名称</span>
                             <Input placeholder={this.state.search} className="inline-input" onChange={this.onChange.bind(this, 'search')}/>
-                            <Button type="primary" size="small"  onClick={e => this.handleClickForSearch(e)}>查询</Button>
-                            <Button type="primary" size="small">导出</Button>
+                            <Button type="primary" size="small" onClick={e => this.handleClickForSearch(e)}>查询</Button>
+                            <Button type="primary" size="small" onClick={e => this.handleClickForExport(e)}>导出</Button>
                         </div>
                         <div className="MonDataManage_table">
                             <Table

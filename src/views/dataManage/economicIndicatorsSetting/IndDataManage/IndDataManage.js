@@ -75,7 +75,7 @@ class IndDataManage extends Component{
   render() {
       const {dialogData, dialogVisible,dialogForm,checkboxOptions} = this.state
     return (
-        <Layout.Col span={19}>
+        <Layout.Col span={18}>
       <Form  labelWidth="80" onSubmit={this.onSubmit.bind(this)}>
 
 
@@ -98,6 +98,7 @@ class IndDataManage extends Component{
 
                 //headerAlign="center"
                 data={this.state.data}
+                border={true}
             />
             <DialogForm
                 dialogData={dialogData}

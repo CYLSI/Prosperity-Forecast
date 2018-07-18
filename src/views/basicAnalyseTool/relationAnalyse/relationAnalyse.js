@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {Layout, Input, Button, Radio, Select, Checkbox, DatePicker,Table, Form} from 'element-react';
-import './relationAnalyse.less';
+import './RelationAnalyse.less';
 import moment from 'moment';
-class relationAnalyse extends  Component{
+class RelationAnalyse extends  Component{
     constructor(props) {
         super(props);
 
@@ -157,4 +157,4 @@ class relationAnalyse extends  Component{
     )
   }
 }
-export default relationAnalyse
+export default RelationAnalyse

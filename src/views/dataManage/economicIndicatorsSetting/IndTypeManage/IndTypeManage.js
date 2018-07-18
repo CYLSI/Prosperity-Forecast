@@ -4,7 +4,7 @@ import DialogForm from '@components/Dialog/Dialog'
 class IndTypeManage extends  Component {
 
     getList(){
-        this.$post('/group/list')
+        this.$post('/type/list')
             .then(res=>{
                 this.setState({
                     data: res
@@ -19,7 +19,6 @@ class IndTypeManage extends  Component {
     }
 
     handleClickForEdit(e, row) {
-        //this.state.checkboxOptions = "123"
         this.setState({
             dialogData: this.$clone(row),
             dialogVisible: true
@@ -35,14 +34,12 @@ class IndTypeManage extends  Component {
     }
 
     onChange(key, value) {
-        console.log(key)
-        console.log(value)
         this.state.form[key] = value;
         this.forceUpdate();
     }
 
     handleClickForDelete(e,row){
-        this.$post('/group/del',{id:row.id})
+        this.$post('/quota/del',{id:row.id})
             .then(res=>{
                 if(res == 1){
                     this.getList()
@@ -60,17 +57,17 @@ class IndTypeManage extends  Component {
             columns:[
                 {
                     label:"指标类别标识",
-                    prop:"data_id",
+                    prop:"id",
                     align:"center"
                 },
                 {
                     label:"指标类别名称",
-                    prop:"data_name",
+                    prop:"name",
                     align:"center"
                 },
                 {
                     label:"备注",
-                    prop:"data_text",
+                    prop:"description",
                     align:"center"
                 },
                 {
@@ -89,24 +86,24 @@ class IndTypeManage extends  Component {
             ],
             data:[
                 {
-                    "data_id":"A",
-                    "data_name":"指标1",
-                    "data_text":"备注1"
+                    "id":"A",
+                    "name":"指标1",
+                    "description":"备注1"
                 },
                 {
-                    "data_id":"B",
-                    "data_name":"指标2",
-                    "data_text":"备注2"
+                    "id":"B",
+                    "name":"指标2",
+                    "description":"备注2"
                 },
                 {
-                    "data_id":"C",
-                    "data_name":"指标3",
-                    "data_text":"备注3"
+                    "id":"C",
+                    "name":"指标3",
+                    "description":"备注3"
                 },
                 {
-                    "data_id":"D",
-                    "data_name":"指标4",
-                    "data_text":"备注4"
+                    "id":"D",
+                    "name":"指标4",
+                    "description":"备注4"
                 }
             ],
             dialogVisible: false,
@@ -136,7 +133,7 @@ class IndTypeManage extends  Component {
                     <h3>指标类别管理</h3>
                     <Table
                         columns={this.state.columns}
-
+                        border={true}
                         //headerAlign="center"
                         data={this.state.data}
                     />

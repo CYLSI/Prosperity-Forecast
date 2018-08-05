@@ -28,6 +28,7 @@ const routes = new Map([
     ['QuarterlyDataImport','季度数据导入'],
     ['QuarterlyDataQuery','季度数据查询'],
     ['SeasonalAdjustment','季节调整'],
+    ['BasicStatistics','基本统计量'],
     ['PeakValleyGraphicAnalysis','峰谷图形分析'],
     ['CompoundConsistentIndex','复合一致指标'],
     ['PrimarySelectedIndex','指标初选'],

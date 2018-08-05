@@ -28,6 +28,7 @@ import SeasonalAdjustment from "@views/basicAnalyseTool/SeasonalAdjustment/Seaso
 import PeakValleyGraphicAnalysis from "@views/basicAnalyseTool/PeakValleyGraphicAnalysis/PeakValleyGraphicAnalysis";
 import CompoundConsistentIndex from "@views/basicAnalyseTool/CompoundConsistentIndex/CompoundConsistentIndex";
 import PrimarySelectedIndex from "@views/basicAnalyseTool/PrimarySelectedIndex/PrimarySelectedIndex";
+import BasicStatistics from "@views/basicAnalyseTool/BasicStatistics/BasicStatistics";
 import ThematicAnalysisManagement from "@views/modelConfig/ThematicAnalysisManagement/ThematicAnalysisManagement";
 import SDIndexConfiguration from "@views/modelConfig/synDiffIndexSetting/IndexConfiguration/IndexConfiguration";
 import SDIndexPortfolioManage from "@views/modelConfig/synDiffIndexSetting/IndexPortfolioManage/IndexPortfolioManage";
@@ -99,6 +100,7 @@ ReactDOM.render((
             <Route path='/basicAnalyseTool/PeakValleyGraphicAnalysis' component={PeakValleyGraphicAnalysis}/>
             <Route path='/basicAnalyseTool/CompoundConsistentIndex' component={CompoundConsistentIndex}/>
             <Route path='/basicAnalyseTool/PrimarySelectedIndex' component={PrimarySelectedIndex}/>
+            <Route path='/basicAnalyseTool/BasicStatistics' component={BasicStatistics}/>
 
             /*
             模型配置

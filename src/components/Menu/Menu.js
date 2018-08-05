@@ -4,6 +4,7 @@ import './Menu.css';
 import { Layout,Menu } from 'element-react';
 import { Link } from 'react-router';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
+import BasicStatistics from "../../views/basicAnalyseTool/BasicStatistics/BasicStatistics";
 
 class Menus extends Component{
 
@@ -57,7 +58,7 @@ class Menus extends Component{
 
                             <Menu.SubMenu index="10" title={<span>基本分析工具</span>}>
                                 <Link to='/basicAnalyseTool/PrimarySelectedIndex'><Menu.Item index="10-1">指标初选</Menu.Item></Link>
-                                <Menu.Item index="10-2">基本统计量</Menu.Item>
+                                <Link to='/basicAnalyseTool/BasicStatistics'><Menu.Item index="10-2">基本统计量</Menu.Item></Link>
                                 <Link to='/basicAnalyseTool/RelationAnalyse'><Menu.Item index="10-3">相关性分析</Menu.Item></Link>
                                 <Link to='/basicAnalyseTool/SeasonalAdjustment'><Menu.Item index="10-4">季节调整</Menu.Item></Link>
                                 <Link to='/basicAnalyseTool/PeakValleyGraphicAnalysis'><Menu.Item index="10-5">峰谷图形分析</Menu.Item></Link>

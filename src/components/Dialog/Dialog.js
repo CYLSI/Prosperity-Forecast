@@ -39,7 +39,7 @@ class DialogForm extends Component{
   renderCheckBoxItems(checkBoxItem,index,checkBoxParams){
 
              if(this.state.dialogData[checkBoxParams[index]]) {
-               this.state.checkBoxOptions.push(checkBoxItem)
+               this.state.checkBoxOptions.push(checkBoxParams[index])
              }
     return <Checkbox label={checkBoxItem} key={checkBoxItem}  name="type"></Checkbox>
 
@@ -65,7 +65,7 @@ class DialogForm extends Component{
   render(){
     const {dialogVisible,dialogData,form,checkBoxOptions } = this.state
     return (<Dialog
-      title="修改"
+      title="信息配置"
       visible={dialogVisible}
       onCancel={e =>this.handleCancel()}
       size="tiny"
@@ -76,7 +76,7 @@ class DialogForm extends Component{
             if(item.type === 'checkBox'){
               return(
               <Form.Item label={item.label} labelWidth="80">
-                <Checkbox.Group value={checkBoxOptions}>
+                <Checkbox.Group value={checkBoxOptions} onChange={this.onChange.bind(this,item.param)}>
                   {
                     item.checkBoxItems.map( (checkBoxItem,index) =>
 
@@ -87,7 +87,7 @@ class DialogForm extends Component{
               </Form.Item>
             )}else if(item.type === "Select"){
                return(
-                <Form.Item label={item.label} labelWidth="80">
+                <Form.Item label={item.label} labelWidth="90">
                     <Select value={dialogData[item.param]} onChange={this.onChange.bind(this,item.param)} className="dialog_select">
                         {
                             item.options.map(el => {

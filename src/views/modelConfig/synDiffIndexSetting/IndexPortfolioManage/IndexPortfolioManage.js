@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Layout, Select,Button,Table,Input} from 'element-react';
+import './IndexPortfolioManage.less';
 
 class IndexPortfolioManage extends  Component{
 
@@ -37,7 +38,7 @@ class IndexPortfolioManage extends  Component{
     componentDidMount(){
         this.getOptions()
         let page1 = document.getElementById("page1")
-        page1.style.display = "none";
+        page1.style.display = "block";
         let page2 = document.getElementById("page2")
         page2.style.display = "none";
         let page3 = document.getElementById("page3")

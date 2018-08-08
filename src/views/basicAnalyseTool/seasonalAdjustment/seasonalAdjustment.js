@@ -54,11 +54,15 @@ class SeasonalAdjustment extends  Component{
     }
 
     handleClickForAdjust(){
+        console.log(this.state.settings)
         this.$post('/analysis/season',this.state.settings)
             .then(res=>{
-                this.setState({
-                    graphOptions : res
-                })
+                this.state.graphOptions.xAxis.data = res.xAxis;
+                this.state.graphOptions.series = res.lineList;
+                this.state.graphOptions.legend.data = res.lineNames;
+                this.forceUpdate();
+                let myChart = echarts.init(document.getElementById('graph'));
+                myChart.setOption(this.state.graphOptions)
             }).catch(e=>{
             console.log(e)
         })
@@ -150,11 +154,11 @@ class SeasonalAdjustment extends  Component{
         this.state = {
             settings: {
                 frequency: 1,
-                startTime: '2018-06',
-                endTime: '2018-07',
+                startTime: '2001-06',
+                endTime: '2006-07',
                 springLength: '0',
                 checkBox: ['1', '2', '3', '4', '5'],
-                quota:'',
+                quota:4,
                 quotaId:''
             },
             checkList:['1', '2', '3', '4', '5'],
@@ -169,33 +173,13 @@ class SeasonalAdjustment extends  Component{
                     }
                 },
                 yAxis: {},
-                series: [{
-                    name: '原序列',
-                    type: 'line',
-                    data: [0, 20, 36, 10, 10, 20]
-                },{
-                    name: '趋势项序列(TC)',
-                    type: 'line',
-                    data: [4, 60, 23, 54, 65,0]
-                },{
-                    name: '季节调整后序列(SA)',
-                    type: 'line',
-                    data: [3,45,6,34,34,53]
-                },{
-                    name: '季节因子序列(SF)',
-                    type: 'line',
-                    data: [23,45,67,63,43,2,1]
-                },{
-                    name: '不规则项序列(IR)',
-                    type: 'line',
-                    data: [1,23,45,6,3,5]
-                }],
+                series: [],
                 legend: {
                     itemWidth: 20,
                     itemHeight: 10,
                     itemGap: 10,
-                    padding:[5,0,0,0,],
-                    data: ['原序列','趋势项序列(TC)','季节调整后序列(SA)','季节因子序列(SF)','不规则项序列(IR)'],
+                    padding:[5,15,0,0],
+                    data: [],
                     right: '4%',
                     show:true,
                     orient:"horizontal",

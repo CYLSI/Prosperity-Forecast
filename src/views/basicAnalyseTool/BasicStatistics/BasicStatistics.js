@@ -2,11 +2,6 @@ import React, { Component } from 'react';
 import {Layout, Input, Button, Select,Table,Dialog,Radio,Checkbox,Tree,DatePicker } from 'element-react';
 import './BasicStatistics.less';
 import moment from "moment/moment";
-import echarts from 'echarts/lib/echarts';
-import 'echarts/lib/chart/line';
-import 'echarts/lib/component/tooltip';
-import 'echarts/lib/component/title';
-import 'echarts/lib/component/legend';
 
 class BasicStatistics extends  Component{
 
@@ -22,25 +17,27 @@ class BasicStatistics extends  Component{
     }
 
     handleClickForCheck(){
-        console.log(this.state.settings)
-        this.$post('/group/del')
+        this.$post('/analysis/check',this.state.settings)
             .then(res=>{
                 if(res === 1){
-                    alert("")
+                    alert("数据完整！")
+                }else{
+                    alert("数据不完整！")
                 }
             }).catch(e=>{
             console.log(e)
         })
     }
 
-    handleClickForGraph(){
-        console.log(this.state.settings)
-        let myChart = echarts.init(document.getElementById('graph'));
-        myChart.setOption(this.state.graphOptions)
-    }
-
     handleClickForCal(){
-
+        this.$post('/analysis/statistics',this.state.settings)
+            .then(res=>{
+               this.setState({
+                   data:res
+               })
+            }).catch(e=>{
+            console.log(e)
+        })
     }
 
     //PrimaryDialogMethod
@@ -195,43 +192,58 @@ class BasicStatistics extends  Component{
             }],
             addedIndex:'',
             settings:{
-                altQuota:[],
-                altQuotaId:[],
-                dataFrequency:1,
-                date1: '2018-06',
-                date2: '2018-07',
+                analysisQuota:[1,2],
+                frequency:1,
+                startTime: '2018-06',
+                endTime: '2018-07',
             },
-            graphOptions: {
-                title: {text: '基本统计量分析'},
-                tooltip: {},
-                xAxis: {
-                    data: ["2001-01", "2001-02", "2001-03", "2001-04", "2001-05", "2001-06"],
-                    axisLabel: {
-                        interval: 0,
-                        rotate: 90
-                    }
+            columns: [
+                {
+                    label: "最大值",
+                    prop: "max",
+                    align: 'center'
                 },
-                yAxis: {},
-                series: [{
-                    name: '[A01]农业增加值-当期数据-TC项',
-                    type: 'line',
-                    data: [5, 20, 36, 10, 10, 20]
-                }, {
-                    name: '[A01]农业增加值-当期同比-TC项',
-                    type: 'line',
-                    data: [4, 60, 23, 54, 65, 2]
-                }],
-                legend: {
-                    itemWidth: 20,
-                    itemHeight: 10,
-                    itemGap: 10,
-                    padding: [40, 15, 0, 0,],
-                    data: ['[A01]农业增加值-当期数据-TC项', '[A01]农业增加值-当期同比-TC项'],
-                    right: '4%',
-                    show: true,
-                    orient: "horizontal",
+                {
+                    label: "最小值",
+                    prop: "min",
+                    align: 'center'
+                },
+                {
+                    label: "平均值",
+                    prop: "avg",
+                    align: 'center'
+                },
+                {
+                    label: "标准差",
+                    prop: "stdev",
+                    align: 'center'
+                },
+                {
+                    label: "中位数",
+                    prop: "mid",
+                    align: 'center'
+                },
+                {
+                    label: "峰度",
+                    prop: "kurtosis",
+                    align: 'center'
+                },
+                {
+                    label: "偏度",
+                    prop: "skewness",
+                    align: 'center'
                 }
-            },
+            ],
+            data: [{
+                max: '--',
+                min:'--',
+                avg: '--',
+                stdev:'--',
+                mid:'—',
+                kurtosis:'--',
+                skewness:'--'
+            }],
+
         }
     }
 
@@ -243,7 +255,7 @@ class BasicStatistics extends  Component{
                     <h3>基本统计量</h3>
                     <div>
                         <span>选择备选指标：</span>
-                        <Input className="inline-input-textarea" value={settings.altQuota} type="textarea" autosize={{ minRows: 3, maxRows: 4}} />
+                        <Input className="inline-input-textarea" value={settings.analysisQuota} type="textarea" autosize={{ minRows: 3, maxRows: 4}} />
                         <Button type="primary" size="small" onClick={this.handleClickForSearch.bind(this) }>查询</Button>
                     </div>
                     <div>
@@ -259,7 +271,7 @@ class BasicStatistics extends  Component{
                             placeholder="选择月"
                             onChange={date=>{
                                 this.setState({value1: date})
-                                settings.date1 = moment(date).format("YYYY-MM");
+                                settings.startTime = moment(date).format("YYYY-MM");
                                 this.forceUpdate();
                             }}
                             selectionMode="month"
@@ -270,7 +282,7 @@ class BasicStatistics extends  Component{
                             placeholder="选择月"
                             onChange={date=>{
                                 this.setState({value2: date})
-                                settings.date2 = moment(date).format("YYYY-MM");
+                                settings.endTime = moment(date).format("YYYY-MM");
                                 this.forceUpdate();
                             }}
                             selectionMode="month"
@@ -279,13 +291,14 @@ class BasicStatistics extends  Component{
                     </div>
                     <div>
                         <Button type="primary" size="small" onClick={this.handleClickForCheck.bind(this,"altSearch") }>数据检查</Button>
-                        <Button type="primary" size="small" onClick={this.handleClickForGraph.bind(this,"altSearch") }>显示图形</Button>
                         <Button type="primary" size="small" onClick={this.handleClickForCal.bind(this,"altSearch") }>计算统计量</Button>
                     </div>
                     <div>
-                        <Layout.Col span={10}>
-                            <div id="graph"></div>
-                        </Layout.Col>
+                        <Table
+                            columns={this.state.columns}
+                            data={this.state.data}
+                            border={true}
+                        />
                     </div>
                     <div className="PSIndex_Dialog">
                         <Dialog

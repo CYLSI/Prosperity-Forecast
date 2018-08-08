@@ -41,16 +41,16 @@ class RelationAnalyse extends  Component{
             }],
             value: 1,
             Object:{
-                basicIndex:"",
+                baseQuota:1,
                 basicIndexId:'',
                 altIndexId:[],
-                altIndex:[],
-                box1:"年度",
-                box2:false,
+                analysisQuota:[2,3],
+                frequency:"1",
+                seasonAdjust:false,
                 select1:0,
-                date1:"2018-05",
-                date2:"2018-05",
-                box3:["时差相关分析"]
+                startTime:"2018-05",
+                endTime:"2018-05",
+                checkBox:["1",'2']
             },
             graphOptions1: {
                 title: {text: '时差相关分析'},
@@ -62,18 +62,13 @@ class RelationAnalyse extends  Component{
                     }
                 },
                 yAxis: {},
-                series: [{
-                    name: '[A01]农业增加值-当期数据-TC项',
-                    type: 'line',
-                    data: [0.2, 0.8, 1.5, 5.2, 0.8, 0.6],
-                    color:"black"
-                }],
+                series: [],
                 legend: {
                     itemWidth: 20,
                     itemHeight: 10,
                     itemGap: 10,
                     padding: [40, 15, 0, 0,],
-                    data: ['[A01]农业增加值-当期数据-TC项'],
+                    data: [],
                     right: '4%',
                     show: true,
                     orient: "horizontal",
@@ -89,18 +84,13 @@ class RelationAnalyse extends  Component{
                     }
                 },
                 yAxis: {},
-                series: [{
-                    name: '[A01]农业增加值-当期数据-TC项',
-                    type: 'line',
-                    data: [12, 18, 15, 32, 28, 6],
-                    color:"blue"
-                }],
+                series: [],
                 legend: {
                     itemWidth: 20,
                     itemHeight: 10,
                     itemGap: 10,
                     padding: [40, 15, 0, 0,],
-                    data: ['[A01]农业增加值-当期数据-TC项'],
+                    data: [],
                     right: '4%',
                     show: true,
                     orient: "horizontal",
@@ -180,7 +170,7 @@ class RelationAnalyse extends  Component{
     }
 
     onChangeBox2(value) {
-        this.state.Object.box2 = value;
+        this.state.Object.seasonAdjust = value;
         this.forceUpdate();
     }
 
@@ -307,10 +297,36 @@ class RelationAnalyse extends  Component{
 
     handleClickForCheck(){
         console.log(this.state.Object)
+        this.$post('/analysis/check',this.state.Object)
+            .then(res=>{
+               if(res === 1){
+                   alert("数据完整！")
+               }else{
+                   alert("数据不完整！")
+               }
+            }).catch(e=>{
+            console.log(e)
+        })
     }
 
     handleClickForCal(){
-
+        this.$post('/analysis/correlation',this.state.Object)
+            .then(res=>{
+                this.state.graphOptions1.xAxis.data = res.xAxis;
+                this.state.graphOptions1.series = res.timeLineList;
+                this.state.graphOptions1.legend.data = res.lineNames;
+                this.forceUpdate();
+                let myChart1 = echarts.init(document.getElementById('graph1'));
+                myChart1.setOption(this.state.graphOptions1)
+                this.state.graphOptions2.xAxis.data = res.xAxis;
+                this.state.graphOptions2.series = res.klLineList;
+                this.state.graphOptions2.legend.data = res.lineNames;
+                this.forceUpdate();
+                let myChart2 = echarts.init(document.getElementById('graph2'));
+                myChart2.setOption(this.state.graphOptions2)
+            }).catch(e=>{
+            console.log(e)
+        })
     }
 
     handleClickForDialogDel(e,row){
@@ -332,26 +348,26 @@ class RelationAnalyse extends  Component{
             <div id='relation-analyse'>
                 <h3>相关性分析</h3>
                 <span>
-                  基准指标：  <Input  className="inline-input"  value={this.state.Object.basicIndex} onChange={this.onChange.bind(this, 'basicIndex')}/>
+                  基准指标：  <Input  className="inline-input"  value={this.state.Object.baseQuota} onChange={this.onChange.bind(this, 'basicIndex')}/>
                     <Button type="primary" onClick={this.handleClickForSearch.bind(this)}>查询</Button>
                 </span><br/><br/>
                 <span>
                   分析指标：  <Input className="inline-input"  type="textarea" autosize={{ minRows: 2, maxRows: 4}}
-                                value={this.state.Object.altIndex}/>
+                                value={this.state.Object.analysisQuota}/>
                   <Button type="primary" onClick={this.handleClickForSearch.bind(this,"altSearch") }>查询</Button>
                 </span><br/><br/>
                 <span>
                   相关设定：
                 </span><br/><br/>
                 <span>
-                   数据频度： <Radio.Group value={this.state.Object.box3} onChange={this.onChangeBox1.bind(this)}>
+                   数据频度： <Radio.Group value={this.state.Object.frequency} onChange={this.onChangeBox1.bind(this)}>
                     <Radio value= "1">月度</Radio>
                    <Radio value= "2">季度</Radio>
                    <Radio value= "3">年度</Radio>
                 </Radio.Group>
                 </span><br/><br/>
                 <span>
-                  季节调整：  <Checkbox checked={this.state.Object.box2}onChange={this.onChangeBox2.bind(this)}>
+                  季节调整：  <Checkbox checked={this.state.Object.seasonAdjust} onChange={this.onChangeBox2.bind(this)}>
                     需要进行季节调整，春节长度： </Checkbox>
                    <Select  size="small"  disabled={!this.state.Object.box2}
                             value={this.state.Object.select1} onChange={this.onChangeSelect.bind(this)}>
@@ -370,7 +386,7 @@ class RelationAnalyse extends  Component{
                     onChange={date=>{
                         console.debug('month DatePicker changed: ', date)
                         this.setState({value1: date})
-                        this.state.Object.date1=moment(date).format("YYYY-MM");
+                        this.state.Object.startTime=moment(date).format("YYYY-MM");
                         this.forceUpdate();
                     }}
                     selectionMode="month"
@@ -380,16 +396,16 @@ class RelationAnalyse extends  Component{
                     onChange={date=>{
                         console.debug('month DatePicker changed: ', date)
                         this.setState({value2: date})
-                        this.state.Object.date2=moment(date).format("YYYY-MM");
+                        this.state.Object.endTime=moment(date).format("YYYY-MM");
                         this.forceUpdate();
                     }}
                     selectionMode="month"
                 />
                 </span><br/><br/>
                 <span>
-                   计算模型：<Checkbox.Group value={this.state.Object.box3} onChange={this.onChangeBox3.bind(this)}>
-                    <Checkbox label="时差相关分析"></Checkbox>
-                    <Checkbox label="KL信息量"></Checkbox>
+                   计算模型：<Checkbox.Group value={this.state.Object.checkBox} onChange={this.onChangeBox3.bind(this)}>
+                    <Checkbox label="1"></Checkbox>
+                    <Checkbox label="2"></Checkbox>
                 </Checkbox.Group>
                 </span><br/>
                 <div>

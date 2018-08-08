@@ -6,7 +6,7 @@ import DialogForm from '@components/Dialog/Dialog'
 class PrimarySelectedIndex extends  Component{
 
     getList(){
-        this.$post('/group/list')
+        this.$post('/anaRes/list')
             .then(res=>{
                 this.setState({
                     data: res,

@@ -61,13 +61,15 @@ class MonthlyDataQuery extends  Component {
     }
 
     handleClickForExport(){
-        this.$post('/mq/export',{year1:this.state.byear,month1:this.state.bmonth,year2:this.state.eyear,month2:this.state.emonth,condition:this.state.search})
-            .then(res=>{
-                console.log(res)
-
-            }).catch(e=>{
-            console.log(e)
-        })
+        // console.log(this.state.data)
+        // this.$post('/group/del',this.state.data)
+        //     .then(res=>{
+        //         let blob = new Blob([res], {type: "application/msword"});
+        //         let fileName = `${row.task_name}.docx`
+        //         this.downFile(blob, fileName)
+        //     }).catch(e=>{
+        //     console.log(e)
+        // })
     }
 
     handleClickForDelete(){
@@ -176,18 +178,18 @@ class MonthlyDataQuery extends  Component {
                 }],
             data: [{
                 year: '1998',
-                Jan: '--',
-                Feb: '--',
-                Mar: '--',
-                Apr: '--',
-                May: '--',
-                June: '--',
-                July: '--',
-                Aug: '--',
-                Sept: '--',
-                Oct: '--',
-                Nov: '--',
-                Dec: '--'
+                jan: '--',
+                feb: '--',
+                mar: '--',
+                apr: '--',
+                may: '--',
+                jun: '--',
+                jul: '--',
+                aug: '--',
+                sep: '--',
+                oct: '--',
+                nov: '--',
+                dec: '--'
             }],
             keywordOptions: [{
                 value: '2000',
@@ -226,32 +228,42 @@ class MonthlyDataQuery extends  Component {
             dialogData:'',
             dialogForm: [
                 {
-                    label:'时间',
-                    param:'time',
-                    type:'Select',
-                    options:[{
-                        value:"2018",
-                        label:"2018"
-                    },{
-                        value:"2019",
-                        label:"2019"
-                    }]
-                },
-                {
-                    label:'指标名称',
-                    param:'indexName'
-                },
-                {
-                    label:'数据项名称',
-                    param:'dataItemName'
-                },
-                {
-                    label:'数据值',
-                    param:'data'
+                    label:'一月',
+                    param:'jan'
                 },{
-                    label:'单位',
-                    param:'unit'
-                }],
+                    label:'二月',
+                    param:'feb'
+                },{
+                    label:'三月',
+                    param:'mar'
+                },{
+                    label:'四月',
+                    param:'apr'
+                },{
+                    label:'五月',
+                    param:'may'
+                },{
+                    label:'六月',
+                    param:'jun'
+                },{
+                    label:'七月',
+                    param:'jul'
+                },{
+                    label:'八月',
+                    param:'aug'
+                }, {
+                    label:'九月',
+                    param:'sept'
+                },{
+                    label:'十月',
+                    param:'oct'
+                },{
+                    label:'十一月',
+                    param:'nov'
+                },{
+                    label:'十二月',
+                    param:'dec'
+                }]
         }
     }
 

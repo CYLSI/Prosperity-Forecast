@@ -4,7 +4,7 @@ import 'element-theme-default';
 
 import { Notification } from 'element-react';
 //
-const url = "http://192.168.1.106:414";
+const url = "http://192.168.1.101:414";
 /* 服务器ip地址 */
 
 Axios.defaults.timeout = 5000;//响应时间
@@ -149,4 +149,22 @@ function get (url, params = {}){
        可写为 /methods/getData
        params代码接口需要的参数，类型是对象（已提前转为Json,无需手动再转)
  */
-export { get,post}
+
+// function downFile(url, data = {}) {
+//     Axios(url, data, {responseType: 'arrya'})
+//         .then((res) => {
+//             let blob = new Blob([res], {type: "application/msword"});
+//             let fileName = `${row.task_name}.xlsx`
+//             if (window.navigator.msSaveOrOpenBlob) {
+//                 navigator.msSaveBlob(blob, fileName);
+//             } else {
+//                 let link = document.createElement('a');
+//                 link.href = window.URL.createObjectURL(blob);
+//                 link.download = fileName;
+//                 link.click();
+//                 window.URL.revokeObjectURL(link.href);
+//             }
+//         });
+// }
+
+export { get,post }

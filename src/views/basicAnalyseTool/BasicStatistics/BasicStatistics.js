@@ -194,8 +194,8 @@ class BasicStatistics extends  Component{
             settings:{
                 analysisQuota:[1,2],
                 frequency:1,
-                startTime: '2018-06',
-                endTime: '2018-07',
+                startTime: '2001-04',
+                endTime: '2004-06',
             },
             columns: [
                 {
@@ -243,7 +243,8 @@ class BasicStatistics extends  Component{
                 kurtosis:'--',
                 skewness:'--'
             }],
-
+            value1: new Date("2001-04"),
+            value2: new Date('2004-06')
         }
     }
 
@@ -270,6 +271,7 @@ class BasicStatistics extends  Component{
                             value={value1}
                             placeholder="选择月"
                             onChange={date=>{
+                                console.log(value1)
                                 this.setState({value1: date})
                                 settings.startTime = moment(date).format("YYYY-MM");
                                 this.forceUpdate();

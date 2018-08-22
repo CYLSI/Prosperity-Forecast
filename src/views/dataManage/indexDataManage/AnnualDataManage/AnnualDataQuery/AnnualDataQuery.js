@@ -84,6 +84,18 @@ class AnnualDataQuery extends  Component {
         })*/
     }
 
+    handleClickForExport(){
+        console.log(this.state.data)
+        /*this.$post('/user/edit',{id,form})
+            .then(res=>{
+                if(res == 1){
+                    this.getList()
+                }
+            }).catch(e=>{
+            console.log(e)
+        })*/
+    }
+
     constructor(props){
         super(props);
 
@@ -95,28 +107,60 @@ class AnnualDataQuery extends  Component {
         this.state = {
             columns: [
                 {
-                    label: "时间",
-                    prop: "time",
-                    width: '120%'
+                    label: "年度",
+                    prop: "year",
+                    width: '80%'
                 },{
-                    label: "指标名称",
-                    prop: "indexName",
-                    width: '100%'
+                    label: "1月",
+                    prop: "jan",
+                    width: '70%'
                 },{
-                    label: "数据项名称",
-                    prop: "dataItemName",
-                    width: '130%'
+                    label: "2月",
+                    prop: "feb",
+                    width: '70%'
                 },{
-                    label: "数据值",
-                    prop: "data"
+                    label: "3月",
+                    prop: "mar",
+                    width: '70%'
                 },{
-                    label: "单位",
-                    prop: "unit",
+                    label: "4月",
+                    prop: "apr",
+                    width: '70%'
+                },{
+                    label: "5月",
+                    prop: "may",
+                    width: '70%'
+                },{
+                    label: "6月",
+                    prop: "jun",
+                    width: '70%'
+                },{
+                    label: "7月",
+                    prop: "jul",
+                    width: '70%'
+                },{
+                    label: "8月",
+                    prop: "aug",
+                    width: '70%'
+                },{
+                    label: "9月",
+                    prop: "sep",
+                    width: '70%'
+                },{
+                    label: "10月",
+                    prop: "oct",
+                    width: '70%'
+                },{
+                    label: "11月",
+                    prop: "nov",
+                    width: '70%'
+                },{
+                    label: "12月",
+                    prop: "dec",
                     width: '80%'
                 },{
                     label: "操作",
                     prop: "zip",
-                    width: '130%',
                     render: (row) => {
                         return <span>
                                     <Button type="text" size="small" onClick={e => this.handleClickForEdit(e,row)}>编辑</Button>
@@ -125,11 +169,19 @@ class AnnualDataQuery extends  Component {
                     }
                 }],
             data: [{
-                time: '1998-1',
-                indexName: '--',
-                dataItemName: '--',
-                data: '--',
-                unit: '--'
+                year: '1998',
+                jan: '--',
+                feb: '--',
+                mar: '--',
+                apr: '--',
+                may: '--',
+                jun: '--',
+                jul: '--',
+                aug: '--',
+                sep: '--',
+                oct: '--',
+                nov: '--',
+                dec: '--'
             }],
             keywordOptions: [{
                 value: '1997',
@@ -168,32 +220,42 @@ class AnnualDataQuery extends  Component {
             dialogData:'',
             dialogForm: [
                 {
-                    label:'时间',
-                    param:'time',
-                    type:'Select',
-                    options:[{
-                        value:"2018",
-                        label:"2018"
-                    },{
-                        value:"2019",
-                        label:"2019"
-                    }]
-                },
-                {
-                    label:'指标名称',
-                    param:'indexName'
-                },
-                {
-                    label:'数据项名称',
-                    param:'dataItemName'
-                },
-                {
-                    label:'数据值',
-                    param:'data'
+                    label:'一月',
+                    param:'jan'
                 },{
-                    label:'单位',
-                    param:'unit'
-                }],
+                    label:'二月',
+                    param:'feb'
+                },{
+                    label:'三月',
+                    param:'mar'
+                },{
+                    label:'四月',
+                    param:'apr'
+                },{
+                    label:'五月',
+                    param:'may'
+                },{
+                    label:'六月',
+                    param:'jun'
+                },{
+                    label:'七月',
+                    param:'jul'
+                },{
+                    label:'八月',
+                    param:'aug'
+                }, {
+                    label:'九月',
+                    param:'sept'
+                },{
+                    label:'十月',
+                    param:'oct'
+                },{
+                    label:'十一月',
+                    param:'nov'
+                },{
+                    label:'十二月',
+                    param:'dec'
+                }]
         }
     }
 
@@ -239,8 +301,8 @@ class AnnualDataQuery extends  Component {
                             </Select>
                             <span>指标名称</span>
                             <Input placeholder={this.state.search} className="inline-input" onChange={this.onChange.bind(this, 'search')}/>
-                            <Button type="primary" size="small"  onClick={e => this.handleClickForSearch(e)}>查询</Button>
-                            <Button type="primary" size="small">导出</Button>
+                            <Button type="primary" size="small" onClick={e => this.handleClickForSearch(e)}>查询</Button>
+                            <Button type="primary" size="small" onClick={e => this.handleClickForExport(e)}>导出</Button>
                         </div>
                         <div className="AnnDataManage_table">
                             <Table

@@ -23,6 +23,7 @@ class IndTypeManage extends  Component {
             dialogData: this.$clone(row),
             dialogVisible: true
         })
+        console.log(this.state.dialogData)
     }
 
     handleComfirm(e){
@@ -111,15 +112,15 @@ class IndTypeManage extends  Component {
             dialogForm:[
                 {
                     label:"指标类别标识",
-                    param:"data_id"
+                    param:"id"
                 },
                 {
                     label:"指标类别名称",
-                    param:"data_name"
+                    param:"name"
                 },
                 {
                     label:"备注",
-                    param:"data_text"
+                    param:"description"
                 }
             ]
         }

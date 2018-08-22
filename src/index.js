@@ -50,18 +50,14 @@ import ADTDiffIndexView from "@views/themeAnalysis/agriculturalDevelopmentTrend/
 import ADTSyntheticalProsIndexCal from "@views/themeAnalysis/agriculturalDevelopmentTrend/prosSignalLamp/SyntheticalProsIndexCal/SyntheticalProsIndexCal";
 import ADTProsSignalLampView from "@views/themeAnalysis/agriculturalDevelopmentTrend/prosSignalLamp/ProsSignalLampView/ProsSignalLampView";
 import ADTTASignalIndexMonitor from "@views/themeAnalysis/agriculturalDevelopmentTrend/SignalIndexMonitor/SignalIndexMonitor";
-import SIFModelListView from "@views/prosperityForecast/singleIndexForecast/ModelListView/ModelListView";
-import NewSingleIndexModel from "@views/prosperityForecast/singleIndexForecast/NewSingleIndexModel/NewSingleIndexModel";
-import SynIndexModelListView from "@views/prosperityForecast/synIndexPrediction/SynIndexModelListView/SynIndexModelListView";
-import NewSynIndexModel from "@views/prosperityForecast/synIndexPrediction/NewSynIndexModel/NewSynIndexModel";
-import SPFModelListView from "@views/prosperityForecast/SyntheticalProsForecast/ModelListView/ModelListView";
-import NewSynProsForeModel from "@views/prosperityForecast/SyntheticalProsForecast/NewSynProsForeModel/NewSynProsForeModel";
-import IPFModelListView from "@views/prosperityForecast/InflectionPointForecast/ModelListView/ModelListView";
-import NewInfPointForeModel from "@views/prosperityForecast/InflectionPointForecast/NewInfPointForeModel/NewInfPointForeModel"
 import FirstLevelThemeConfig from "@views/displayLayerConfig/FirstLevelThemeConfig/FirstLevelThemeConfig";
 import SecondLevelIndexConfig from "@views/displayLayerConfig/SecondLevelIndexConfig/SecondLevelIndexConfig";
 import AreaComparisonConfig from "@views/displayLayerConfig/AreaComparisonConfig/AreaComparisonConfig";
 import CommentManage from "@views/displayLayerConfig/CommentManage/CommentManage";
+import SingleIndexForecast from "@views/prosperityForecast/SingleIndexForecast/SingleIndexForecast";
+import SynIndexPrediction from "@views/prosperityForecast/SynIndexPrediction/SynIndexPrediction";
+import SyntheticalProsForecast from "@views/prosperityForecast/SyntheticalProsForecast/SyntheticalProsForecast";
+import InflectionPointForecast from "@views/prosperityForecast/InflectionPointForecast/InflectionPointForecast";
 ReactDOM.render((
     <Router history={hashHistory}>
         <Route path='/' components={App}>
@@ -137,14 +133,10 @@ ReactDOM.render((
             景气预测
              */
 
-            <Route path='/prosperityForecast/singleIndexForecast/ModelListView' component={SIFModelListView}/>
-            <Route path='/prosperityForecast/singleIndexForecast/NewSingleIndexModel' component={NewSingleIndexModel}/>
-            <Route path='/prosperityForecast/synIndexPrediction/SynIndexModelListView' component={SynIndexModelListView}/>
-            <Route path='/prosperityForecast/synIndexPrediction/NewSynIndexModel' component={NewSynIndexModel}/>
-            <Route path='/prosperityForecast/SyntheticalProsForecast/ModelListView' component={SPFModelListView}/>
-            <Route path='/prosperityForecast/SyntheticalProsForecast/NewSynProsForeModel' component={NewSynProsForeModel}/>
-            <Route path='/prosperityForecast/InflectionPointForecast/ModelListView' component={IPFModelListView}/>
-            <Route path='/prosperityForecast/InflectionPointForecast/NewInfPointForeModel' component={NewInfPointForeModel}/>
+            <Route path='/prosperityForecast/SingleIndexForecast' component={SingleIndexForecast}/>
+            <Route path='/prosperityForecast/SynIndexPrediction' component={SynIndexPrediction}/>
+            <Route path='/prosperityForecast/SyntheticalProsForecast' component={SyntheticalProsForecast}/>
+            <Route path='/prosperityForecast/InflectionPointForecast' component={InflectionPointForecast}/>
 
             /*
             展示层配置

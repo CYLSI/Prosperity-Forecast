@@ -11,7 +11,7 @@ class IndexThresholdManage extends  Component{
     render(){
         return(
             <div>
-                here
+
             </div>
         )
     }

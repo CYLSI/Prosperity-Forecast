@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Layout, Input, Button, Radio, Checkbox, DatePicker,Table,Dialog,Tag,Select} from 'element-react';
 import moment from "moment/moment";
 import './IndexConfiguration.less'
-import echarts from "echarts/lib/echarts";
+import DialogForm from '@components/Dialog/Dialog'
 
 class IndexConfiguration extends  Component{
 
@@ -33,17 +33,13 @@ class IndexConfiguration extends  Component{
     }
 
     onBlur(e,name){
-        this.state.settings[name].push(e.target.value)
+        if(e.target.value !== '')
+            this.state.settings[name].push(e.target.value)
         this.forceUpdate();
     }
 
     onChangeRadio(value){
         this.state.settings.dataFrequency = value;
-        this.forceUpdate();
-    }
-
-    onChangePage2Radio(value){
-        this.state.settings.theory = value;
         this.forceUpdate();
     }
 
@@ -65,13 +61,7 @@ class IndexConfiguration extends  Component{
         }
     }
 
-    handleClickForGraph(){
-        console.log(this.state.settings)
-        let myChart = echarts.init(document.getElementById('graph'));
-        myChart.setOption(this.state.graphOptions)
-    }
-
-    handleConfirm(){
+    handleConfirm1(){
         console.log(this.state.theme,this.state.configurer)
         /*this.$post('/group/del',{id:row.id})
            .then(res=>{
@@ -107,6 +97,72 @@ class IndexConfiguration extends  Component{
 
     handleClickForCheck(){
         console.log(this.state.settings)
+        this.$post('/group/del',)
+            .then(res=>{
+                if(res === 1){
+                    alert("数据完整！")
+                }else{
+                    alert("数据不完整！")
+                }
+            }).catch(e=>{
+            console.log(e)
+        })
+    }
+
+    handleClickForCal(){
+        console.log(this.state.settings)
+        this.$post('/group/del',)
+            .then(res=>{
+                if(res === 1){
+                    this.getList()
+                }
+            }).catch(e=>{
+            console.log(e)
+        })
+    }
+
+    handleClickForSave(){
+        console.log(this.state.settings)
+        this.$post('/group/del',)
+            .then(res=>{
+                if(res === 1){
+                    alert("保存成功！")
+                }else{
+                    alert("保存失败！")
+                }
+                let page1 = document.getElementById("page1")
+                page1.style.display = "block";
+                let page2 = document.getElementById("page2")
+                page2.style.display = "none";
+            }).catch(e=>{
+            console.log(e)
+        })
+    }
+
+    handleClickForAdd(){
+        this.setState({
+            dialogVisible:true,
+            dialogData:{
+                name:'',
+                dataItem:'',
+                thresholdInfo:''
+            }
+        })
+    }
+
+    handleConfirm2(){
+        console.log(this.state.dialogData)
+        this.setState({
+            dialogVisible:false
+        })
+        this.$post('/group/del',this.state.dialogData)
+            .then(res=>{
+                if(res === 1){
+                    this.getList()
+                }
+            }).catch(e=>{
+            console.log(e)
+        })
     }
 
     constructor(props) {
@@ -163,47 +219,26 @@ class IndexConfiguration extends  Component{
                 date2: '2018-07',
                 seasonalAdjust: true,
                 springLength: '0',
-                theory: 1,
-                economicTheory:[],
-                artificialExperience:[],
-                internationalPractice:[],
-                statisticalFeatures:[],
+                artificialAdjust:[],
+                statisticalFeatures:"10,10,10,10",
                 blueZone:'',
                 greenZone:'',
                 yellowZone:'',
                 redZone:''
             },
-            graphOptions: {
-                title: {text: '基本统计量分析'},
-                tooltip: {},
-                xAxis: {
-                    data: ["2001-01", "2001-02", "2001-03", "2001-04", "2001-05", "2001-06"],
-                    axisLabel: {
-                        interval: 0,
-                        rotate: 90
-                    }
-                },
-                yAxis: {},
-                series: [{
-                    name: '[A01]农业增加值-当期数据-TC项',
-                    type: 'line',
-                    data: [5, 20, 36, 10, 10, 20]
-                }, {
-                    name: '[A01]农业增加值-当期同比-TC项',
-                    type: 'line',
-                    data: [4, 60, 23, 54, 65, 2]
-                }],
-                legend: {
-                    itemWidth: 20,
-                    itemHeight: 10,
-                    itemGap: 10,
-                    padding: [40, 15, 0, 0,],
-                    data: ['[A01]农业增加值-当期数据-TC项', '[A01]农业增加值-当期同比-TC项'],
-                    right: '4%',
-                    show: true,
-                    orient: "horizontal",
-                }
-            }
+            dialogVisible:false,
+            dialogData:'',
+            dialogForm:[
+                {
+                    label:'指标名称',
+                    param:'name'
+                },{
+                    label:'数据项',
+                    param:'dataItem'
+                },{
+                    label:'阈值信息',
+                    param:'thresholdInfo'
+                }]
         }
     }
 
@@ -233,14 +268,14 @@ class IndexConfiguration extends  Component{
                     </Select>
                 </Layout.Col>
                 <div>
-                    <Button type="primary" size="small" onClick={this.handleConfirm.bind(this)}>确定</Button>
+                    <Button type="primary" size="small" onClick={this.handleConfirm1.bind(this)}>确定</Button>
                 </div>
-                <br />
-                <hr />
                 <Layout.Col span={18}>
+                    <br />
+                    <hr />
                     <div id="page1">
                         <span>景气信号灯指标配置：</span>
-                        <Button type="primary" size="small">增加配置指标</Button>
+                        <Button type="primary" size="small" onClick={this.handleClickForAdd.bind(this)}>增加配置指标</Button>
                         <div>
                             <br />
                             <Table
@@ -249,11 +284,15 @@ class IndexConfiguration extends  Component{
                                 border={true}
                             />
                         </div>
+                        <DialogForm
+                            dialogData={this.state.dialogData}
+                            dialogVislble={this.state.dialogVisible}
+                            form={this.state.dialogForm}
+                            handleComfirm={this.handleConfirm2.bind(this)}
+                        >
+                        </DialogForm>
                     </div>
                     <div id="page2">
-                        <span>景气信号灯指标配置：</span>
-                        <Button type="primary" size="small">增加配置指标</Button>
-                        <hr />
                         <div>
                             <span>{this.state.transferName} - {this.state.transferDataItem}</span>
                             <div>
@@ -300,37 +339,17 @@ class IndexConfiguration extends  Component{
                                     <Tag color="yellow">黄灯</Tag>
                                     <Tag color="red">红灯</Tag>
                                 </div>
-                                <div>
-                                    <Radio.Group onChange={this.onChangePage2Radio.bind(this)} value={this.state.settings.theory}>
-                                    <Radio value={1}>
-                                        经济理论
-                                        <Input className="inline-input-smaller" onBlur={e => this.onBlur(e,"economicTheory")}/>
-                                        <Input className="inline-input-smaller" onBlur={e => this.onBlur(e,"economicTheory")}/>
-                                        <Input className="inline-input-smaller" onBlur={e => this.onBlur(e,"economicTheory")}/>
-                                        <Input className="inline-input-smaller" onBlur={e => this.onBlur(e,"economicTheory")}/>
-                                    </Radio>
-                                    <Radio value={2}>
-                                        人工经验
-                                        <Input className="inline-input-smaller" onBlur={e => this.onBlur(e,"artificialExperience")}/>
-                                        <Input className="inline-input-smaller" onBlur={e => this.onBlur(e,"artificialExperience")}/>
-                                        <Input className="inline-input-smaller" onBlur={e => this.onBlur(e,"artificialExperience")}/>
-                                        <Input className="inline-input-smaller" onBlur={e => this.onBlur(e,"artificialExperience")}/>
-                                    </Radio>
-                                    <Radio value={3}>
-                                        国际惯例
-                                        <Input className="inline-input-smaller" onBlur={e => this.onBlur(e,"internationalPractice")}/>
-                                        <Input className="inline-input-smaller" onBlur={e => this.onBlur(e,"internationalPractice")}/>
-                                        <Input className="inline-input-smaller" onBlur={e => this.onBlur(e,"internationalPractice")}/>
-                                        <Input className="inline-input-smaller" onBlur={e => this.onBlur(e,"internationalPractice")}/>
-                                    </Radio>
-                                    <Radio value={4}>
-                                        统计特征
-                                        <Input className="inline-input-smaller" onBlur={e => this.onBlur(e,"statisticalFeatures")}/>
-                                        <Input className="inline-input-smaller" onBlur={e => this.onBlur(e,"statisticalFeatures")}/>
-                                        <Input className="inline-input-smaller" onBlur={e => this.onBlur(e,"statisticalFeatures")}/>
-                                        <Input className="inline-input-smaller" onBlur={e => this.onBlur(e,"statisticalFeatures")}/>
-                                    </Radio>
-                                    </Radio.Group>
+                                <div className="page2_theory">
+                                    <div>
+                                        统计特征:{settings.statisticalFeatures}
+                                    </div>
+                                    <div>
+                                        人工调整
+                                        <Input className="inline-input-smaller" onBlur={e => this.onBlur(e,"artificialAdjust")}/>
+                                        <Input className="inline-input-smaller" onBlur={e => this.onBlur(e,"artificialAdjust")}/>
+                                        <Input className="inline-input-smaller" onBlur={e => this.onBlur(e,"artificialAdjust")}/>
+                                        <Input className="inline-input-smaller" onBlur={e => this.onBlur(e,"artificialAdjust")}/>
+                                    </div>
                                 </div>
                             </Layout.Col>
                             <Layout.Col span={10}>
@@ -341,15 +360,9 @@ class IndexConfiguration extends  Component{
                                 <div className="LampZone">累计红灯区域：<Input className="inline-input-smaller" onChange={this.onChange.bind(this,'redZone')}/>%</div>
                                 <div className="page2_buttons">
                                     <Button type="primary" size="small" onClick={this.handleClickForCheck.bind(this)}>数据检查</Button>
-                                    <Button type="primary" size="small">计算概率</Button>
-                                    <Button type="primary" size="small" onClick={this.handleClickForGraph.bind(this) }>显示图形</Button>
+                                    <Button type="primary" size="small" onClick={this.handleClickForCal.bind(this)}>计算概率</Button>
+                                    <Button type="primary" size="small" onClick={this.handleClickForSave.bind(this)}>保存阈值</Button>
                                 </div>
-                                <div>
-                                    <Button type="primary" size="small">修改指标阈值</Button>
-                                </div>
-                            </Layout.Col>
-                            <Layout.Col span={10}>
-                                <div id="graph"></div>
                             </Layout.Col>
                         </div>
                     </div>

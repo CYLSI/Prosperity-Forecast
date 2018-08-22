@@ -110,22 +110,10 @@ class Menus extends Component{
                                 </Menu.SubMenu>
                             </Menu.SubMenu>
                             <Menu.SubMenu index="23" title={<span>景气预测</span>}>
-                                <Menu.SubMenu index='24' title={<p>单指标预测</p>}>
-                                    <Link to='/prosperityForecast/singleIndexForecast/ModelListView'><Menu.Item index="24-1">查看模型列表</Menu.Item></Link>
-                                    <Link to='/prosperityForecast/singleIndexForecast/NewSingleIndexModel'><Menu.Item index="24-2">新建单指标模型</Menu.Item></Link>
-                                </Menu.SubMenu>
-                                <Menu.SubMenu index='25' title={<p>合成指数预测</p>}>
-                                    <Link to='/prosperityForecast/synIndexPrediction/SynIndexModelListView'><Menu.Item index="25-1">查看合成指数模型列表</Menu.Item></Link>
-                                    <Link to='/prosperityForecast/synIndexPrediction/NewSynIndexModel'><Menu.Item index="25-2">新建合成指数模型</Menu.Item></Link>
-                                </Menu.SubMenu>
-                                <Menu.SubMenu index='26' title={<p>综合景情预测</p>}>
-                                    <Link to='/prosperityForecast/SyntheticalProsForecast/ModelListView'><Menu.Item index="26-1">查看模型列表</Menu.Item></Link>
-                                    <Link to='/prosperityForecast/SyntheticalProsForecast/NewSynProsForeModel'><Menu.Item index="26-2">新建综合景情预测模型</Menu.Item></Link>
-                                </Menu.SubMenu>
-                                <Menu.SubMenu index='27' title={<p>拐点预测</p>}>
-                                    <Link to='/prosperityForecast/InflectionPointForecast/ModelListView'><Menu.Item index="27-1">查看模型列表</Menu.Item></Link>
-                                    <Link to='/prosperityForecast/InflectionPointForecast/NewInfPointForeModel'><Menu.Item index="27-2">新建拐点预测模型</Menu.Item></Link>
-                                </Menu.SubMenu>
+                                <Link to='/prosperityForecast/SingleIndexForecast'><Menu.Item index="23-1">单指标预测</Menu.Item></Link>
+                                <Link to='/prosperityForecast/SynIndexPrediction'><Menu.Item index="23-2">合成指数预测</Menu.Item></Link>
+                                <Link to='/prosperityForecast/SyntheticalProsForecast'><Menu.Item index="23-3">综合景情预测</Menu.Item></Link>
+                                <Link to='/prosperityForecast/InflectionPointForecast'><Menu.Item index="23-4">拐点预测</Menu.Item></Link>
                             </Menu.SubMenu>
                             <Menu.SubMenu index="28" title={<span>展示层配置</span>}>
                                 <Link to='/displayLayerConfig/FirstLevelThemeConfig'><Menu.Item index="28-1">配置一级主题</Menu.Item></Link>

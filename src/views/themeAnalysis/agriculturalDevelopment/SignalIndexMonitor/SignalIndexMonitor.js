@@ -50,6 +50,7 @@ class SignalIndexMonitor extends  Component{
         return(
             <div>
                 <Layout.Col span={18}>
+                <div className="sigIndexMon">
                    <h3>单指标监测</h3>
                     <div>
                         <Checkbox className="sigIndexMon_checkbox" checked onChange={e => this.onChangeCheckbox(e,"checkbox_1")}>需要进行季节调整</Checkbox>
@@ -65,6 +66,7 @@ class SignalIndexMonitor extends  Component{
                             border={true}
                         />
                     </div>
+                </div>
                 </Layout.Col>
             </div>
         )

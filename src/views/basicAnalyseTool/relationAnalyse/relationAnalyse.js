@@ -310,7 +310,7 @@ class RelationAnalyse extends  Component{
     }
 
     handleClickForCal(){
-        this.$post('/analysis/correlation',this.state.Object)
+        this.$post('/analysis/pb',this.state.Object)
             .then(res=>{
                 this.state.graphOptions1.xAxis.data = res.xAxis;
                 this.state.graphOptions1.series = res.timeLineList;

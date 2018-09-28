@@ -20,7 +20,7 @@
     "dotenv": "4.0.0",
     "dotenv-expand": "4.2.0",
     "echarts": "^4.1.0",
-    "element-react": "^1.4.15",
+    "element-react": "^1.4.21",
     "element-theme-default": "^1.4.13",
     "eslint": "4.10.0",
     "eslint-config-react-app": "^2.1.0",
@@ -36,7 +36,7 @@
     "html-webpack-plugin": "2.29.0",
     "jest": "20.0.4",
     "jquery": "^3.3.1",
-    "moment": "^2.22.1",
+    "moment": "^2.22.2",
     "object-assign": "4.1.1",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",
@@ -44,7 +44,7 @@
     "pubsub-js": "^1.6.0",
     "pubsubjs": "^0.3.9",
     "raf": "3.4.0",
-    "react": "^16.3.2",
+    "react": "^16.5.2",
     "react-addons-pure-render-mixin": "^15.6.2",
     "react-dev-utils": "^5.0.1",
     "react-dom": "^16.3.2",
@@ -113,5 +113,10 @@
   },
   "eslintConfig": {
     "extends": "react-app"
-  }
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "keywords": []
 }

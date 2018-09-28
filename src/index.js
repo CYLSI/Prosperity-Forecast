@@ -104,7 +104,7 @@ ReactDOM.render((
 
             <Route path='/modelConfig/ThematicAnalysisManagement' component={ThematicAnalysisManagement}/>
             <Route path='/modelConfig/synDiffIndexSetting/IndexConfiguration' component={SDIndexConfiguration}/>
-            <Route path='/modelConfig/synDiffIndexSetting/IndexPortfolioManage' component={SDIndexPortfolioManage}/>
+            <Route path='/modelConfig/synDiffIndexSetting/Ind exPortfolioManage' component={SDIndexPortfolioManage}/>
             <Route path='/modelConfig/prosSignalLampSetting/IndexConfiguration' component={PSLIndexConfiguration}/>
             <Route path='/modelConfig/prosSignalLampSetting/IndexPortfolioManage' component={PSLIndexPortfolioManage}/>
             <Route path='/modelConfig/SignalIndexMonitor' component={MCSignalIndexMonitor}/>

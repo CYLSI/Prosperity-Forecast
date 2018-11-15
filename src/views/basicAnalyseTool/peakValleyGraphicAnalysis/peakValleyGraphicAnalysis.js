@@ -15,6 +15,7 @@ class PeakValleyGraphicAnalysis extends  Component{
                 border={true}
             />
         )
+        //
     }
 
     onChange(key,value){

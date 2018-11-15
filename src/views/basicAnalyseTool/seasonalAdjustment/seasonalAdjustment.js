@@ -14,6 +14,7 @@ class SeasonalAdjustment extends  Component{
     componentDidMount() {
         let myChart = echarts.init(document.getElementById('graph'));
         myChart.setOption(this.state.graphOptions)
+        //
     }
 
     onChange(key,value){

@@ -14,6 +14,7 @@ class CompoundConsistentIndex extends  Component{
         //     }).catch(e=>{
         //     console.log(e)
         // })
+        // 
     }
 
     componentDidMount(){

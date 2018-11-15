@@ -109,6 +109,7 @@ class RelationAnalyse extends  Component{
             },
             dialogVisible:false,
             //dialogData
+            //
         }
     }
 

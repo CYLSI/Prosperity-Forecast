@@ -15,6 +15,7 @@ class PrimarySelectedIndex extends  Component{
             }).catch(e=>{
             console.log(e)
         })
+            //
     }
 
     onChangeRadio(value) {

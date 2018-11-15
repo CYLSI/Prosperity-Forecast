@@ -1,5 +1,3 @@
-import SecondLevelIndexConfig from "../views/displayLayerConfig/SecondLevelIndexConfig/SecondLevelIndexConfig";
-
 const routes = new Map([
     ['systemManage','系统管理'],
     ['UserAuthorityManage','用户与权限管理'],
@@ -19,14 +17,8 @@ const routes = new Map([
     ['IndTypeManage','指标类别管理'],
     ['indexDataManage','指标数据管理'],
     ['MonthlyDataManage','月度数据管理'],
-    ['MonthlyDataImport','月度数据导入'],
-    ['MonthlyDataQuery','月度数据查询'],
     ['AnnualDataManage','年度数据管理'],
-    ['AnnualDataImport','年度数据导入'],
-    ['AnnualDataQuery','年度数据查询'],
     ['QuarterlyDataManage','季度数据管理'],
-    ['QuarterlyDataImport','季度数据导入'],
-    ['QuarterlyDataQuery','季度数据查询'],
     ['SeasonalAdjustment','季节调整'],
     ['BasicStatistics','基本统计量'],
     ['PeakValleyGraphicAnalysis','峰谷图形分析'],
@@ -39,7 +31,6 @@ const routes = new Map([
     ['IndexConfiguration','指标配置'],
     ['IndexPortfolioManage','指标组合管理'],
     ['SignalIndexMonitor','单指标监测'],
-    ['IndexThresholdManage','指标阈值管理'],
     ['themeAnalysis','主题分析'],
     ['agriculturalDevelopment','农业发展'],
     ['agriculturalDevelopmentTrend','农业发展趋势'],

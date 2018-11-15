@@ -1,28 +1,23 @@
 import React, { Component } from 'react';
 import {Layout, Select,Button,Input,Table} from 'element-react';
 import DialogForm from '@components/Dialog/Dialog'
+import moment from "moment";
+import './IndexPortfolioManage.less';
 
 class IndexPortfolioManage extends  Component{
 
     getOptions(){
-        this.$post('/user/listForm')
+        this.$post('/SignalQuotaManagement/findSubject')
             .then(res=>{
-                console.log(res)
-                this.setState({
-                    // Options: res
-                })
-            }).catch(e=>{
-            console.log(e)
-        })
-    }
-
-    getList(){
-        this.$post('/user/listForm')
-            .then(res=>{
-                console.log(res)
-                this.setState({
-                    // data: res
-                })
+                for(let i in res){
+                    this.state.Options.push(
+                        {
+                            value: res[i].id,
+                            label: res[i].subject
+                        }
+                    )
+                }
+                this.forceUpdate()
             }).catch(e=>{
             console.log(e)
         })
@@ -43,19 +38,18 @@ class IndexPortfolioManage extends  Component{
         this.forceUpdate();
     }
 
-    handleOption(e){
+    handleOption(e,name){
         this.setState({
-            analysisTheme: e,
+            name:e
         })
+        this.forceUpdate()
     }
 
     handleConfirm1(){
-        let page1 = document.getElementById("page1")
-        page1.style.display = "block";
-        this.$post('/group/del',{analysisTheme:this.state.analysisTheme})
+        this.$post('/SignalQuotaManagement/combination',{condition:this.state.analysisTheme})
            .then(res=>{
                this.setState({
-                   data: res
+                   data1: res
                })
            }).catch(e=>{
            console.log(e)
@@ -63,10 +57,25 @@ class IndexPortfolioManage extends  Component{
     }
 
     handleClickForDelete(e,row){
-        this.$post('/group/del',{id:row.id})
+        this.$post('/SignalQuotaManagement/delectCombination',{id:row.id})
             .then(res=>{
                 if(res === 1){
-                    this.getList()
+                    this.$post('/SignalQuotaManagement/combination',{condition:this.state.analysisTheme})
+                    .then(res=>{
+                        this.setState({
+                            data1: res
+                        })
+                    }).catch(e=>{
+                        console.log(e)
+                    })
+                }else{
+                    this.setState({
+                        data1: [{
+                            combination: '-',
+                            creator:'-',
+                            lastChange: '-'
+                        }]
+                    })
                 }
             }).catch(e=>{
             console.log(e)
@@ -74,10 +83,17 @@ class IndexPortfolioManage extends  Component{
     }
 
     handleClickForPage2Delete(e,row){
-        this.$post('/group/del',{id:row.id})
+        this.$post('/SignalQuotaManagement/delectInCombination',{id:row.id})
             .then(res=>{
                 if(res === 1){
-                    this.getList()
+                    this.$post('/SignalQuotaManagement/combinationQuotaList',{keyNum2:this.state.transferId,keyNum1:this.state.analysisTheme})
+                    .then(res=>{
+                        this.setState({
+                            data2:res
+                        })
+                    }).catch(e=>{
+                        console.log(e)
+                    })
                 }
             }).catch(e=>{
             console.log(e)
@@ -85,10 +101,21 @@ class IndexPortfolioManage extends  Component{
     }
 
     handleClickForAddIndexPor(){
-        this.$post('/group/del',{addIndexPor:this.state.addIndexPor})
+        let date  = moment().format('YYYY-MM-DD hh:mm:ss')
+        this.$post('/SignalQuotaManagement/addCombination',{creator:'管理员',subject:this.state.analysisTheme,lastChange:date,combination:this.state.addIndex,creatTime:date})
             .then(res=>{
                 if(res === 1){
-                    this.getOptions()
+                    this.$post('/SignalQuotaManagement/combination',{condition:this.state.analysisTheme})
+                    .then(res=>{
+                        this.setState({
+                            data1: res,
+                            addIndex:''
+                        })
+                    }).catch(e=>{
+                        console.log(e)
+                    })
+                }else{
+                    alert("添加失败！")
                 }
             }).catch(e=>{
             console.log(e)
@@ -99,11 +126,33 @@ class IndexPortfolioManage extends  Component{
         let page1 = document.getElementById("page1")
         page1.style.display = "none";
         this.setState({
-            transferName: row.name,
+            transferName: row.combination,
             transferId: row.id
         })
         let page2 = document.getElementById("page2")
         page2.style.display = "block";
+        this.$post('/SignalQuotaManagement/combinationQuotaList',{keyNum2:row.id,keyNum1:this.state.analysisTheme})
+            .then(res=>{
+                this.setState({
+                    data2:res
+                })
+            }).catch(e=>{
+                console.log(e)
+            })
+        this.$post('/SignalQuotaManagement/findSubject')
+            .then(res=>{
+                for(let i in res){
+                    this.state.Options2.push(
+                        {
+                            value: res[i].id,
+                            label: res[i].quota
+                        }
+                    )
+                }
+                this.forceUpdate()
+            }).catch(e=>{
+            console.log(e)
+        })
     }
 
     handleClickForUpdName(){
@@ -123,12 +172,10 @@ class IndexPortfolioManage extends  Component{
     handleClickForAddIndex(){
         this.setState({
             dialogData:{
-                name: '',
-                dataItem: '',
-                thresholdInfo:''
+                quota: '',
             },
-            dialogVisible1:false,
-            dialogVisible2:true,
+            dialogVisible1:true,
+            dialogVisible2:false,
             upd:false,
             add:true
         })
@@ -147,7 +194,7 @@ class IndexPortfolioManage extends  Component{
             dialogVisible2: false,
         });
         if(this.state.upd === true){
-            this.$post('/group/upd',{})
+            this.$post('/SignalQuotaManagement/upd',{})
                 .then(res=>{
                     if(res === 1){
                         this.getList()
@@ -160,10 +207,21 @@ class IndexPortfolioManage extends  Component{
             })
         }
         if(this.state.add === true){
-            this.$post('/group/add',{})
+            let id = "" + this.state.transferId
+            Object.assign(this.state.dialogData,{combination:id})
+            this.$post('/SignalQuotaManagement/addToCombination',this.state.dialogData)
                 .then(res=>{
                     if(res === 1){
-                        this.getList()
+                        this.$post('/SignalQuotaManagement/combinationQuotaList',{keyNum2:this.state.transferId,keyNum1:this.state.analysisTheme})
+                        .then(res=>{
+                            this.setState({
+                                data2:res
+                            })
+                        }).catch(e=>{
+                            console.log(e)
+                        })
+                    }else{
+                        alert("添加失败！")
                     }
                     this.setState({
                         add: false
@@ -172,42 +230,38 @@ class IndexPortfolioManage extends  Component{
                 console.log(e)
             })
         }
-        console.log(this.state.dialogData)
     }
 
     constructor(props) {
         super(props);
 
         this.state = {
-            Options: [{
-                value: '1',
-                label: '1'
-            }],
+            Options: [],
+            Options2:[],
             analysisTheme:'',
             columns1: [
                 {
-                    label: "序号",
-                    prop: "id",
-                    width: '80%'
-                },
-                {
                     label: "指标组合名称",
-                    prop: "name",
+                    prop: "combination",
+                    align:'center'
                 },
                 {
                     label: "创建人",
-                    prop: "founder",
-                    width: '100%'
+                    prop: "creator",
+                    width: '200%',
+                    align:'center'
                 },
                 {
                     label: "修改时间",
-                    prop: "updTime",
-                    width: '180%'
+                    prop: "lastChange",
+                    width: '200%',
+                    align:'center'
                 },
                 {
                     label: "操作",
                     prop: "zip",
-                    width: '120%',
+                    width: '150%',
+                    align:'center',
                     render: (row) => {
                         return <span>
                                     <Button type="text" size="small" onClick={e => this.handleClickForInfo(e,row)}>选择</Button>
@@ -217,25 +271,48 @@ class IndexPortfolioManage extends  Component{
                 }
             ],
             data1: [{
-                id:1,
-                name: '合成扩散指数指标组合',
-                founder:'管理员',
-                updTime: '2018-7-19 17:34:54'
+                combination: '-',
+                creator:'-',
+                lastChange: '-'
             }],
             columns2: [
                 {
                     label: "指标名称",
-                    prop: "name",
-                },{
-                    label: "数据项",
-                    prop: "dataItem",
+                    prop: "quota",
+                    align:'center'
                 },{
                     label: "阈值信息",
-                    prop: "thresholdInfo",
+                    align:'center',
+                    subColumns: [
+                      {
+                        label: "蓝灯",
+                        prop: "blueValue",
+                        width: 100,
+                        align:'center'
+                      },
+                      {
+                        label: "绿灯",
+                        prop: "greenValue",
+                        width: 100,
+                        align:'center'
+                      },
+                      {
+                        label: "黄灯",
+                        prop: "yellowValue",
+                        width: 100,
+                        align:'center'
+                      },{
+                        label: "红灯",
+                        prop: "redValue",
+                        width: 100,
+                        align:'center'
+                      }
+                    ]
                 },{
                     label: "操作",
                     prop: "zip",
                     width: '100%',
+                    align:'center',
                     render: (row) => {
                         return <span>
                                     <Button type="text" size="small" onClick={e => this.handleClickForPage2Delete(e,row)}>删除</Button>
@@ -243,9 +320,11 @@ class IndexPortfolioManage extends  Component{
                     }
                 }],
             data2: [{
-                name:"--",
-                dataItem:'--',
-                thresholdInfo:'--'
+                quota:"--",
+                blueValue:'--',
+                greenValue:'--',
+                yellowValue:'--',
+                redValue:'--'
             }],
             addIndex:'',
             addIndexPor:'',
@@ -257,7 +336,7 @@ class IndexPortfolioManage extends  Component{
             dialogForm1:[
                 {
                     label:"指标名称",
-                    param:"name"
+                    param:"quota"
                 }
             ],
             dialogForm2:[
@@ -283,7 +362,7 @@ class IndexPortfolioManage extends  Component{
                 <h3>景气信号灯指标组合管理</h3>
                 <Layout.Col span={9}>
                     <span>请选择要配置的分析主题：</span>
-                    <Select value={this.state.value} onChange={e => this.handleOption(e)} clearable={true}>
+                    <Select value={this.state.value} onChange={e => this.handleOption(e,"analysisTheme")} clearable={true}>
                         {
                             this.state.Options.map(el => {
                                 return <Select.Option key={el.value} label={el.label} value={el.value}/>
@@ -307,8 +386,8 @@ class IndexPortfolioManage extends  Component{
                         <div>
                             <blockquote />
                             <span>添加新的指标组合：</span>
-                            <Input className="inline-input" placeholder={this.state.addIndex} onChange={this.onChange.bind(this,"addIndex")}/>
-                            <Button type="primary" size="small" onClick={this.handleClickForAddIndexPor.bind(this)}>创建新的指标组合</Button>
+                            <Input className="inline-input" value={this.state.addIndex} onChange={this.onChange.bind(this,"addIndex")}/>
+                            <Button type="primary" size="small" onClick={this.handleClickForAddIndexPor.bind(this)}>创建新的指标组合</Button>                            
                         </div>
                     </div>
                     <div id="page2">
@@ -316,8 +395,15 @@ class IndexPortfolioManage extends  Component{
                         <span>指标组合：{this.state.transferName}</span>
                         <div>
                             <br />
-                            <Button type="primary" size="small" onClick={this.handleClickForUpdName.bind(this)}>编辑指标组合名称</Button>
+                            <Select value={this.state.value} onChange={e => this.handleOption(e,"addIndexPor")} clearable={true}>
+                                {
+                                    this.state.Options2.map(el => {
+                                        return <Select.Option key={el.value} label={el.label} value={el.value}/>
+                                    })
+                                }
+                            </Select>
                             <Button type="primary" size="small" onClick={this.handleClickForAddIndex.bind(this)}>增加指标</Button>
+                            <Button type="primary" size="small" onClick={this.handleClickForUpdName.bind(this)}>编辑指标组合名称</Button>
                             <Button type="primary" size="small" onClick={this.handleClickForReturn.bind(this)}>返回指标组合列表</Button>
                             <blockquote />
                         </div>
@@ -329,10 +415,10 @@ class IndexPortfolioManage extends  Component{
                             />
                         </div>
                         <DialogForm
-                            dialogData={this.state.dialogData}
-                            dialogVislble={this.state.dialogVisible1}
-                            form={this.state.dialogForm1}
-                            handleComfirm={this.handleConfirm2.bind(this)}
+                                dialogData={this.state.dialogData}
+                                dialogVislble={this.state.dialogVisible1}
+                                form={this.state.dialogForm1}
+                                handleComfirm={this.handleConfirm2.bind(this)}
                         >
                         </DialogForm>
                         <DialogForm

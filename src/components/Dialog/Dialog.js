@@ -29,9 +29,6 @@ class DialogForm extends Component{
       checkBoxOptions:[]
     })
   }
-  handleCancel(){
-    this.setState({dialogVisible: false})
-  }
   onChange(key,value){
     this.state.dialogData[key] = value
     this.forceUpdate()
@@ -43,6 +40,11 @@ class DialogForm extends Component{
              }
     return <Checkbox label={checkBoxItem} key={checkBoxItem}  name="type"></Checkbox>
 
+  }
+  handleCancel(){
+    this.setState({
+      dialogVisible:false
+    })
   }
   handleComfirm(){
     const {checkBoxOptions,dialogData,checkBoxItems,checkBoxParams} = this.state
@@ -67,11 +69,11 @@ class DialogForm extends Component{
     return (<Dialog
       title="信息配置"
       visible={dialogVisible}
-      onCancel={e =>this.handleCancel()}
+      onCancel={this.handleCancel.bind(this)}
       size="tiny"
     >
       <Dialog.Body>
-        <Form  ref="form" model={dialogData}>
+        <Form ref="form" model={dialogData}>
           {form.map((item)=>{
             if(item.type === 'checkBox'){
               return(
@@ -91,7 +93,7 @@ class DialogForm extends Component{
                     <Select value={dialogData[item.param]} onChange={this.onChange.bind(this,item.param)} className="dialog_select">
                         {
                             item.options.map(el => {
-                                return <Select.Option key={el.label} label={el.label} value={el.label} />
+                                return <Select.Option key={el.id} label={el.name} value={el.id} />
                             })
                         }
                     </Select>
@@ -100,7 +102,7 @@ class DialogForm extends Component{
               else{
                 return  (
                   <Form.Item label={item.label} labelWidth="100">
-                    <Input value={dialogData[item.param]} onChange={this.onChange.bind(this,item.param)} className="inline-input"/>
+                    <Input value={dialogData[item.param]} onChange={this.onChange.bind(this,item.param)} className="inline-input" disabled={item.disabled}/>
                   </Form.Item>)
             }
 

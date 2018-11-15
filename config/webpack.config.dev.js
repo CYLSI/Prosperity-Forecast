@@ -132,7 +132,21 @@ module.exports = {
           // "url" loader works like "file" loader except that it embeds assets
           // smaller than specified limit in bytes as data URLs to avoid requests.
           // A missing `test` is equivalent to a match.
-          {
+         {
+             test: /\.(js|jsx|mjs)$/,
+             include: paths.appSrc,
+             loader: require.resolve('babel-loader'),
+             options: {
+                 plugins: [
+                     ['import', { libraryName: 'antd', libraryDirectory: 'es', style: 'css' }]
+                 ],
+                 // This is a feature of `babel-loader` for webpack (not Babel itself).
+                 // It enables caching results in ./node_modules/.cache/babel-loader/
+                 // directory for faster rebuilds.
+                 cacheDirectory: true,
+             },
+         },
+         {
             test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
             loader: require.resolve('url-loader'),
             options: {
@@ -146,7 +160,9 @@ module.exports = {
             include: paths.appSrc,
             loader: require.resolve('babel-loader'),
             options: {
-              
+                plugins: [
+                    ['import', [{ libraryName: "antd", style: 'css' }]],
+                ],
               // This is a feature of `babel-loader` for webpack (not Babel itself).
               // It enables caching results in ./node_modules/.cache/babel-loader/
               // directory for faster rebuilds.

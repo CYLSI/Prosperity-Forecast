@@ -38,9 +38,9 @@ class RoleManage extends Component{
     }
 
     handleClickForDelete(e,row){
-       this.$post('/role/del',{id: row.id})
+       this.$post('/role/del',row.id)
            .then(res=>{
-               if(res == 1){
+               if(res === 1){
                    this.getList()
                }
            }).catch(e=>{
@@ -51,8 +51,11 @@ class RoleManage extends Component{
     handleClickForAdd(){
         this.$post('/role/add',{name: this.state.addedRoleName})
             .then(res=>{
-                if(res == 1){
+                if(res === 1){
                     this.getList()
+                    this.setState({
+                        addedRoleName:''
+                    })
                 }
             }).catch(e=>{
             console.log(e)
@@ -129,7 +132,7 @@ class RoleManage extends Component{
                     param:'name'
                 }],
             roleName: '',
-            addedRoleName: '请输入内容',
+            addedRoleName: '',
             id:''
         }
     }
@@ -150,7 +153,7 @@ class RoleManage extends Component{
                 </Layout.Col>
                 <h4>添加用户角色</h4>
                 <Layout.Col span={10}>
-                    <div>角色名称：<Input placeholder={addedRoleName} className="inline-input" onChange={this.onChange.bind(this, 'addedRoleName')}/>（十个汉字以内）</div>
+                    <div>角色名称：<Input value={addedRoleName} className="inline-input" onChange={this.onChange.bind(this, 'addedRoleName')}/>（十个汉字以内）</div>
                     <div className="RoleManage-button">
                         <Button type="primary" size="small" onClick={this.handleClickForSearch.bind(this) }>检查重复</Button>
                         <Button type="primary" size="small" onClick={this.handleClickForAdd.bind(this) }>添加角色</Button>
@@ -162,6 +165,7 @@ class RoleManage extends Component{
                         dialogVislble={dialogVisible}
                         form={dialogForm}
                         handleComfirm={this.handleComfirm.bind(this)}
+                        handleCancel={this.state.dialogVisible = false}
                     >
                     </DialogForm>
                 </div>

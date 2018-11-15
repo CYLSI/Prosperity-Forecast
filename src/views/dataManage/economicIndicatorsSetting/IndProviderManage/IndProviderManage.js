@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import {Table,Layout,Button} from 'element-react'
+import {Table,Layout,Button,Input} from 'element-react'
 import DialogForm from '@components/Dialog/Dialog'
+import './IndProviderManage.less'
 
 class IndProviderManage extends  Component {
 
@@ -27,21 +28,11 @@ class IndProviderManage extends  Component {
     }
 
     handleComfirm(){
+        console.log(this.state.dialogData)
         this.setState({
             dialogVisible: false
         })
         this.$post('/provider/upd',this.state.dialogData)
-            .then(res=>{
-                if(res == 1){
-                    this.getList()
-                }
-            }).catch(e=>{
-            console.log(e)
-        })
-    }
-
-    handleClickForDelete(e,row){
-        this.$post('/provider/del',{id:row.id})
             .then(res=>{
                 if(res === 1){
                     this.getList()
@@ -51,21 +42,49 @@ class IndProviderManage extends  Component {
         })
     }
 
+    handleClickForDelete(e,row){
+        this.$post('/provider/del',row.id)
+            .then(res=>{
+                if(res === 1){
+                    this.getList()
+                }
+            }).catch(e=>{
+            console.log(e)
+        })
+    }
+
+    onChange(key, value) {
+        this.state.add[key] = value;
+        this.forceUpdate()
+    }
+
+    handleClickForCheck(){
+        this.$post('/provider/list',this.state.add.name)
+            .then(res => {
+                this.setState({
+                    // data:res
+                })
+            })
+    }
+
+    handleClickForAdd(){
+        this.$post('/provider/add',this.state.add)
+            .then(res => {
+                if(res === 1){
+                    this.getList()
+                }
+            })
+    }
+
     constructor(props){
         super(props);
 
         this.state = {
             columns:[
                 {
-                    label:"ID",
-                    prop:"id",
-                    align:"center",
-                    width:'100%'
-                },{
                     label:"指标提供者名称",
                     prop:"name",
                     align:"center",
-                    width:'300%'
                 },{
                     label:"备注",
                     prop:"description",
@@ -74,7 +93,6 @@ class IndProviderManage extends  Component {
                     label:"操作",
                     prop:"zip",
                     align:"center",
-                    width:'150%',
                     render: (row) => {
                         return (
                             <div>
@@ -86,17 +104,12 @@ class IndProviderManage extends  Component {
                 }
             ],
             data:[{
-                    "id":"1",
                     "name":"人行",
                     "description":"--"
                 }],
             dialogVisible: false,
             dialogData: '',
             dialogForm:[
-                {
-                    label:"ID",
-                    param:"id"
-                },
                 {
                     label:"指标提供者名称",
                     param:"name"
@@ -105,28 +118,47 @@ class IndProviderManage extends  Component {
                     label:"备注",
                     param:"description"
                 }
-            ]
+            ],
+            add:{
+                name:'',
+                description:''
+            }
         }
     }
 
     render() {
         const {dialogData, dialogVisible,dialogForm} = this.state
         return (
-            <Layout.Col span={18}>
-                <h3>指标提供者管理</h3>
-                <Table
-                    columns={this.state.columns}
-                    data={this.state.data}
-                    border={true}
-                />
-                <DialogForm
-                    dialogData={dialogData}
-                    dialogVislble={dialogVisible}
-                    form={dialogForm}
-                    handleComfirm={this.handleComfirm.bind(this)}
-                >
-                </DialogForm>
-            </Layout.Col>
+            <div className="IndProvMan">
+                <Layout.Col span={10}>
+                    <h3>指标提供者管理</h3>
+                    <Table
+                        columns={this.state.columns}
+                        data={this.state.data}
+                        border={true}
+                    />
+                    <DialogForm
+                        dialogData={dialogData}
+                        dialogVislble={dialogVisible}
+                        form={dialogForm}
+                        handleComfirm={this.handleComfirm.bind(this)}
+                        handleCancel={this.state.dialogVisible = false}
+                    >
+                    </DialogForm>
+                </Layout.Col>
+                <Layout.Col span={8}>
+                    <div  className="IndProvMan_add">
+                        <h4>添加指标提供者</h4>
+                        <span>指标提供者名称</span><Input className="inline-input" onChange={this.onChange.bind(this,'name')} value={this.state.add.name}/><br/>
+                        <span className="IndProvMan_add_span">备注</span><Input className="inline-input" onChange={this.onChange.bind(this,'description')} value={this.state.add.description}/><br/>
+                        <div>
+                            <br/>
+                            <Button type="primary" size="small" onClick={this.handleClickForCheck.bind(this)}>查看是否重复</Button>
+                            <Button type="primary" size="small" onClick={this.handleClickForAdd.bind(this)}>增加</Button>
+                        </div>
+                    </div>
+                </Layout.Col>
+            </div>
         )
     }
 }

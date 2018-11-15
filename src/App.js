@@ -4,6 +4,7 @@ import Header from './components/Header/Header';
 import Nav from './components/Nav/Nav';
 import Foot from './components/Foot/Foot';
 import Menus from "./components/Menu/Menu";
+import Login from "./views/Login/Login";
 import { post,get } from './utils/httpUtil.js';
 import clone from './utils/clone';
 Component.prototype.$post = post;
@@ -12,7 +13,7 @@ Component.prototype.$clone = clone
 class App extends Component {
     render() {
         return (
-            <div className="App" >
+            <div className="App">
                 <Header/>
                 <Nav route={window.location.hash}/>
                 <Menus/>

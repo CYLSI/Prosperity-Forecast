@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import {Layout, Button,Table} from 'element-react';
 import './ThematicAnalysisManagement.less';
 import DialogForm from '@components/Dialog/Dialog'
+import moment from "moment";
 
 class ThematicAnalysisManagement extends  Component{
 
     getList(){
-        this.$post('/group/list')
+        this.$post('/subjectAnalytic/list')
             .then(res=>{
                 this.setState({
                     data: res
@@ -16,16 +17,24 @@ class ThematicAnalysisManagement extends  Component{
         })
     }
 
-    handleClickForInfo(e,row){
+    componentDidMount(){
+        this.getList()
+    }
+
+    handleClickForEdit(e,row){
         this.setState({
             dialogVisible: true,
             dialogData: this.$clone(row),
-            upd: true
+            upd: true,
+            add:false
         })
+        this.state.dialogForm[0].disabled = true
+        this.state.dialogForm[1].disabled = true
+        this.forceUpdate()
     }
 
     handleClickForDelete(e,row){
-        this.$post('/group/del',{id:row.id})
+        this.$post('/subjectAnalytic/del',{subject:row.subject})
             .then(res=>{
                 if(res === 1){
                     this.getList()
@@ -36,14 +45,15 @@ class ThematicAnalysisManagement extends  Component{
     }
 
     handleClickForAdd(){
+        this.state.dialogForm[0].disabled = false
+        this.state.dialogForm[1].disabled = false
         this.setState({
             dialogVisible: true,
             add:true,
+            upd:false,
             dialogData:{
                 name:'',
-                menuDescription:'',
-                benchmarkIndex:'',
-                compConIndex:'',
+                benchmark:'',
                 industry:'',
                 function:'',
                 remarks:'',
@@ -52,12 +62,11 @@ class ThematicAnalysisManagement extends  Component{
     }
 
     handleComfirm(){
-        console.log(this.state.dialogData)
         this.setState({
             dialogVisible: false,
         });
         if(this.state.upd === true){
-            this.$post('/group/upd',{})
+            this.$post('/subjectAnalytic/cha',this.state.dialogData)
                 .then(res=>{
                     if(res === 1){
                         this.getList()
@@ -65,12 +74,16 @@ class ThematicAnalysisManagement extends  Component{
                     this.setState({
                         upd: false
                     })
+                    this.state.dialogForm[0].disabled = false
+                    this.state.dialogForm[1].disabled = false
                 }).catch(e=>{
                 console.log(e)
             })
         }
         if(this.state.add === true){
-            this.$post('/group/add',{})
+            let date  = moment().format('YYYY-MM-DD')
+            Object.assign(this.state.dialogData,{creator:'管理员'},{time:date})
+            this.$post('/subjectAnalytic/add',this.state.dialogData)
                 .then(res=>{
                     if(res === 1){
                         this.getList()
@@ -93,20 +106,14 @@ class ThematicAnalysisManagement extends  Component{
         this.state = {
             columns: [
                 {
-                    label: "序号",
-                    prop: "id",
-                    width: '80%',
-                    align: 'center'
-                },
-                {
                     label: "主题名称",
-                    prop: "name",
-                    width: '120%',
+                    prop: "subject",
+                    width: '160%',
                     align: 'center'
                 },
                 {
                     label: "基准指标",
-                    prop: "benchmarkIndex ",
+                    prop: "benchmark",
                     align: 'center'
                 },
                 {
@@ -123,13 +130,13 @@ class ThematicAnalysisManagement extends  Component{
                 },
                 {
                     label: "建立人",
-                    prop: "founder",
+                    prop: "creator",
                     width: '80%',
                     align: 'center'
                 },
                 {
                     label: "建立时间",
-                    prop: "settingTime",
+                    prop: "creTime",
                     width: '180%',
                     align: 'center'
                 },
@@ -140,20 +147,19 @@ class ThematicAnalysisManagement extends  Component{
                     align: 'center',
                     render: (row) => {
                         return <span>
-                                    <Button type="text" size="small" onClick={e => this.handleClickForInfo(e,row)}>详细信息</Button>
+                                    <Button type="text" size="small" onClick={e => this.handleClickForEdit(e,row)}>编辑</Button>
                                     <Button type="text" size="small" onClick={e => this.handleClickForDelete(e,row)}>删除</Button>
                                 </span>
                     }
                 }
                 ],
             data: [{
-                id: '23',
-                name:'农业发展',
-                benchmarkIndex: '[A01]农业增加值-当期同比',
+                subject:'农业发展',
+                benchmark: '[A01]农业增加值-当期同比',
                 industry:'--',
                 remark:'—',
-                founder:'管理员',
-                settingTime:'2018-3-28 21:28:17'
+                creator:'管理员',
+                creTime:'2018-3-28 21:28:17'
             }],
             upd:false,
             add:false,
@@ -165,33 +171,20 @@ class ThematicAnalysisManagement extends  Component{
                     param:'name'
                 },
                 {
-                    label:'菜单描述',
-                    param:'menuDescription'
-                },
-                {
                     label:'基准指标',
-                    param:'benchmarkIndex'
-                },
-                {
-                    label:'复合一致指标',
-                    param:'compConIndex',
-                    type:'Select',
-                    options:[{
-                        value:"华农",
-                        label:"华农"
-                    }]
+                    param:'benchmark'
                 },
                 {
                     label:'所属行业',
                     param:'industry'
                 },
-                {
-                    label:'包含功能',
-                    param:'function',
-                    type:'checkBox',
-                    checkBoxItems:['合成指数','综合警情指数','扩散指数','单指标监测'],
-                    checkBoxParams:['1','2','3','4']
-                },
+                // {
+                //     label:'包含功能',
+                //     param:'function',
+                //     type:'checkBox',
+                //     checkBoxItems:['合成指数','综合警情指数','扩散指数'],
+                //     checkBoxParams:['ci','di','coIndex']
+                // },
                 {
                     label:'备注',
                     param:'remarks'
@@ -214,7 +207,6 @@ class ThematicAnalysisManagement extends  Component{
                     </div>
                     <div className="themeAnaMan_button">
                         <Button type="primary" size="small" onClick={this.handleClickForAdd.bind(this) }>--增加分析主题--</Button>
-                        <Button type="primary" size="small">更新网站地图</Button>
                     </div>
                     <div>
                         <DialogForm
@@ -222,6 +214,7 @@ class ThematicAnalysisManagement extends  Component{
                             dialogVislble={dialogVisible}
                             form={dialogForm}
                             handleComfirm={this.handleComfirm.bind(this)}
+                            handleCancel={this.state.dialogVisible = false}
                         >
                         </DialogForm>
                     </div>

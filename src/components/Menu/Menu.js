@@ -35,24 +35,9 @@ class Menus extends Component{
                                   <Link to='/dataManage/economicIndicatorsSetting/IndProviderManage'><Menu.Item index="5-4">指标提供者管理</Menu.Item></Link>
                                 </Menu.SubMenu>
                                 <Menu.SubMenu index='6' title={<p>指标数据管理</p>}>
-                                    <Link to='/dataManage/indexDataManage/MonthlyDataManage'>
-                                    <Menu.SubMenu index="7" title={<p className="el-submenu__titles">月度数据管理</p>}>
-                                        <Link to='/dataManage/indexDataManage/MonthlyDataManage/MonthlyDataQuery'><Menu.Item index="7-1">月度数据查询</Menu.Item></Link>
-                                        <Link to= '/dataManage/indexDataManage/MonthlyDataManage/MonthlyDataImport'><Menu.Item index="7-2">月度数据导入</Menu.Item></Link>
-                                    </Menu.SubMenu>
-                                    </Link>
-                                    <Link to='/dataManage/indexDataManage/QuarterlyDataManage'>
-                                    <Menu.SubMenu index="8" title={<p className="el-submenu__titles">季度数据管理</p>}>
-                                        <Link to='/dataManage/indexDataManage/QuarterlyDataManage/QuarterlyDataQuery'><Menu.Item index="8-1">季度数据查询</Menu.Item></Link>
-                                        <Link to= '/dataManage/indexDataManage/QuarterlyDataManage/QuarterlyDataImport'><Menu.Item index="8-2">季度数据导入</Menu.Item></Link>
-                                    </Menu.SubMenu>
-                                    </Link>
-                                    <Link to='/dataManage/indexDataManage/AnnualDataManage'>
-                                    <Menu.SubMenu index="9" title={<p className="el-submenu__titles">年度数据管理</p>}>
-                                        <Link to='/dataManage/indexDataManage/AnnualDataManage/AnnualDataQuery'><Menu.Item index="9-1">年度数据查询</Menu.Item></Link>
-                                        <Link to= '/dataManage/indexDataManage/AnnualDataManage/AnnualDataImport'><Menu.Item index="9-2">年度数据导入</Menu.Item></Link>
-                                    </Menu.SubMenu>
-                                    </Link>
+                                    <Link to='/dataManage/indexDataManage/MonthlyDataManage'><Menu.Item index="6-1">月度数据管理</Menu.Item></Link>
+                                    <Link to='/dataManage/indexDataManage/QuarterlyDataManage'><Menu.Item index="6-2">季度数据管理</Menu.Item></Link>
+                                    <Link to='/dataManage/indexDataManage/AnnualDataManage'><Menu.Item index="6-3">年度数据管理</Menu.Item></Link>
                             </Menu.SubMenu>
                             </Menu.SubMenu>
 
@@ -74,8 +59,6 @@ class Menus extends Component{
                                     <Link to='/modelConfig/prosSignalLampSetting/IndexConfiguration'><Menu.Item index="13-1">指标配置</Menu.Item></Link>
                                     <Link to='/modelConfig/prosSignalLampSetting/IndexPortfolioManage'><Menu.Item index="13-2">指标组合管理</Menu.Item></Link>
                                 </Menu.SubMenu>
-                                <Link to='/modelConfig/SignalIndexMonitor'><Menu.Item index="11-2">单指标监测</Menu.Item></Link>
-                                <Link to='/modelConfig/IndexThresholdManage'><Menu.Item index="11-3">指标阈值管理</Menu.Item></Link>
                             </Menu.SubMenu>
                             <Menu.SubMenu index="14" title={<span>主题分析</span>}>
                                 <Menu.SubMenu index='15' title={<p>农业发展</p>}>

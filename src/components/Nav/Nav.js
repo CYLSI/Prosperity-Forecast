@@ -25,7 +25,12 @@ class Nav extends Component{
             <div className='App-header-Breadcrumb'>
                 <Breadcrumb>
                     <Breadcrumb.Item>首页</Breadcrumb.Item>
-                    {this.state.routes.map((route) => <Breadcrumb.Item key={route}>{routes.get(route)}</Breadcrumb.Item> )}
+                    {
+                      this.state.routes.map((route) => 
+                          <Breadcrumb.Item key={route}>{routes.get(route)}
+                          </Breadcrumb.Item> 
+                        )
+                    }
                 </Breadcrumb>
             </div>
         );

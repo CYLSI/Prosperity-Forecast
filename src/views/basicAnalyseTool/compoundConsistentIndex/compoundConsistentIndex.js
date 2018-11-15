@@ -6,14 +6,14 @@ import DialogForm from '@components/Dialog/Dialog'
 class CompoundConsistentIndex extends  Component{
 
     getList(){
-        this.$post('/group/list')
-            .then(res=>{
-                this.setState({
-                    data: res
-                })
-            }).catch(e=>{
-            console.log(e)
-        })
+        // this.$post('/group/list')
+        //     .then(res=>{
+        //         this.setState({
+        //             data: res
+        //         })
+        //     }).catch(e=>{
+        //     console.log(e)
+        // })
     }
 
     componentDidMount(){
@@ -183,6 +183,7 @@ class CompoundConsistentIndex extends  Component{
                         dialogVislble={dialogVisible}
                         form={dialogForm}
                         handleComfirm={this.handleComfirm.bind(this)}
+                        handleCancel={this.state.dialogVisible = false}
                     >
                     </DialogForm>
                 </div>

@@ -48,6 +48,11 @@ class ApartmentManage extends Component{
             .then(res=>{
                 if(res === 1){
                    this.getList()
+                    this.setState({
+                        placeholder : '',
+                        newApartmentName: '',
+                        addedApartmentName: '',
+                    })
                 }
             }).catch(e=>{
             console.log(e)
@@ -55,11 +60,16 @@ class ApartmentManage extends Component{
     }
 
     handleClickForDelete(e){
-      let id = this.state.id
-            this.$post('/dept/del',{id})
+        console.log(this.state.id)
+        this.$post('/dept/del',this.state.id)
             .then(res=>{
                if(res === 1){
                   this.getList()
+                   this.setState({
+                       placeholder : '',
+                       newApartmentName: '',
+                       addedApartmentName: '',
+                   })
                }
             }).catch(e=>{
             console.log(e)
@@ -73,6 +83,11 @@ class ApartmentManage extends Component{
             .then(res=>{
                 if(res === 1){
                    this.getList()
+                    this.setState({
+                        placeholder : '',
+                        newApartmentName: '',
+                        addedApartmentName: '',
+                    })
                 }
             }).catch(e=>{
             console.log(e)
@@ -119,10 +134,10 @@ class ApartmentManage extends Component{
                 children: 'children',
                 label: 'label'
             },
-            placeholder : '请输入内容',
-            id: 0,
-            newApartmentName: '请输入内容',
-            addedApartmentName: '请输入内容'
+            placeholder : '',
+            newApartmentName: '',
+            addedApartmentName: '',
+            id: 0
         };
     }
 
@@ -140,26 +155,27 @@ class ApartmentManage extends Component{
                             nodeKey="id"
                             defaultExpandedKeys={[1,2,3]}
                             onNodeClicked={this.handleClick.bind(data)}
+                            highlightCurrent={true}
                         />
                     </div>
                 </Layout.Col>
                 <Layout.Col span={13}>
                     <div className="ApartmentManage-context-1">
                         <span>您选择的部门是：</span>
-                        <Input placeholder={ placeholder } className="inline-input"/>
+                        <Input value={ placeholder } className="inline-input"/>
                         <Button type="primary" size="small" onClick={this.handleClickForDelete.bind(this)}>删除部门</Button>
                     </div>
                     <div className="ApartmentManage-context-2">
                         <span>您选择的部门是：</span>
-                        <Input placeholder={ placeholder } className="inline-input"/>
+                        <Input value={ placeholder } className="inline-input"/>
                         <span>修改部门：</span>
-                        <Input placeholder={ newApartmentName } onChange={this.onChange1.bind(this, 'placeholder')} className="inline-input"/>
+                        <Input value={ newApartmentName } onChange={this.onChange1.bind(this, 'placeholder')} className="inline-input"/>
                         <Button type="primary" size="small" onClick={this.handleClickForEdit.bind(this)}>修改</Button>
                     </div>
                     <div className="ApartmentManage-context-2">
-                        <div>在部门<Input placeholder={ placeholder } className="inline-input"/>下</div>
+                        <div>在部门<Input value={ placeholder } className="inline-input"/>下</div>
                         <div>
-                            添加新的部门：<Input placeholder={ addedApartmentName } onChange={this.onChange2.bind(this, 'placeholder')}  className="inline-input"/>
+                            添加新的部门：<Input value={ addedApartmentName } onChange={this.onChange2.bind(this, 'placeholder')}  className="inline-input"/>
                             <span>（十个汉字以内）</span>
                         </div>
                         <Button type="primary" size="small" onClick={this.handleClickForAdd.bind(this)}>增加部门</Button>

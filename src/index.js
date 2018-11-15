@@ -15,14 +15,8 @@ import IndDataManage from '@views/dataManage/economicIndicatorsSetting/IndDataMa
 import IndProviderManage from '@views/dataManage/economicIndicatorsSetting/IndProviderManage/IndProviderManage'
 import IndTypeManage from '@views/dataManage/economicIndicatorsSetting/IndTypeManage/IndTypeManage'
 import MonthlyDataManage from '@views/dataManage/indexDataManage/MonthlyDataManage/MonthlyDataManage'
-import MonthlyDataImport from '@views/dataManage/indexDataManage/MonthlyDataManage/MonthlyDataImport/MonthlyDataImport'
-import MonthlyDataQuery from '@views/dataManage/indexDataManage/MonthlyDataManage/MonthlyDataQuery/MonthlyDataQuery'
 import AnnualDataManage from '@views/dataManage/indexDataManage/AnnualDataManage/AnnualDataManage'
-import AnnualDataImport from '@views/dataManage/indexDataManage/AnnualDataManage/AnnualDataImport/AnnualDataImport'
-import AnnualDataQuery from '@views/dataManage/indexDataManage/AnnualDataManage/AnnualDataQuery/AnnualDataQuery'
 import QuarterlyDataManage from '@views/dataManage/indexDataManage/QuarterlyDataManage/QuarterlyDataManage'
-import QuarterlyDataImport from '@views/dataManage/indexDataManage/QuarterlyDataManage/QuarterlyDataImport/QuarterlyDataImport'
-import QuarterlyDataQuery from '@views/dataManage/indexDataManage/QuarterlyDataManage/QuarterlyDataQuery/QuarterlyDataQuery'
 import RelationAnalyse from "@views/basicAnalyseTool/RelationAnalyse/RelationAnalyse";
 import SeasonalAdjustment from "@views/basicAnalyseTool/SeasonalAdjustment/SeasonalAdjustment";
 import PeakValleyGraphicAnalysis from "@views/basicAnalyseTool/PeakValleyGraphicAnalysis/PeakValleyGraphicAnalysis";
@@ -34,8 +28,6 @@ import SDIndexConfiguration from "@views/modelConfig/synDiffIndexSetting/IndexCo
 import SDIndexPortfolioManage from "@views/modelConfig/synDiffIndexSetting/IndexPortfolioManage/IndexPortfolioManage";
 import PSLIndexConfiguration from "@views/modelConfig/prosSignalLampSetting/IndexConfiguration/IndexConfiguration";
 import PSLIndexPortfolioManage from "@views/modelConfig/prosSignalLampSetting/IndexPortfolioManage/IndexPortfolioManage";
-import MCSignalIndexMonitor from "@views/modelConfig/SignalIndexMonitor/SignalIndexMonitor";
-import IndexThresholdManage from "@views/modelConfig/IndexThresholdManage/IndexThresholdManage";
 import ADSynIndexCalculation from "@views/themeAnalysis/agriculturalDevelopment/syntheticIndex/SynIndexCalculation/SynIndexCalculation";
 import ADSynIndexView from "@views/themeAnalysis/agriculturalDevelopment/syntheticIndex/SynIndexView/SynIndexView";
 import ADDiffIndexCalculation from "@views/themeAnalysis/agriculturalDevelopment/diffusionIndex/DiffIndexCalculation/DiffIndexCalculation";
@@ -78,14 +70,8 @@ ReactDOM.render((
             <Route path='/dataManage/economicIndicatorsSetting/IndTypeManage' component={IndTypeManage}/>
             <Route path='/dataManage/economicIndicatorsSetting/IndProviderManage' component={IndProviderManage}/>
             <Route path='/dataManage/indexDataManage/MonthlyDataManage' component={MonthlyDataManage}/>
-            <Route path='/dataManage/indexDataManage/MonthlyDataManage/MonthlyDataQuery' component={MonthlyDataQuery}/>
-            <Route path='/dataManage/indexDataManage/MonthlyDataManage/MonthlyDataImport' component={MonthlyDataImport}/>
             <Route path='/dataManage/indexDataManage/AnnualDataManage' component={AnnualDataManage}/>
-            <Route path='/dataManage/indexDataManage/AnnualDataManage/AnnualDataQuery' component={AnnualDataQuery}/>
-            <Route path='/dataManage/indexDataManage/AnnualDataManage/AnnualDataImport' component={AnnualDataImport}/>
             <Route path='/dataManage/indexDataManage/QuarterlyDataManage' component={QuarterlyDataManage}/>
-            <Route path='/dataManage/indexDataManage/QuarterlyDataManage/QuarterlyDataQuery' component={QuarterlyDataQuery}/>
-            <Route path='/dataManage/indexDataManage/QuarterlyDataManage/QuarterlyDataImport' component={QuarterlyDataImport}/>
 
 
           /*
@@ -104,11 +90,9 @@ ReactDOM.render((
 
             <Route path='/modelConfig/ThematicAnalysisManagement' component={ThematicAnalysisManagement}/>
             <Route path='/modelConfig/synDiffIndexSetting/IndexConfiguration' component={SDIndexConfiguration}/>
-            <Route path='/modelConfig/synDiffIndexSetting/Ind exPortfolioManage' component={SDIndexPortfolioManage}/>
+            <Route path='/modelConfig/synDiffIndexSetting/IndexPortfolioManage' component={SDIndexPortfolioManage}/>
             <Route path='/modelConfig/prosSignalLampSetting/IndexConfiguration' component={PSLIndexConfiguration}/>
             <Route path='/modelConfig/prosSignalLampSetting/IndexPortfolioManage' component={PSLIndexPortfolioManage}/>
-            <Route path='/modelConfig/SignalIndexMonitor' component={MCSignalIndexMonitor}/>
-            <Route path='/modelConfig/IndexThresholdManage' component={IndexThresholdManage}/>
 
             /*
             主题分析

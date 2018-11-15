@@ -4,7 +4,7 @@ import 'element-theme-default';
 
 import { Notification } from 'element-react';
 //
-const url = "http://172.18.92.226:414";
+const url = "http://172.18.92.116:414";
 /* 服务器ip地址 */
 
 Axios.defaults.timeout = 5000;//响应时间
@@ -149,22 +149,50 @@ function get (url, params = {}){
        可写为 /methods/getData
        params代码接口需要的参数，类型是对象（已提前转为Json,无需手动再转)
  */
+function upload(fileUri,fileNAME,httpuri){
+  alert(fileUri,fileNAME,httpuri)
+    let formData = new FormData();
+    let file = { uri: fileUri, type: 'multipart/form-data', name: fileNAME };
+    formData.append('file', file);
+    let config = {
+        Accept: 'Application/json',
+        'Content-Type': 'multipart/form-data',
+    };
+    return new Promise((reslove,reject) => {
+        Axios.post(httpuri, formData, config)
+            .then((response) => {
+                reslove(response);
+            }).catch((error) => {
+            reject(error);
+        });
+    })
+}
 
-// function downFile(url, data = {}) {
-//     Axios(url, data, {responseType: 'arrya'})
-//         .then((res) => {
-//             let blob = new Blob([res], {type: "application/msword"});
-//             let fileName = `${row.task_name}.xlsx`
-//             if (window.navigator.msSaveOrOpenBlob) {
-//                 navigator.msSaveBlob(blob, fileName);
-//             } else {
-//                 let link = document.createElement('a');
-//                 link.href = window.URL.createObjectURL(blob);
-//                 link.download = fileName;
-//                 link.click();
-//                 window.URL.revokeObjectURL(link.href);
-//             }
-//         });
-// }
+/*async uploadFile () {
+    var config = {
+      onUploadProgress: (progressEvent) => {          
+        let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total) 
+      }
+    }      
+    let formData = new FormData()      
+    let form = document.getElementById('headImg')      
+    let file = form.files[0]  
+    formData.append('file', file)      
+    let Url = window.URL || window.webkitURL      
+    var imgURL = Url.createObjectURL(file)      
+    this.setState({        
+        headHref: imgURL      
+    })      
+    let res = await axios.post('/user/head/upload', formData, config)
+        .then(res => {        
+            this.ticket = res.data.image        
+            // this.state.upData[tag] = logoTicket        
+            // this.checkIfCanCommit()      
+        }).catch(err => { console.error(err) })      
+        axios.post('user/head/update', {        
+          head_file: res.data.data.head_file 
+        })
+}*/
 
-export { get,post }
+
+export { get,post,upload }

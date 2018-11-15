@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import '../../../../App.css';
 import './AnnualDataManage.css'
+import { Input,Button,Select,Table,Layout } from 'element-react';
 import DialogForm from '@components/Dialog/Dialog'
-import { Input,Button,Table,Layout,Select } from 'element-react';
 
-class AnnualDataManage extends  Component {
+class AnnualDataQuery extends  Component {
 
     getList(){
         this.$post('/user/listForm')
@@ -32,46 +32,40 @@ class AnnualDataManage extends  Component {
     handleOption(e,name){
         if(name === "Select1"){
             this.setState({
-                keyword: e,
+                byear: e,
             })
         }else if(name === "Select2"){
             this.setState({
-                year: e,
+                bmonth: e,
             })
         }else if(name === "Select3"){
             this.setState({
-                month: e,
+                eyear: e,
             })
         }else{
             this.setState({
-                CurrentData: e,
+                emonth: e,
             })
         }
     }
 
-    handleClickForEdit(e,row){
-        this.setState({
-            dialogVisible: true,
-            dialogData: this.$clone(row),
-            upd: true
-        })
+    handleImportOption(e,name){
+        if(name === "Select1"){
+            this.setState({
+                year: e
+            })
+        }else{
+            this.setState({
+                month: e
+            })
+        }
     }
 
-    handleClickForAdd(){
-        this.setState({
-            dialogVisible: true,
-            add: true,
-            dialogData:{
-                time:'',
-                indexName:'',
-                dataItemName:'',
-                data:'',
-                unit:''
-            }
-        })
+    handleClickForSearch(){
+        console.log(this.state.byear,this.state.bmonth,this.state.eyear,this.state.emonth,this.state.search)
     }
 
-    handleClickForDelete(e,row){
+    handleClickForDelete(){
         /*this.$post('/group/del',{id:row.id})
             .then(res=>{
                 if(res == 1){
@@ -82,102 +76,116 @@ class AnnualDataManage extends  Component {
         })*/
     }
 
-    handleClickForSearchByKeyword(){
-        console.log(this.state.keyword)
-        console.log(this.state.search)
-        /*this.$post('/user/edit',{id,form})
-            .then(res=>{
-                if(res == 1){
-                    this.getList()
-                }
-            }).catch(e=>{
-            console.log(e)
-        })*/
-    }
-
-    handleClickForSearchByTime(){
-        console.log(this.state.year)
-        console.log(this.state.month)
-        console.log(this.state.CurrentData)
-        /*this.$post('/user/edit',{id,form})
-            .then(res=>{
-                if(res == 1){
-                    this.getList()
-                }
-            }).catch(e=>{
-            console.log(e)
-        })*/
+    handleClickForEdit(e,row){
+        this.setState({
+            dialogVisible: true,
+            dialogData: this.$clone(row)
+        })
     }
 
     handleComfirm(){
-        console.log(this.state.dialogData)
         this.setState({
-            dialogVisible: false,
-        });
-        if(this.state.upd === true){
-            this.$post('/group/upd',{})
-                .then(res=>{
-                    if(res === 1){
-                        this.getList()
-                    }
-                    this.setState({
-                        upd: false
-                    })
-                }).catch(e=>{
-                console.log(e)
-            })
-        }
-        if(this.state.add === true){
-            this.$post('/group/add',{})
-                .then(res=>{
-                    if(res === 1){
-                        this.getList()
-                    }
-                    this.setState({
-                        add: false
-                    })
-                }).catch(e=>{
-                console.log(e)
-            })
-        }
+            dialogVisible: false
+        })
+        /*this.$post('/user/edit',{id,form})
+            .then(res=>{
+                if(res == 1){
+                    this.getList()
+                }
+            }).catch(e=>{
+            console.log(e)
+        })*/
     }
 
-    constructor(props) {
+    handleClickForExport(){
+        console.log(this.state.data)
+        /*this.$post('/user/edit',{id,form})
+            .then(res=>{
+                if(res == 1){
+                    this.getList()
+                }
+            }).catch(e=>{
+            console.log(e)
+        })*/
+    }
+
+    handleClickForForm(){
+        // this.upload('/user/edit',{id,form})
+        //     .then(res=>{
+        //         if(res == 1){
+        //             this.getList()
+        //         }
+        //     }).catch(e=>{
+        //     console.log(e)
+        // })
+    }
+
+    constructor(props){
         super(props);
 
-        this.handleClickForEdit = this.handleClickForEdit.bind(this);
-        this.handleClickForDelete = this.handleClickForDelete.bind(this);
-        this.handleClickForSearchByKeyword = this.handleClickForSearchByKeyword.bind(this);
+        this.handleOption = this.handleOption.bind(this)
+        this.handleClickForEdit = this.handleClickForEdit.bind(this)
+        this.handleClickForDelete = this.handleClickForDelete.bind(this)
         this.handleComfirm = this.handleComfirm.bind(this);
-        this.handleOption = this.handleOption.bind(this);
-        this.handleClickForSearchByTime = this.handleClickForSearchByTime.bind(this)
-        this.onChange = this.onChange.bind(this);
+        this.handleImportOption = this.handleImportOption.bind(this);
 
         this.state = {
             columns: [
                 {
-                    label: "时间",
-                    prop: "time",
-                    width: '120%'
+                    label: "年度",
+                    prop: "year",
+                    width: '80%'
                 },{
-                    label: "指标名称",
-                    prop: "indexName",
-                    width: '100%'
+                    label: "1月",
+                    prop: "jan",
+                    width: '70%'
                 },{
-                    label: "数据项名称",
-                    prop: "dataItemName",
-                    width: '130%'
+                    label: "2月",
+                    prop: "feb",
+                    width: '70%'
                 },{
-                    label: "数据值",
-                    prop: "data"
+                    label: "3月",
+                    prop: "mar",
+                    width: '70%'
                 },{
-                    label: "单位",
-                    prop: "unit",
+                    label: "4月",
+                    prop: "apr",
+                    width: '70%'
+                },{
+                    label: "5月",
+                    prop: "may",
+                    width: '70%'
+                },{
+                    label: "6月",
+                    prop: "jun",
+                    width: '70%'
+                },{
+                    label: "7月",
+                    prop: "jul",
+                    width: '70%'
+                },{
+                    label: "8月",
+                    prop: "aug",
+                    width: '70%'
+                },{
+                    label: "9月",
+                    prop: "sep",
+                    width: '70%'
+                },{
+                    label: "10月",
+                    prop: "oct",
+                    width: '70%'
+                },{
+                    label: "11月",
+                    prop: "nov",
+                    width: '70%'
+                },{
+                    label: "12月",
+                    prop: "dec",
                     width: '80%'
                 },{
                     label: "操作",
                     prop: "zip",
-                    width: '130%',
                     render: (row) => {
                         return <span>
                                     <Button type="text" size="small" onClick={e => this.handleClickForEdit(e,row)}>编辑</Button>
@@ -186,139 +194,219 @@ class AnnualDataManage extends  Component {
                     }
                 }],
             data: [{
-                time: '1998-1',
-                indexName: '--',
-                dataItemName: '--',
-                data: '--',
-                unit: '--'
+                year: '1998',
+                jan: '--',
+                feb: '--',
+                mar: '--',
+                apr: '--',
+                may: '--',
+                jun: '--',
+                jul: '--',
+                aug: '--',
+                sep: '--',
+                oct: '--',
+                nov: '--',
+                dec: '--'
             }],
-            dialogVisible: false,
-            dialogData:'',
-            dialogForm: [
-                {
-                    label:'时间',
-                    param:'time',
-                    type:'Select',
-                    options:[{
-                        value:"2018",
-                        label:"2018"
-                    },{
-                        value:"2019",
-                        label:"2019"
-                    }]
-                },
-                {
-                    label:'指标名称',
-                    param:'indexName'
-                },
-                {
-                    label:'数据项名称',
-                    param:'dataItemName'
-                },
-                {
-                    label:'数据值',
-                    param:'data'
-                },{
-                    label:'单位',
-                    param:'unit'
-                }],
             keywordOptions: [{
-                value: 'superior',
-                label: '优'
-            }, {
-                value: 'fine',
-                label: '良'
-            }],
-            keywordOptions1: [{
                 value: '1997',
                 label: '1997'
             }, {
                 value: '1998',
                 label: '1998'
             }],
-            keywordOptions2: [{
+            keywordOptions1: [{
                 value: '一月',
                 label: '一月'
             }, {
                 value: '二月',
                 label: '二月'
             }],
-            keywordOptions3: [{
-                value: 'data1',
-                label: '数据1'
+            keywordOptions2: [{
+                value: '2000',
+                label: '2000'
+            }, {
+                value: '2001',
+                label: '2001'
             }],
+            keywordOptions3: [{
+                value: '七月',
+                label: '七月'
+            }, {
+                value: '八月',
+                label: '八月'
+            }],
+            byear:'',
+            bmonth:'',
+            eyear:'',
+            emonth:'',
             search:'请输入内容',
-            keyword:'',
-            year:'',
-            month:'',
-            CurrentData:"",
-            upd: false,
-            add: false
+            dialogVisible: false,
+            dialogData:'',
+            dialogForm: [
+                {
+                    label:'一月',
+                    param:'jan'
+                },{
+                    label:'二月',
+                    param:'feb'
+                },{
+                    label:'三月',
+                    param:'mar'
+                },{
+                    label:'四月',
+                    param:'apr'
+                },{
+                    label:'五月',
+                    param:'may'
+                },{
+                    label:'六月',
+                    param:'jun'
+                },{
+                    label:'七月',
+                    param:'jul'
+                },{
+                    label:'八月',
+                    param:'aug'
+                }, {
+                    label:'九月',
+                    param:'sept'
+                },{
+                    label:'十月',
+                    param:'oct'
+                },{
+                    label:'十一月',
+                    param:'nov'
+                },{
+                    label:'十二月',
+                    param:'dec'
+                }],
+            options: [{
+                value: '1997',
+                label: '1997'
+            }, {
+                value: '1998',
+                label: '1998'
+            }],
+            options1: [{
+                value: '一月',
+                label: '一月'
+            }, {
+                value: '二月',
+                label: '二月'
+            }],
+            value: '',
+            month: '',
+            year: ''
         }
     }
 
-    render() {
+    render(){
         const {columns,data,dialogData,dialogForm,dialogVisible} = this.state
-        return (
-            <Layout.Col span={18}>
-                <div className="AnnDataManage">
-                    <h3>年度数据管理</h3>
-                    <div>
-                        <span>关键字查询</span>
-                        <Select value={this.state.value} onChange={e => this.handleOption(e,"Select1")} className="AnnDataManage_Select" placeholder="农业状况" clearable={true}>
-                            {
-                                this.state.keywordOptions.map(el => {
-                                    return <Select.Option key={el.value} label={el.label} value={el.value}/>
-                                })
-                            }
-                        </Select>
-                        <Input placeholder={this.state.search} className="inline-input" onChange={this.onChange.bind(this, 'search')}/>
-                        <Button type="primary" size="small" onClick={e => this.handleClickForSearchByKeyword(e)}>查看数据信息汇总</Button>
-                        <span>年度</span>
-                        <Select value={this.state.value} className="AnnDataManage_Select" placeholder="----" clearable={true} onChange={e => this.handleOption(e,"Select2")}>
-                            {
-                                this.state.keywordOptions1.map(el => {
-                                    return <Select.Option key={el.value} label={el.label} value={el.value}/>
-                                })
-                            }
-                        </Select>
-                        <span>月份</span>
-                        <Select value={this.state.value} className="AnnDataManage_Select" placeholder="--" clearable={true} onChange={e => this.handleOption(e,"Select3")}>
-                            {
-                                this.state.keywordOptions2.map(el => {
-                                    return <Select.Option key={el.value} label={el.label} value={el.value}/>
-                                })
-                            }
-                        </Select>
-                        <span>数据项</span>
-                        <Select value={this.state.value} className="AnnDataManage_Select" placeholder="当期数据" clearable={true} onChange={e => this.handleOption(e,"Select4")}>
-                            {
-                                this.state.keywordOptions3.map(el => {
-                                    return <Select.Option key={el.value} label={el.label} value={el.value}/>
-                                })
-                            }
-                        </Select>
-                        <Button type="primary" size="small" onClick={e => this.handleClickForSearchByTime(e)}>显示数据</Button>
-                        <Button type="primary" size="small" onClick={this.handleClickForAdd.bind(this)}>增加</Button>
+        return(
+            <div>
+                <Layout.Col span={18}>
+                    <div className="AnnDataQuery">
+                        <h3>年度数据查询</h3>
+                        <div>
+                            <span>开始时间：年份</span>
+                            <Select value={this.state.value} onChange={e => this.handleOption(e,"Select1")} className="AnnDataQuery_Select" clearable={true}>
+                                {
+                                    this.state.keywordOptions.map(el => {
+                                        return <Select.Option key={el.value} label={el.label} value={el.value}/>
+                                    })
+                                }
+                            </Select>
+                            <span>月份</span>
+                            <Select value={this.state.value} onChange={e => this.handleOption(e,"Select2")} className="AnnDataQuery_Select" clearable={true}>
+                                {
+                                    this.state.keywordOptions1.map(el => {
+                                        return <Select.Option key={el.value} label={el.label} value={el.value}/>
+                                    })
+                                }
+                            </Select>
+                            <span>结束时间：年份</span>
+                            <Select value={this.state.value} onChange={e => this.handleOption(e,"Select3")} className="AnnDataQuery_Select" clearable={true}>
+                                {
+                                    this.state.keywordOptions2.map(el => {
+                                        return <Select.Option key={el.value} label={el.label} value={el.value}/>
+                                    })
+                                }
+                            </Select>
+                            <span>月份</span>
+                            <Select value={this.state.value} onChange={e => this.handleOption(e,"Select4")} className="AnnDataQuery_Select" clearable={true}>
+                                {
+                                    this.state.keywordOptions3.map(el => {
+                                        return <Select.Option key={el.value} label={el.label} value={el.value}/>
+                                    })
+                                }
+                            </Select>
+                            <span>指标名称</span>
+                            <Input placeholder={this.state.search} className="inline-input" onChange={this.onChange.bind(this, 'search')}/>
+                            <Button type="primary" size="small" onClick={e => this.handleClickForSearch(e)}>查询</Button>
+                            <Button type="primary" size="small" onClick={e => this.handleClickForExport(e)}>导出</Button>
+                        </div>
+                        <div className="AnnDataManage_table">
+                            <Table
+                                columns={columns}
+                                data={data}
+                                border={true}
+                            />
+                        </div>
                     </div>
-                    <div className="AnnDataManage_table">
-                        <Table
-                            columns={columns}
-                            data={data}
-                            border={true}
-                        />
+                    <DialogForm
+                        dialogData={dialogData}
+                        dialogVislble={dialogVisible}
+                        form={dialogForm}
+                        handleComfirm={this.handleComfirm.bind(this)}
+                        handleCancel={this.state.dialogVisible = false}
+                    >
+                    </DialogForm>
+                </Layout.Col>
+                <Layout.Col span={18}>
+                    <div className="AnnDataImport_1">
+                        <h3>年度数据导入</h3>
+                        <br />
+                        <div>
+                            <a href="" download="PanelTemplate">年度面板模板</a>
+                            <a href="" download="TemporalTemplate.xlsx">年度时序模板</a>
+                        </div>
                     </div>
-                </div>
-                <DialogForm
-                    dialogData={dialogData}
-                    dialogVislble={dialogVisible}
-                    form={dialogForm}
-                    handleComfirm={this.handleComfirm.bind(this)}
-                >
-                </DialogForm>
-            </Layout.Col>
+                    <div className="AnnDataImport_2">
+                        <div>
+                            <h2>年度面板数据导入</h2>
+                            <span>时间设定：年度</span>
+                            <Select value={this.state.value} onChange={e => this.handleImportOption(e,"Select1")} className="QuaDataManage_Select" placeholder="--" clearable={true}>
+                                {
+                                    this.state.options.map(el => {
+                                        return <Select.Option key={el.value} label={el.label} value={el.value}/>
+                                    })
+                                }
+                            </Select>
+                            <span>月份</span>
+                            <Select value={this.state.value} onChange={e => this.handleImportOption(e,"Select2")} className="MonDataManage_Select" placeholder="--" clearable={true}>
+                                {
+                                    this.state.options1.map(el => {
+                                        return <Select.Option key={el.value} label={el.label} value={el.value}/>
+                                    })
+                                }
+                            </Select>
+                        </div>
+                        <div>
+                            <span>选择截面数据文件</span>
+                            <input type="file" className="inline-input"/>
+                            <Button type="primary" size="small">生成表格</Button>
+                        </div>
+                    </div>
+                    <div className="AnnDataImport_3">
+                        <h2>年度时序数据导入</h2>
+                        <span>选择时序数据文件</span>
+                        <input type="file" className="inline-input"/>
+                        <Button type="primary" size="small" onClick={this.handleClickForForm.bind(this)}>生成表格</Button>
+                    </div>
+                </Layout.Col>
+            </div>
         )
-
     }
 }
-export default AnnualDataManage
+export default AnnualDataQuery

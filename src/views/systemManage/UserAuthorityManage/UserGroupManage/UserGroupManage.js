@@ -37,7 +37,7 @@ class UserGroupManage extends Component{
     }
 
     handleClickForDelete(e,row){
-        this.$post('/group/del',{id:row.id})
+        this.$post('/group/del',row.id)
             .then(res=>{
                 if(res === 1){
                     this.getList()
@@ -52,6 +52,9 @@ class UserGroupManage extends Component{
             .then(res=>{
                 if(res == 1){
                     this.getList()
+                    this.setState({
+                        addedUserGroup:''
+                    })
                 }
             }).catch(e=>{
             console.log(e)
@@ -126,7 +129,7 @@ class UserGroupManage extends Component{
                     param:'name'
                 }],
             id: '',
-            addedUserGroup: '请输入内容'
+            addedUserGroup: ''
         }
     }
 
@@ -147,7 +150,7 @@ class UserGroupManage extends Component{
                 <h4>添加用户组</h4>
                 <Layout.Col span={10}>
                     <div>
-                        用户组名称：<Input placeholder={ addedUserGroup } className="inline-input" onChange={this.onChange.bind(this, 'addedUserGroup')}/>（十个汉字以内）
+                        用户组名称：<Input value={ addedUserGroup } className="inline-input" onChange={this.onChange.bind(this, 'addedUserGroup')}/>（十个汉字以内）
                     </div>
                     <div className="UserGroupManage-button">
                         <Button type="primary" size="small" onClick={this.handleClickForAdd.bind(this) }>添加用户组</Button>
@@ -159,6 +162,7 @@ class UserGroupManage extends Component{
                        dialogVislble={dialogVisible}
                        form={dialogForm}
                        handleComfirm={this.handleComfirm.bind(this)}
+                       handleCancel={this.state.dialogVisible = false}
                    >
                    </DialogForm>
                 </div>

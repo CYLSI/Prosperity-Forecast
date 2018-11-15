@@ -19,6 +19,34 @@ class UserManage extends Component{
             }).catch(e=>{
             console.log(e)
         })
+        this.$post('/dept/all')
+            .then(res=>{
+                for(let i in res){
+                    this.state.keywordOptions.push(
+                        {
+                            value: res[i].id,
+                            label: res[i].name
+                        }
+                    )
+                }
+                this.forceUpdate()
+            }).catch(e=>{
+            console.log(e)
+        })
+        this.$post('/role/list')
+            .then(res=>{
+                for(let i in res){
+                    this.state.keywordOptions2.push(
+                        {
+                            value: res[i].id,
+                            label: res[i].name
+                        }
+                    )
+                }
+                this.forceUpdate()
+            }).catch(e=>{
+            console.log(e)
+        })
     }
 
     componentDidMount(){
@@ -27,24 +55,16 @@ class UserManage extends Component{
 
     handleOption(){
         const {deptOption,roleOption} = this.state
-            this.state.dialogForm1[3].options = deptOption;
-            this.state.dialogForm1[4].options = roleOption;
-            this.forceUpdate()
+        this.state.dialogForm1[3].options = deptOption;
+        this.state.dialogForm1[4].options = roleOption;
+        this.forceUpdate()
     }
 
     handleIniOption(e,name){
         if(name === "Select1"){
-            this.setState({
-                keyword: e
-            })
-        }else if(name === "Select2"){
-            this.setState({
-                groupName: e
-            })
+            this.state.searching.dept = e
         }else{
-            this.setState({
-                userName: e
-            })
+            this.state.searching.role = e
         }
     }
 
@@ -52,25 +72,30 @@ class UserManage extends Component{
         this.setState({
             dialogData2: this.$clone(row),
             dialogVisible2: true,
+            dialogVisible1: false,
             id: row.id
         })
     }
 
     handleClickForCheck(){
-        console.log(this.state.keyword,this.state.groupName,this.state.userName,this.state.search)
-        /*this.$post('/user/del',{id:row.id})
+        this.$post('/user/searchList',this.state.searching)
             .then(res=>{
-                if(res == 1){
-                    this.getList()
-                }
+                this.setState({
+                    data:res.userList,
+                    deptOption:res.deptOption,
+                    roleOption:res.roleOption
+                },()=>{
+                    this.handleOption()
+                })
             }).catch(e=>{
             console.log(e)
-        })*/
+        })
     }
 
     handleClickForEdit(e,row){
         this.setState({
             dialogVisible1: true,
+            dialogVisible2: false,
             dialogData1: this.$clone(row),
             id: row.id,
             dept: row.dept,
@@ -79,9 +104,9 @@ class UserManage extends Component{
     }
 
     handleClickForDelete(e,row){
-        this.$post('/user/del',{id:row.id})
+        this.$post('/user/del',row.id)
             .then(res=>{
-                if(res == 1){
+                if(res === 1){
                     this.getList()
                 }
             }).catch(e=>{
@@ -90,9 +115,7 @@ class UserManage extends Component{
     }
 
     onChange(key, value) {
-        this.setState({
-            [key]: value
-        });
+        this.state.searching[key] = value
         this.forceUpdate();
     }
 
@@ -116,8 +139,11 @@ class UserManage extends Component{
         })
         this.$post('/user/psw',{id:this.state.id,oldPsw:this.state.dialogData2.oldPassword,newPsw:this.state.dialogData2.newPassword})
            .then(res=>{
-               if(res == 1){
-                   this.getList()
+               if(res === 1){
+                    alert("修改成功！")
+                    this.getList()
+               }else{
+                    alert("密码错误，修改失败！")
                }
            }).catch(e=>{
            console.log(e)
@@ -212,7 +238,7 @@ class UserManage extends Component{
                 },
                 {
                     label:'部门',
-                    param:'dept',
+                    param:'deptId',
                     type:'Select',
                     options:[{
                         value:"华农",
@@ -220,7 +246,7 @@ class UserManage extends Component{
                     }]
                 },{
                     label:'角色',
-                    param:'role',
+                    param:'roleId',
                     type:'Select',
                     options:[{
                         value:"普通用户",
@@ -243,25 +269,18 @@ class UserManage extends Component{
                     label:'新密码',
                     param:'newPassword'
                 }],
+            deptOption:[],
+            roleOption:[],
             id:'',
             dept:'',
             role:'',
-            keywordOptions: [{
-                value: '华农',
-                label: '华农'
-            }],
-            keywordOptions1: [{
-                value: '普通用户',
-                label: '普通用户'
-            }],
-            keywordOptions2: [{
-                value: 'admin',
-                label: 'admin'
-            }],
-            keyword:'',
-            groupName:'',
-            userName:'',
-            search:'请输入内容'
+            keywordOptions: [],
+            keywordOptions2: [],
+            searching:{
+                dept:'',
+                role:'',
+                name:''
+            }
         }
     }
 
@@ -280,15 +299,7 @@ class UserManage extends Component{
                                 })
                             }
                         </Select>
-                        <span>按用户组名</span>
-                        <Select value={this.state.value} className="UserManage_Select"  onChange={e => this.handleIniOption(e,"Select2")} clearable={true}>
-                            {
-                                this.state.keywordOptions1.map(el => {
-                                    return <Select.Option key={el.value} label={el.label} value={el.value}/>
-                                })
-                            }
-                        </Select>
-                        <span>按用户名称</span>
+                        <span>按角色名称</span>
                         <Select value={this.state.value} className="UserManage_Select"  onChange={e => this.handleIniOption(e,"Select3")} clearable={true}>
                             {
                                 this.state.keywordOptions2.map(el => {
@@ -296,7 +307,7 @@ class UserManage extends Component{
                                 })
                             }
                         </Select>
-                        <Input placeholder={this.state.search} className="inline-input" onChange={this.onChange.bind(this, 'search')}/>
+                        <Input value={this.state.searching.name} className="inline-input" onChange={this.onChange.bind(this, 'name')}/>
                         <Button type="primary" size="small" onClick={e => this.handleClickForCheck(e)}>查询</Button>
                     </div>
                 </div>
@@ -311,6 +322,7 @@ class UserManage extends Component{
                         dialogVislble={dialogVisible1}
                         form={dialogForm1}
                         handleComfirm={this.handleComfirm1.bind(this)}
+                        handleCancel={this.state.dialogVisible1 = false}
                     >
                     </DialogForm>
                     <DialogForm
@@ -318,6 +330,7 @@ class UserManage extends Component{
                         dialogVislble={dialogVisible2}
                         form={dialogForm2}
                         handleComfirm={this.handleComfirm2.bind(this)}
+                        handleCancel={this.state.dialogVisible2 = false}
                     >
                     </DialogForm>
                 </div>

@@ -44,6 +44,13 @@
     width:100px;
 }
 
+.AnnDataImport_3 .inline-input_file{
+    display:inline-block;
+    max-width: 200px;
+    margin:0px 10px 0px 5px;
+    color:blue;
+}
+
 .AnnDataQuery_Select{
     width:95px;
     margin:0px 5px;

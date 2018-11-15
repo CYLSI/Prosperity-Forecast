@@ -3,17 +3,22 @@ import {Layout, Input, Button, Radio, Checkbox, DatePicker,Table,Dialog,Tag,Sele
 import moment from "moment/moment";
 import './IndexConfiguration.less'
 import DialogForm from '@components/Dialog/Dialog'
+import PrimarySelectedQuota from '@components/PrimarySelectedQuota/PrimarySelectedQuota'
 
 class IndexConfiguration extends  Component{
 
     getOptions(){
-        this.$post('/user/listForm')
+        this.$post('/SignalQuotaManagement/findSubject')
             .then(res=>{
-                console.log(res)
-                this.setState({
-                    // Options: res,
-                    // Options1: res
-                })
+                for(let i in res){
+                    this.state.Options.push(
+                        {
+                            value: res[i].subject,
+                            label: res[i].subject
+                        }
+                    )
+                }
+                this.forceUpdate()
             }).catch(e=>{
             console.log(e)
         })
@@ -28,13 +33,20 @@ class IndexConfiguration extends  Component{
     }
 
     onChange(key,value){
-        this.state.settings[key] = value;
+        if(key === "basicIndex")
+            this.state.bas.basic = value
+        else if(key === "seasonLength"){
+            this.state.settings[key] = value;
+        }else{
+            let finalvalue = value / 100
+            this.state.settings[key] = finalvalue;
+        }
         this.forceUpdate();
     }
 
     onBlur(e,name){
         if(e.target.value !== '')
-            this.state.settings[name].push(e.target.value)
+            this.state.settings[name] = e.target.value;
         this.forceUpdate();
     }
 
@@ -53,6 +65,7 @@ class IndexConfiguration extends  Component{
             this.setState({
                 theme: e,
             })
+            this.state.settings.subject = e
         }
         if(name === "Select2"){
             this.setState({
@@ -62,15 +75,18 @@ class IndexConfiguration extends  Component{
     }
 
     handleConfirm1(){
-        console.log(this.state.theme,this.state.configurer)
-        /*this.$post('/group/del',{id:row.id})
+        this.$post('/SignalQuotaManagement/subjectQuotaList',{condition:this.state.theme})
            .then(res=>{
-               if(res == 1){
-                   this.getList()
-               }
+               this.setState({
+                    data: res
+               })
            }).catch(e=>{
            console.log(e)
-       })*/
+       })
+        let page1 = document.getElementById("page1")
+        page1.style.display = "block";
+        let page2 = document.getElementById("page2")
+        page2.style.display = "none";
     }
 
     handleClickForInfo(e,row){
@@ -79,16 +95,23 @@ class IndexConfiguration extends  Component{
         let page2 = document.getElementById("page2")
         page2.style.display = "block";
         this.setState({
-            transferName:row.name,
-            transferDataItem:row.dataItem
+            transferName:row.quota,
         })
+        this.state.settings.quota = row.quota
     }
 
     handleClickForDelete(e,row){
-        this.$post('/group/del',{id:row.id})
+        this.$post('/SignalQuotaManagement/delectInSubject',{id:row.id})
             .then(res=>{
                 if(res === 1){
-                    this.getList()
+                    this.$post('/SignalQuotaManagement/subjectQuotaList',{condition:this.state.theme})
+                    .then(res=>{
+                        this.setState({
+                            data: res
+                        })
+                    }).catch(e=>{
+                        console.log(e)
+                    })
                 }
             }).catch(e=>{
             console.log(e)
@@ -96,7 +119,6 @@ class IndexConfiguration extends  Component{
     }
 
     handleClickForCheck(){
-        console.log(this.state.settings)
         this.$post('/group/del',)
             .then(res=>{
                 if(res === 1){
@@ -110,58 +132,92 @@ class IndexConfiguration extends  Component{
     }
 
     handleClickForCal(){
-        console.log(this.state.settings)
-        this.$post('/group/del',)
-            .then(res=>{
-                if(res === 1){
-                    this.getList()
+        this.state.settings.thresholdPercentList = []
+        this.state.settings.thresholdPercentList.push(this.state.settings.blueZone)
+        this.state.settings.thresholdPercentList.push(this.state.settings.greenZone)
+        this.state.settings.thresholdPercentList.push(this.state.settings.yellowZone)
+        this.state.settings.thresholdPercentList.push(this.state.settings.redZone)
+        this.forceUpdate()
+        let TPL = this.state.settings.thresholdPercentList
+        let flag = true
+        for(let i = 0;i < TPL.length-1;i++){
+            let min = TPL[i]
+            for(let j = i+1;j < TPL.length;j++){
+                if(min > TPL[j]){
+                    flag = false
                 }
+            }
+        }
+        if(flag){
+            this.$post('/SignalQuotaManagement/calculateThreshold',this.state.settings)
+            .then(res=>{
+                this.state.settings.statisticalFeatures = []
+                this.state.settings.statisticalFeatures.push(res.blueValue)
+                this.state.settings.statisticalFeatures.push(res.greenValue)
+                this.state.settings.statisticalFeatures.push(res.yellowValue)
+                this.state.settings.statisticalFeatures.push(res.redValue)
+                this.forceUpdate()
             }).catch(e=>{
-            console.log(e)
-        })
+                console.log(e)
+            })
+        }else{
+            alert("请按从小到大的顺序填写阈值信息！")
+        }
     }
 
     handleClickForSave(){
-        console.log(this.state.settings)
-        this.$post('/group/del',)
+        this.$post('/SignalQuotaManagement/saveThreshold',this.state.settings)
             .then(res=>{
                 if(res === 1){
                     alert("保存成功！")
                 }else{
                     alert("保存失败！")
                 }
-                let page1 = document.getElementById("page1")
-                page1.style.display = "block";
-                let page2 = document.getElementById("page2")
-                page2.style.display = "none";
             }).catch(e=>{
             console.log(e)
         })
     }
 
     handleClickForAdd(){
-        this.setState({
-            dialogVisible:true,
-            dialogData:{
-                name:'',
-                dataItem:'',
-                thresholdInfo:''
-            }
-        })
-    }
-
-    handleConfirm2(){
-        console.log(this.state.dialogData)
-        this.setState({
-            dialogVisible:false
-        })
-        this.$post('/group/del',this.state.dialogData)
+        this.$post('/SignalQuotaManagement/addToSubject',{subject:this.state.theme,quota:this.state.bas.basic})
             .then(res=>{
                 if(res === 1){
-                    this.getList()
+                    this.$post('/SignalQuotaManagement/subjectQuotaList',{condition:this.state.theme})
+                    .then(res=>{
+                        this.setState({
+                            data: res,
+                            bas:{
+                                basic:[],
+                                basicId:[]
+                            }
+                        })
+                    }).catch(e=>{
+                        console.log(e)
+                    })
                 }
             }).catch(e=>{
             console.log(e)
+        })
+    }
+
+    handleClickForReturn(){
+        let page1 = document.getElementById("page1")
+        page1.style.display = "block";
+        let page2 = document.getElementById("page2")
+        page2.style.display = "none";
+    }
+
+
+    handleClickForSearch(){
+        this.setState({
+            dialogVisible:true
+        })
+    }
+
+    handleConfirm(e){
+        this.setState({
+            dialogVisible:false,
+            bas:e
         })
     }
 
@@ -169,10 +225,7 @@ class IndexConfiguration extends  Component{
         super(props);
 
         this.state = {
-            Options: [{
-                value: '1',
-                label: '1'
-            }],
+            Options: [],
             Options1: [{
                 value: 'manager',
                 label: '管理员'
@@ -182,22 +235,13 @@ class IndexConfiguration extends  Component{
             columns: [
                 {
                     label: "指标名称",
-                    prop: "name",
-                },
-                {
-                    label: "数据项",
-                    prop: "dataItem",
-                    width: '200%'
-                },
-                {
-                    label: "阈值信息",
-                    prop: "thresholdInfo",
-                    width: '200%'
+                    prop: "quota",
+                    align:"center"
                 },
                 {
                     label: "操作",
-                    prop: "analysisResult",
-                    width: '200%',
+                    prop: "zip",
+                    align:"center",
                     render: (row) => {
                         return <span>
                                     <Button type="text" size="small" onClick={e => this.handleClickForInfo(e,row)}>详细信息</Button>
@@ -207,20 +251,24 @@ class IndexConfiguration extends  Component{
                 }
             ],
             data: [{
-                name: '农业增加值(广东)',
-                dataItem: '累计数据',
-                thresholdInfo:'--'
+                quota: '--'
             }],
             transferName:'',
-            transferDataItem:'',
             settings: {
+                subject:'',
+                quota:'',
                 dataFrequency: 1,
-                date1: '2018-06',
-                date2: '2018-07',
+                startTime: '1999-01',
+                endTime: '2003-01',
                 seasonalAdjust: true,
                 springLength: '0',
                 artificialAdjust:[],
-                statisticalFeatures:"10,10,10,10",
+                statisticalFeatures:['-','-','-','-'],
+                thresholdPercentList:[],
+                blueValue:'',
+                greenValue:'',
+                yellowValue:'',
+                redValue:'',
                 blueZone:'',
                 greenZone:'',
                 yellowZone:'',
@@ -231,21 +279,25 @@ class IndexConfiguration extends  Component{
             dialogForm:[
                 {
                     label:'指标名称',
-                    param:'name'
-                },{
-                    label:'数据项',
-                    param:'dataItem'
-                },{
-                    label:'阈值信息',
-                    param:'thresholdInfo'
-                }]
+                    param:'quota'
+                }],
+            bas:{
+                basic:[],
+                basicId:[]
+            },
+            alt:{
+                altSearch:false
+            },
+            dialogVisible:false,
+            value1: new Date("1999-01"),
+            value2: new Date('2003-01'),
         }
     }
 
     render(){
         const {value1,value2,settings} = this.state
         return(
-            <div>
+            <div className="Pros_IndexConfig">
                 <h3>景气信号灯指标配置</h3>
                 <Layout.Col span={9}>
                    <span>请选择要配置的主题：</span>
@@ -275,7 +327,20 @@ class IndexConfiguration extends  Component{
                     <hr />
                     <div id="page1">
                         <span>景气信号灯指标配置：</span>
+                        <Input className="inline-input" value={this.state.bas.basic} onChange={this.onChange.bind(this, 'basicIndex')}/>
+                        <Button type="primary" size="small" onClick={this.handleClickForSearch.bind(this) }>查询</Button>
                         <Button type="primary" size="small" onClick={this.handleClickForAdd.bind(this)}>增加配置指标</Button>
+                        <div>
+                            <PrimarySelectedQuota
+                                dialogVisible={this.state.dialogVisible}
+                                bas={this.state.bas}
+                                alt={this.state.alt}
+                                handleConfirm={this.handleConfirm.bind(this)}
+                                theme={this.state.theme}
+                                handleCancel={this.state.dialogVisible = false}
+                            >
+                            </PrimarySelectedQuota>
+                        </div>
                         <div>
                             <br />
                             <Table
@@ -284,17 +349,10 @@ class IndexConfiguration extends  Component{
                                 border={true}
                             />
                         </div>
-                        <DialogForm
-                            dialogData={this.state.dialogData}
-                            dialogVislble={this.state.dialogVisible}
-                            form={this.state.dialogForm}
-                            handleComfirm={this.handleConfirm2.bind(this)}
-                        >
-                        </DialogForm>
                     </div>
                     <div id="page2">
                         <div>
-                            <span>{this.state.transferName} - {this.state.transferDataItem}</span>
+                            <span>{this.state.transferName}</span>
                             <div>
                                 <span>样本时间：从</span>
                                 <DatePicker
@@ -302,7 +360,7 @@ class IndexConfiguration extends  Component{
                                     placeholder="选择月"
                                     onChange={date=>{
                                         this.setState({value1: date})
-                                        settings.date1 = moment(date).format("YYYY-MM");
+                                        settings.startTime = moment(date).format("YYYY-MM");
                                         this.forceUpdate();
                                     }}
                                     selectionMode="month"
@@ -313,7 +371,7 @@ class IndexConfiguration extends  Component{
                                     placeholder="选择月"
                                     onChange={date=>{
                                         this.setState({value2: date})
-                                        settings.date2 = moment(date).format("YYYY-MM");
+                                        settings.endTime = moment(date).format("YYYY-MM");
                                         this.forceUpdate();
                                     }}
                                     selectionMode="month"
@@ -332,27 +390,6 @@ class IndexConfiguration extends  Component{
                                 <span>天(0-7天)</span>
                             </div>
                             <Layout.Col span={10}>
-                                <div>
-                                    <span>阈值理论</span>
-                                    <Tag color="blue">蓝灯</Tag>
-                                    <Tag color="green">绿灯</Tag>
-                                    <Tag color="yellow">黄灯</Tag>
-                                    <Tag color="red">红灯</Tag>
-                                </div>
-                                <div className="page2_theory">
-                                    <div>
-                                        统计特征:{settings.statisticalFeatures}
-                                    </div>
-                                    <div>
-                                        人工调整
-                                        <Input className="inline-input-smaller" onBlur={e => this.onBlur(e,"artificialAdjust")}/>
-                                        <Input className="inline-input-smaller" onBlur={e => this.onBlur(e,"artificialAdjust")}/>
-                                        <Input className="inline-input-smaller" onBlur={e => this.onBlur(e,"artificialAdjust")}/>
-                                        <Input className="inline-input-smaller" onBlur={e => this.onBlur(e,"artificialAdjust")}/>
-                                    </div>
-                                </div>
-                            </Layout.Col>
-                            <Layout.Col span={10}>
                                 <div>用指标原值进行统计特征阈值计算</div>
                                 <div className="LampZone">累计蓝灯区域：<Input className="inline-input-smaller" onChange={this.onChange.bind(this,'blueZone')} />%</div>
                                 <div className="LampZone">累计绿灯区域：<Input className="inline-input-smaller" onChange={this.onChange.bind(this,'greenZone')} />%</div>
@@ -362,6 +399,33 @@ class IndexConfiguration extends  Component{
                                     <Button type="primary" size="small" onClick={this.handleClickForCheck.bind(this)}>数据检查</Button>
                                     <Button type="primary" size="small" onClick={this.handleClickForCal.bind(this)}>计算概率</Button>
                                     <Button type="primary" size="small" onClick={this.handleClickForSave.bind(this)}>保存阈值</Button>
+                                    <Button type="primary" size="small" onClick={this.handleClickForReturn.bind(this)}>返回列表</Button>
+                                </div>
+                            </Layout.Col>
+                            <Layout.Col span={10}>
+                               <div>
+                                    <span>阈值理论</span>
+                                    <Tag color="blue">蓝灯</Tag>
+                                    <Tag color="green">绿灯</Tag>
+                                    <Tag color="yellow">黄灯</Tag>
+                                    <Tag color="red">红灯</Tag>
+                                </div>
+                                <div className="page2_theory">
+                                    <div>
+                                        统计特征:
+                                        {
+                                            settings.statisticalFeatures.map((el,index) => {
+                                                return <span className="page2_StaChar" key={index}>{el}</span>
+                                            })
+                                        }
+                                    </div>
+                                    <div>
+                                        人工调整
+                                        <Input className="inline-input-smaller" onBlur={e => this.onBlur(e,"blueValue")}/>
+                                        <Input className="inline-input-smaller" onBlur={e => this.onBlur(e,"greenValue")}/>
+                                        <Input className="inline-input-smaller" onBlur={e => this.onBlur(e,"yellowValue")}/>
+                                        <Input className="inline-input-smaller" onBlur={e => this.onBlur(e,"redValue")}/>
+                                    </div>
                                 </div>
                             </Layout.Col>
                         </div>
